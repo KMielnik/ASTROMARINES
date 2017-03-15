@@ -76,7 +76,7 @@ namespace ASTROMARINES
             throw new NotImplementedException();
         }
 
-        public void Move()
+        public virtual void Move()
         {
             foreach(var enemyFrame in enemyFrames)
             {
