@@ -34,7 +34,7 @@ namespace ASTROMARINES
             }
         }
 
-        public Vector2f Position { get => enemyFrames[0].Position; }
+        public Vector2f Position { get => enemyFrames[0].Position; private set { Position = value; } }
 
         public FloatRect BoudingBox { get => enemyFrames[0].GetGlobalBounds(); }
 
@@ -59,29 +59,51 @@ namespace ASTROMARINES
             HPBar.Position = newHPBarPosition;
             HPBarBackground.Position = newHPBarPosition;
         }
-        protected void ActualAnimationFrame()
+        protected int ActualAnimationFrame()
         {
             var timeFromLastAnimationRestart = animationClock.ElapsedTime.AsSeconds();
+            var actualAnimationFrame = (int)(timeFromLastAnimationRestart * 10);                //new frame every 0.1 second
+            if(actualAnimationFrame > enemyFrames.Count)
+            {
+                actualAnimationFrame = 0;
+                animationClock.Restart();
+            }
+            return actualAnimationFrame;
         }
 
-        public void Shoot(List<Bullet> EnemiesBullets)
+        public virtual void Shoot(List<Bullet> EnemiesBullets)
         {
             throw new NotImplementedException();
         }
 
         public void Move()
         {
-            throw new NotImplementedException();
+            foreach(var enemyFrame in enemyFrames)
+            {
+                var moveVector = new Vector2f(0, 1 * WindowProperties.ScaleY);
+                Position += moveVector;
+            }
+            CheckIfFlewOutOfMap();
         }
 
         public void DrawEnemy(RenderWindow window)
         {
-            throw new NotImplementedException();
+            SetHPBarPosition();
+            window.Draw(enemyFrames[ActualAnimationFrame()]);
+            window.Draw(HPBarBackground);
+            window.Draw(HPBar);
         }
 
         public void Damaged()
         {
-            throw new NotImplementedException();
+            HP--;
+            UpdateHPBarSize();
+        }
+
+        private void UpdateHPBarSize()
+        {
+            var newHPBarSize = new Vector2f((HPBarBackground.Size.X - 2) * HP / HPMax, 3);
+            HPBar.Size = newHPBarSize;
         }
     }
 }
