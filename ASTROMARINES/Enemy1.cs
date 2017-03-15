@@ -91,32 +91,8 @@ namespace ASTROMARINES
 
         public override void Move()
         {
-            switch(movementDirection)
-            {
-                case Directions.Down:
-                    foreach (var enemyFrame in enemyFrames)
-                        enemyFrame.Position += new Vector2f(0 * WindowProperties.ScaleX, 10 * WindowProperties.ScaleY);
-                    break;
-
-                case Directions.Up:
-                    foreach (var enemyFrame in enemyFrames)
-                        enemyFrame.Position += new Vector2f(0 * WindowProperties.ScaleX, -10 * WindowProperties.ScaleY);
-                    break;
-
-                case Directions.Right:
-                    foreach (var enemyFrame in enemyFrames)
-                        enemyFrame.Position += new Vector2f(10 * WindowProperties.ScaleX, 0 * WindowProperties.ScaleY);
-                    break;
-
-                case Directions.Left:
-                    foreach (var enemyFrame in enemyFrames)
-                        enemyFrame.Position += new Vector2f(-10 * WindowProperties.ScaleX, 0 * WindowProperties.ScaleY);
-                    break;
-            }
-
-            foreach (var enemyFrame in enemyFrames)
-                enemyFrame.Rotation += 8;
-
+            //TO DO
+            //Enemy flying out of every side
             CheckIfFlewOutOfMap();
         }
     }
