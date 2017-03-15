@@ -1,18 +1,20 @@
-﻿namespace ASTROMARINES
+﻿using SFML.System;
+
+namespace ASTROMARINES
 {
     public class Bullet
     {
-        SFML.System.Vector2f Position;
-        SFML.System.Vector2f Vector;
-        private bool outOfMap = false;
+        Vector2f Position;
+        Vector2f Vector;
+        private bool shouldBeDeleted = false;
 
-        Bullet(SFML.System.Vector2f position, SFML.System.Vector2f vector)
+        public Bullet(Vector2f position, Vector2f vector)
         {
             Position = position;
             Vector = vector;
         }
 
-        public bool OutOfMap { get => outOfMap; }
+        public bool ShouldBeDeleted { get => shouldBeDeleted; set => shouldBeDeleted = value; }
 
         public void Move()
         {
@@ -32,7 +34,7 @@
                 FlewOutOfTheBottom ||
                 FlewOutOfTheTop)
             {
-                outOfMap = true;
+                ShouldBeDeleted = true;
             }
         }
     }

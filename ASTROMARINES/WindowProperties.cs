@@ -1,6 +1,6 @@
 ﻿namespace ASTROMARINES
 {
-    struct WindowProperties
+    public struct WindowProperties
     {
         private static float windowWidth = SFML.Window.VideoMode.DesktopMode.Width;
         private static float windowHeight = SFML.Window.VideoMode.DesktopMode.Height;
