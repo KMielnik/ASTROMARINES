@@ -25,11 +25,11 @@ namespace ASTROMARINES
                 case EnemyTypes.PowerUp:
                     return new Enemy1(enemyTextures);
                 case EnemyTypes.Enemy2:
-                    throw new Exception("This enemy hasn't been implemented yet :D");
+                    return new Enemy2(enemyTextures);
                 case EnemyTypes.Enemy3:
-                    throw new Exception("This enemy hasn't been implemented yet :D");
+                    return new Enemy3(enemyTextures);
                 case EnemyTypes.Enemy4:
-                    throw new Exception("This enemy hasn't been implemented yet :D");
+                    return new Enemy4(enemyTextures);
                 default:
                     throw new Exception("You tried to create non-existing enemy");
             }

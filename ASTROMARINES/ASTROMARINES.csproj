@@ -74,6 +74,9 @@
   <ItemGroup>
     <Compile Include="Bullet.cs" />
     <Compile Include="Enemy1.cs" />
+    <Compile Include="Enemy2.cs" />
+    <Compile Include="Enemy4.cs" />
+    <Compile Include="Enemy3.cs" />
     <Compile Include="EnemyTypes.cs" />
     <Compile Include="IEnemy.cs" />
     <Compile Include="IEnemyFactory.cs" />

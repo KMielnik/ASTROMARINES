@@ -71,6 +71,25 @@ namespace ASTROMARINES
             return actualAnimationFrame;
         }
 
+        protected void SetUpHPBar()
+        {
+            HPBar.Size = new Vector2f(dimensions.X, 3);
+            HPBar.Origin = new Vector2f(dimensions.X / 2, 1.5f);
+            HPBar.FillColor = new Color(Color.Red);
+            HPBarBackground.Size = new Vector2f(dimensions.X + 2, 5);
+            HPBarBackground.Origin = new Vector2f(dimensions.X / 2 + 1, 2.5f);
+            HPBarBackground.FillColor = new Color(Color.White);
+        }
+
+        protected Vector2f RandomHorizontalPosition()
+        {
+            Random random = new Random();
+            var minX = (int)(dimensions.X / 2);
+            var maxX = (int)(WindowProperties.WindowWidth - (dimensions.X / 2));
+            var newPosition = new Vector2f((float)random.Next(minX, maxX), 0 - dimensions.Y);
+            return newPosition;
+        }
+
         public virtual void Shoot(List<Bullet> EnemiesBullets)
         {
             throw new NotImplementedException();
