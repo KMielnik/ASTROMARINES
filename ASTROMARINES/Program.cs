@@ -14,6 +14,7 @@ namespace ASTROMARINES
     {
         static void Main(string[] args)
         {
+            ExplosionFactory elo = new ExplosionFactory();
         }
     }
 }
