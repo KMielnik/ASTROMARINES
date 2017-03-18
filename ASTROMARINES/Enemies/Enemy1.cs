@@ -14,7 +14,7 @@ namespace ASTROMARINES
 
         Directions movementDirection;
 
-        public Enemy1(List<Texture> enemyTextures)
+        public Enemy1(List<Texture> enemyTextures) : base()
         {
             for(int i = 0;i<6;i++)
             {

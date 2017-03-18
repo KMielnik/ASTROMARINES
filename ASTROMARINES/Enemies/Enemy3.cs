@@ -6,7 +6,7 @@ namespace ASTROMARINES
 {
     class Enemy3 : ProtoEnemy, IEnemy
     {
-        public Enemy3(List<Texture> enemyTextures)
+        public Enemy3(List<Texture> enemyTextures) : base()
         {
             for (int i = 0; i < 6; i++)
             {

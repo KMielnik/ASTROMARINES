@@ -1,21 +1,28 @@
 ﻿using SFML.Graphics;
+using SFML.System;
 using System;
 using System.Collections.Generic;
 
 namespace ASTROMARINES
 {
-    interface IEnemyFactory
+    public interface IEnemyFactory
     {
         IEnemy CreateEnemy(EnemyTypes enemyType);
+        bool IsNewEnemyAvalible();
+        bool IsPowerUpAvalible();
     }
 
-    class EnemyFactory : IEnemyFactory
+    public class EnemyFactory : IEnemyFactory
     {
         private List<Texture> enemyTextures;
+        private Clock enemyReloadClock;
+        private Clock powerupReloadClock;
 
         public EnemyFactory(List<Texture> enemyTextures)
         {
             this.enemyTextures = enemyTextures;
+            enemyReloadClock = new Clock();
+            powerupReloadClock = new Clock();
         }
 
         public IEnemy CreateEnemy(EnemyTypes enemyType)
@@ -33,6 +40,16 @@ namespace ASTROMARINES
                 default:
                     throw new Exception("You tried to create non-existing enemy");
             }
+        }
+
+        public bool IsNewEnemyAvalible()
+        {
+            return enemyReloadClock.ElapsedTime.AsSeconds() > 3;
+        }
+
+        public bool IsPowerUpAvalible()
+        {
+            return powerupReloadClock.ElapsedTime.AsSeconds() > 15;
         }
     }
 }

@@ -16,14 +16,14 @@ namespace AstroMarinesTests
         public void Should_Set_Bullet_For_Deletion_If_It_Flew_Out_Of_Map()
         {
             //arrange
-            SFML.System.Vector2f[] positions = new SFML.System.Vector2f[5];
-            positions[0] = new SFML.System.Vector2f(-100, 0);                                       //out of map
-            positions[1] = new SFML.System.Vector2f(WindowProperties.WindowWidth + 100, 0);         //out of map
-            positions[2] = new SFML.System.Vector2f(0, -100);                                       //out of map
-            positions[3] = new SFML.System.Vector2f(0, WindowProperties.WindowHeight + 100);        //out of map
-            positions[4] = new SFML.System.Vector2f(100, WindowProperties.WindowHeight / 2);        //in the map
+            Vector2f[] positions = new Vector2f[5];
+            positions[0] = new Vector2f(-100, 0);                                       //out of the map
+            positions[1] = new Vector2f(WindowProperties.WindowWidth + 100, 0);         //out of the map
+            positions[2] = new Vector2f(0, -100);                                       //out of the map
+            positions[3] = new Vector2f(0, WindowProperties.WindowHeight + 100);        //out of the map
+            positions[4] = new Vector2f(100, WindowProperties.WindowHeight / 2);        //in the map
 
-            SFML.System.Vector2f vector = new SFML.System.Vector2f(0, 0);
+            Vector2f vector = new Vector2f(0, 0);
 
             Bullet[] bullets = new Bullet[5];
 

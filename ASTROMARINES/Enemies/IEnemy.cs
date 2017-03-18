@@ -11,7 +11,6 @@ namespace ASTROMARINES
         void DrawEnemy(RenderWindow window);
         void Damaged();
         bool ShouldBeDeleted { get; }
-        Vector2f Position { get; }
         FloatRect BoudingBox { get; }
     }
 }

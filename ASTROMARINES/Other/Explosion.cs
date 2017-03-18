@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ASTROMARINES
 {
-    class Explosion
+    public class Explosion
     {
         int ActualFrame;
         List<Sprite> ExplosionFrames;

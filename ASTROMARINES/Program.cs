@@ -10,11 +10,11 @@ using SFML.Audio;
 
 namespace ASTROMARINES
 {
-    class Program
+    public class Program
     {
+        public static RenderWindow lele;
         static void Main(string[] args)
         {
-            ExplosionFactory elo = new ExplosionFactory();
         }
     }
 }

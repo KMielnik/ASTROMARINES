@@ -7,8 +7,9 @@ namespace ASTROMARINES
 {
     class Enemy2 : ProtoEnemy, IEnemy
     {
-        public Enemy2(List<Texture> enemyTextures)
+        public Enemy2(List<Texture> enemyTextures) : base()
         {
+            
             for (int i = 0; i < 6; i++)
             {
                 Sprite enemyFrame = new Sprite(enemyTextures[(int)EnemyTypes.Enemy2]);

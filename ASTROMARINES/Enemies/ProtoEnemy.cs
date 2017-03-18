@@ -17,6 +17,15 @@ namespace ASTROMARINES
         protected Clock animationClock;
         protected bool shouldBeDeleted;
 
+        public ProtoEnemy()
+        {
+            enemyFrames = new List<Sprite>();
+            HPBar = new RectangleShape();
+            HPBarBackground = new RectangleShape();
+            reloadingClock = new Clock();
+            animationClock = new Clock();
+        }
+
         public bool ShouldBeDeleted
         {
             get
@@ -40,10 +49,10 @@ namespace ASTROMARINES
 
         protected void CheckIfFlewOutOfMap()
         {
-            bool FlewOutOfLeftSide = Position.X < (-50 * WindowProperties.ScaleX);
-            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + (50 * WindowProperties.ScaleX));
-            bool FlewOutOfTheTop = Position.Y < (-50 * WindowProperties.ScaleY);
-            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + (50 * WindowProperties.ScaleY));
+            bool FlewOutOfLeftSide = Position.X < (-dimensions.X * WindowProperties.ScaleX);
+            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + (dimensions.X * WindowProperties.ScaleX));
+            bool FlewOutOfTheTop = Position.Y < (-dimensions.Y * WindowProperties.ScaleY);
+            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + (dimensions.Y * WindowProperties.ScaleY));
 
             if (FlewOutOfLeftSide ||
                 FlewOutOfRightSide ||

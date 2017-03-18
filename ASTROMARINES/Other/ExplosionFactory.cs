@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ASTROMARINES
 {
-    class ExplosionFactory
+    public class ExplosionFactory
     {
         List<Sprite> ExplosionFrames = new List<Sprite>();
         Texture ExplosionTexture;

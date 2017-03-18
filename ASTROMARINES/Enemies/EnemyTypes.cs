@@ -1,6 +1,6 @@
 ﻿namespace ASTROMARINES
 {
-    enum EnemyTypes
+    public enum EnemyTypes
     {
         PowerUp = 1,
         Enemy2,
