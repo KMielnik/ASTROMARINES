@@ -10,8 +10,7 @@ namespace ASTROMARINES
     public interface IPlayer
     {
         void Move();
-        List<Bullet> GetBullets();
-        void Shoot();
+        void Shoot(RenderWindow window);
         void DrawPlayer(RenderWindow window);
         void Damaged();
         void LevelUp();

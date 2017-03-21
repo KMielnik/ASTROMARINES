@@ -11,8 +11,7 @@ namespace ASTROMARINES
         protected float HPMax;
         protected Vector2f dimensions;
         protected List<Sprite> enemyFrames;
-        protected RectangleShape HPBar;
-        protected RectangleShape HPBarBackground;
+        protected HPBar hpBar;
         protected Clock reloadingClock;
         protected Clock animationClock;
         protected bool shouldBeDeleted;
@@ -20,10 +19,9 @@ namespace ASTROMARINES
         public ProtoEnemy()
         {
             enemyFrames = new List<Sprite>();
-            HPBar = new RectangleShape();
-            HPBarBackground = new RectangleShape();
             reloadingClock = new Clock();
             animationClock = new Clock();
+            hpBar = new HPBar(dimensions);
         }
 
         public bool ShouldBeDeleted
@@ -62,12 +60,7 @@ namespace ASTROMARINES
                 shouldBeDeleted = true;
             }
         }
-        protected void SetHPBarPosition()
-        {
-            var newHPBarPosition = new Vector2f(Position.X, Position.Y + (dimensions.Y * 7 / 10));
-            HPBar.Position = newHPBarPosition;
-            HPBarBackground.Position = newHPBarPosition;
-        }
+
         protected int ActualAnimationFrame()
         {
             var timeFromLastAnimationRestart = animationClock.ElapsedTime.AsSeconds();
@@ -78,16 +71,6 @@ namespace ASTROMARINES
                 animationClock.Restart();
             }
             return actualAnimationFrame;
-        }
-
-        protected void SetUpHPBar()
-        {
-            HPBar.Size = new Vector2f(dimensions.X, 3);
-            HPBar.Origin = new Vector2f(dimensions.X / 2, 1.5f);
-            HPBar.FillColor = new Color(Color.Red);
-            HPBarBackground.Size = new Vector2f(dimensions.X + 2, 5);
-            HPBarBackground.Origin = new Vector2f(dimensions.X / 2 + 1, 2.5f);
-            HPBarBackground.FillColor = new Color(Color.White);
         }
 
         protected Vector2f RandomHorizontalPosition()
@@ -116,22 +99,15 @@ namespace ASTROMARINES
 
         public void DrawEnemy(RenderWindow window)
         {
-            SetHPBarPosition();
+            hpBar.SetHPBarPositon(Position, dimensions);
             window.Draw(enemyFrames[ActualAnimationFrame()]);
-            window.Draw(HPBarBackground);
-            window.Draw(HPBar);
+            hpBar.Draw(window);
         }
 
         public void Damaged()
         {
             HP--;
-            UpdateHPBarSize();
-        }
-
-        private void UpdateHPBarSize()
-        {
-            var newHPBarSize = new Vector2f((HPBarBackground.Size.X - 2) * HP / HPMax, 3);
-            HPBar.Size = newHPBarSize;
+            hpBar.UpdateHPBarSize(HP, HPMax);
         }
     }
 }

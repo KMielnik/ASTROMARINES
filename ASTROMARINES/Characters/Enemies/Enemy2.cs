@@ -25,7 +25,7 @@ namespace ASTROMARINES
             dimensions.X = 255 * 0.3f * WindowProperties.WindowWidth;
             dimensions.Y = 255 * 0.3f * WindowProperties.WindowHeight;
 
-            SetUpHPBar();
+            hpBar = new HPBar(dimensions);
 
             HPMax = 6;
             HP = HPMax;

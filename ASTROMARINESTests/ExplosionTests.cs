@@ -30,8 +30,8 @@ namespace AstroMarinesTests
             //act
             do
             {
-                explosion.DrawExplosion(window);                         //drawing as long as it has animation frames
-            } while (explosion.ShouldBeDeleted.Equals(false));
+                explosion.DrawExplosion(window);                         //drawing... 
+            } while (explosion.ShouldBeDeleted.Equals(false));           //as long as it has animation frames
 
             //assert
             try

@@ -26,7 +26,7 @@ namespace ASTROMARINES
             targetLineX.FillColor = new Color(Color.Red);
         }
 
-        void Draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             Vector2f mousePosition = (Vector2f)Mouse.GetPosition();
             target.Position = mousePosition;
@@ -38,14 +38,14 @@ namespace ASTROMARINES
             window.Draw(targetLineY);
         }
 
-        void HoversOverItemON()
+        public void HoversOverItemON()
         {
             target.FillColor = new Color(Color.Green);
             targetLineX.FillColor = new Color(Color.Green);
             targetLineY.FillColor = new Color(Color.Green);
         }
 
-        void HoversOverItemOFF()
+        public void HoversOverItemOFF()
         {
             target.FillColor = new Color(Color.Red);
             targetLineX.FillColor = new Color(Color.Red);

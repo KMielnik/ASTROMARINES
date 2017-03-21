@@ -1,12 +1,20 @@
-﻿using SFML.System;
+﻿using SFML.Graphics;
+using SFML.System;
 
 namespace ASTROMARINES
 {
     public class Bullet
     {
-        Vector2f Position;
+        public Vector2f Position { get; private set; }
         Vector2f Vector;
+        static CircleShape bulletForDrawing;
         private bool shouldBeDeleted = false;
+
+        static Bullet()
+        {
+            bulletForDrawing = new CircleShape(3);
+            bulletForDrawing.Origin = new Vector2f(3, 3);
+        }
 
         public Bullet(Vector2f position, Vector2f vector)
         {
@@ -36,6 +44,19 @@ namespace ASTROMARINES
             {
                 ShouldBeDeleted = true;
             }
+        }
+
+        public void Draw(RenderWindow window)
+        {
+            bulletForDrawing.Position = Position;
+            window.Draw(bulletForDrawing);
+        }
+
+        public void Draw(RenderWindow window, Color color)
+        {
+            bulletForDrawing.Position = Position;
+            bulletForDrawing.FillColor = color;
+            window.Draw(bulletForDrawing);
         }
     }
 }
