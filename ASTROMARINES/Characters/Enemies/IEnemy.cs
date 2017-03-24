@@ -1,8 +1,9 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using System.Collections.Generic;
+using ASTROMARINES.Other;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Characters.Enemies
 {
     public interface IEnemy
     {

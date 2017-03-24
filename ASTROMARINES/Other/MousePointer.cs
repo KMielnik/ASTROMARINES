@@ -2,7 +2,7 @@
 using SFML.System;
 using SFML.Window;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Other
 {
     public class MousePointer
     {

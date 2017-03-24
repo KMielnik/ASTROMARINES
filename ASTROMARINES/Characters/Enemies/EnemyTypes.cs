@@ -1,4 +1,4 @@
-﻿namespace ASTROMARINES
+﻿namespace ASTROMARINES.Characters.Enemies
 {
     public enum EnemyTypes
     {

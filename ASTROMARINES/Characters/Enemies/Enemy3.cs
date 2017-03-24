@@ -1,8 +1,9 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using System.Collections.Generic;
+using ASTROMARINES.Other;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Characters.Enemies
 {
     class Enemy3 : ProtoEnemy, IEnemy
     {
@@ -23,7 +24,7 @@ namespace ASTROMARINES
             dimensions.X = 255 * 0.3f * WindowProperties.WindowWidth;
             dimensions.Y = 255 * 0.3f * WindowProperties.WindowHeight;
 
-            SetUpHPBar();
+            hpBar = new HPBar(dimensions);
 
             HPMax = 12;
             HP = HPMax;

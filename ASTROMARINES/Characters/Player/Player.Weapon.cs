@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using ASTROMARINES.Other;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Characters.Player
 {
-    public partial class Player : IPlayer
+    partial class Player : IPlayer
     {
         class Weapon
         {
@@ -15,6 +16,8 @@ namespace ASTROMARINES
 
             public Weapon()
             {
+                Cannons = new List<RectangleShape>();
+
                 var Cannon = new RectangleShape(new Vector2f(3, 20));
                 Cannon.Origin = new Vector2f(1.5f, 20);
                 Cannon.FillColor = new Color(Color.White);

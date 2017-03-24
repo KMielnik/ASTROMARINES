@@ -87,6 +87,7 @@
     <Compile Include="Characters\Enemies\IEnemyFactory.cs" />
     <Compile Include="Characters\Enemies\ProtoEnemy.cs" />
     <Compile Include="Characters\Player\IPlayer.cs" />
+    <Compile Include="Levels\ILevel.cs" />
     <Compile Include="Other\MousePointer.cs" />
     <Compile Include="Characters\Player\Player.cs" />
     <Compile Include="Characters\Player\Player.PlayerLevel.cs" />

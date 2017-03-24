@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Characters.Player
 {
-    public interface IPlayer
+    interface IPlayer
     {
         void Move();
         void AccelerateUp();

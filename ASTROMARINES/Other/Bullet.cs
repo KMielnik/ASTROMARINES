@@ -1,7 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Other
 {
     public class Bullet
     {

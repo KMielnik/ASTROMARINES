@@ -2,7 +2,7 @@
 using SFML.System;
 using System.Collections.Generic;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Other
 {
     public class Explosion
     {

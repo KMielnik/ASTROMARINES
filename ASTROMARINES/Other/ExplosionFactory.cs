@@ -4,7 +4,7 @@ using SFML.System;
 using System;
 using System.Collections.Generic;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Other
 {
     public class ExplosionFactory
     {

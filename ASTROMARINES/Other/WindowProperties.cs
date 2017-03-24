@@ -1,4 +1,4 @@
-﻿namespace ASTROMARINES
+﻿namespace ASTROMARINES.Other
 {
     public struct WindowProperties
     {

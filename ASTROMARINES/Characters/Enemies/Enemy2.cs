@@ -2,8 +2,9 @@
 using SFML.System;
 using System;
 using System.Collections.Generic;
+using ASTROMARINES.Other;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Characters.Enemies
 {
     class Enemy2 : ProtoEnemy, IEnemy
     {

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using SFML.Graphics;
 using SFML.System;
 using ASTROMARINES.Properties;
+using ASTROMARINES.Other;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Characters.Player
 {
-    public partial class Player : IPlayer
+    partial class Player : IPlayer
     {
         int HP;
         int HPMax;

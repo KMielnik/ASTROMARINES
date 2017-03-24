@@ -3,7 +3,7 @@ using SFML.System;
 using System;
 using System.Collections.Generic;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Characters.Enemies
 {
     public interface IEnemyFactory
     {

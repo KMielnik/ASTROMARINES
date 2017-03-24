@@ -1,4 +1,4 @@
-﻿namespace ASTROMARINES
+﻿namespace ASTROMARINES.Characters.Player
 {
     public partial class Player : IPlayer
     {
