@@ -1,8 +1,8 @@
 ﻿using SFML.Graphics;
 
-namespace ASTROMARINES
+namespace ASTROMARINES.Levels
 {
-    public interface ILevel
+    interface ILevel
     {
         void LevelLogic(RenderWindow window);
         void Draw(RenderWindow window);

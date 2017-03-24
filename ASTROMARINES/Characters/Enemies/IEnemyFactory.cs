@@ -42,6 +42,15 @@ namespace ASTROMARINES.Characters.Enemies
             }
         }
 
+        public IEnemy CreateRandomEnemy()
+        {
+            var random = new Random();
+            var EnemyValues = Enum.GetValues(typeof(EnemyTypes));
+            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(EnemyValues.Length));
+
+            return CreateEnemy(randomEnemy);
+        }
+
         public bool IsNewEnemyAvalible()
         {
             return enemyReloadClock.ElapsedTime.AsSeconds() > 3;
