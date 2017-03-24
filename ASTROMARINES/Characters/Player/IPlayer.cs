@@ -10,6 +10,10 @@ namespace ASTROMARINES
     public interface IPlayer
     {
         void Move();
+        void AccelerateUp();
+        void AccelerateDown();
+        void AccelerateLeft();
+        void AccelerateRight();
         void Shoot(RenderWindow window);
         void DrawPlayer(RenderWindow window);
         void Damaged();

@@ -7,9 +7,9 @@ namespace ASTROMARINES
 {
     class Enemy1 : ProtoEnemy, IEnemy
     {
-        enum Directions
+        public enum Directions
         {
-            Up,Down,Left,Right
+            Up, Down, Left, Right
         }
 
         Directions movementDirection;

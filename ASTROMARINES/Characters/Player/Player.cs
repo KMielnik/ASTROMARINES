@@ -90,18 +90,55 @@ namespace ASTROMARINES
             foreach (var bullet in Bullets)
                 bullet.Move();
 
-            //TO DO
-            //PROPER MOVEMENT AND BOUNCING ON WALLS
+            BounceIfPleyerTriesToEscapeMap();
             playerSprite.Position += speedVector;
-
+            speedVector /= 1.08f;
             hpBar.SetHPBarPositon(Position, dimensions);
         }
 
+        void BounceIfPleyerTriesToEscapeMap()
+        {
+            bool FlewOutOfLeftSide = Position.X < dimensions.X / 1.5;
+            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + dimensions.X / 1.5);
+            bool FlewOutOfTheTop = Position.Y < dimensions.Y / 1.5;
+            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + dimensions.Y / 1.5);
 
+            if (FlewOutOfLeftSide || FlewOutOfRightSide)
+            {
+                speedVector.X = -speedVector.X * 1.3f;
+                speedVector.Y = speedVector.Y * 1.3f;
+            }
+
+            if (FlewOutOfTheBottom || FlewOutOfTheTop)
+            {
+                speedVector.X = speedVector.X * 1.3f;
+                speedVector.Y = -speedVector.Y * 1.3f;
+            }
+        }
 
         public void Shoot(RenderWindow window)
         {
             Bullets = weapon.Shoot(playerLevel, Position, dimensions, window);
+        }
+
+        public void AccelerateUp()
+        {
+            speedVector += new Vector2f(0, -0.7f);
+        }
+
+        public void AccelerateDown()
+        {
+            speedVector += new Vector2f(0, 0.7f);
+        }
+
+        public void AccelerateLeft()
+        {
+            speedVector += new Vector2f(-0.7f, 0);
+        }
+
+        public void AccelerateRight()
+        {
+            speedVector += new Vector2f(0.7f, 0);
         }
     }
 }
