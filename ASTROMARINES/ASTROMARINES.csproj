@@ -88,8 +88,10 @@
     <Compile Include="Characters\Enemies\ProtoEnemy.cs" />
     <Compile Include="Characters\Player\IPlayer.cs" />
     <Compile Include="Levels\ILevel.cs" />
+    <Compile Include="Levels\Game.cs" />
     <Compile Include="Levels\Menu.Button.cs" />
     <Compile Include="Levels\Menu.cs" />
+    <Compile Include="Levels\SimpleTextScreen.cs" />
     <Compile Include="Other\MousePointer.cs" />
     <Compile Include="Characters\Player\Player.cs" />
     <Compile Include="Characters\Player\Player.PlayerLevel.cs" />

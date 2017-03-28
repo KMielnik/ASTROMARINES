@@ -22,13 +22,13 @@ namespace ASTROMARINES.Other
             targetLineX.FillColor = new Color(Color.Red);
 
             targetLineY = new RectangleShape(new Vector2f(1, 2 * WindowProperties.WindowHeight));
-            targetLineX.Origin = new Vector2f(0.5f, WindowProperties.WindowHeight);
-            targetLineX.FillColor = new Color(Color.Red);
+            targetLineY.Origin = new Vector2f(0.5f, WindowProperties.WindowHeight);
+            targetLineY.FillColor = new Color(Color.Red);
         }
 
         public void Draw(RenderWindow window)
         {
-            Vector2f mousePosition = (Vector2f)Mouse.GetPosition();
+            Vector2f mousePosition = (Vector2f)Mouse.GetPosition(window);
             target.Position = mousePosition;
             targetLineX.Position = mousePosition;
             targetLineY.Position = mousePosition;

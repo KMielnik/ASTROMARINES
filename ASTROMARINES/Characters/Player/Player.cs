@@ -15,7 +15,6 @@ namespace ASTROMARINES.Characters.Player
         Sprite playerSprite;
         Vector2f dimensions;
         Vector2f speedVector;
-        MousePointer mousePointer;
         Weapon weapon;
         PlayerLevel playerLevel;
         HPBar hpBar;
@@ -36,7 +35,6 @@ namespace ASTROMARINES.Characters.Player
                                                  WindowProperties.WindowHeight - dimensions.Y);
             playerLevel = new PlayerLevel();
 
-            mousePointer = new MousePointer();
             weapon = new Weapon();
             hpBar = new HPBar(dimensions);
             Bullets = new List<Bullet>();
@@ -59,7 +57,6 @@ namespace ASTROMARINES.Characters.Player
         public void DrawPlayer(RenderWindow window)
         {
             window.Draw(playerSprite);
-            mousePointer.Draw(window);
             weapon.Draw(window, playerLevel);
             foreach (var bullet in Bullets)
                 bullet.Draw(window);
