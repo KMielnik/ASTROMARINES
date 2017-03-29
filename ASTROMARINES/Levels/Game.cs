@@ -1,5 +1,4 @@
 ﻿using ASTROMARINES.Characters.Player;
-using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
 using SFML.Audio;
 using SFML.Graphics;
@@ -8,7 +7,7 @@ using System.Collections.Generic;
 
 namespace ASTROMARINES.Levels
 {
-    class Game
+    class Game : IDisposable
     {
         IPlayer player;
         Queue<Tuple<string,string>> levelNamesQueue;
@@ -40,6 +39,8 @@ namespace ASTROMARINES.Levels
                 {
                     levelNamesQueue = menu.MenuLogic(window);
                     menu.Draw(window);
+                    player.Dispose();
+                    player = new Player();
                 }
                 else
                 {
@@ -69,10 +70,19 @@ namespace ASTROMARINES.Levels
             
             if(player.ShouldBeDeleted)
             {
+                player.Dispose();
                 player = new Player();
-                currentLevel = null;
+                currentLevel.Dispose();
                 levelNamesQueue.Clear();
             }
+        }
+
+        public void Dispose()
+        {
+            player.Dispose();
+            currentLevel.Dispose();
+            menu.Dispose();
+            mainMenuMusic.Dispose();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace ASTROMARINES.Characters.Enemies
     public interface IEnemyFactory: IDisposable
     {
         IEnemy CreateEnemy(EnemyTypes enemyType);
+        IEnemy CreateRandomEnemy();
         bool IsNewEnemyAvalible();
         bool IsPowerUpAvalible();
     }
@@ -36,12 +37,16 @@ namespace ASTROMARINES.Characters.Enemies
             switch(enemyType)
             {
                 case EnemyTypes.PowerUp:
+                    powerupReloadClock.Restart();
                     return new Enemy1(enemyTextures);
                 case EnemyTypes.Enemy2:
+                    enemyReloadClock.Restart();
                     return new Enemy2(enemyTextures);
                 case EnemyTypes.Enemy3:
+                    enemyReloadClock.Restart();
                     return new Enemy3(enemyTextures);
                 case EnemyTypes.Enemy4:
+                    enemyReloadClock.Restart();
                     return new Enemy4(enemyTextures);
                 default:
                     throw new Exception("You tried to create non-existing enemy");
@@ -52,7 +57,7 @@ namespace ASTROMARINES.Characters.Enemies
         {
             var random = new Random();
             var EnemyValues = Enum.GetValues(typeof(EnemyTypes));
-            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(EnemyValues.Length));
+            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(EnemyValues.Length-1)+1);
 
             return CreateEnemy(randomEnemy);
         }

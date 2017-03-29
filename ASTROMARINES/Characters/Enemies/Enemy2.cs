@@ -10,21 +10,20 @@ namespace ASTROMARINES.Characters.Enemies
     {
         public Enemy2(List<Texture> enemyTextures) : base()
         {
-            
+            dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
+            dimensions.Y = 255 * 0.3f * WindowProperties.ScaleY;
+
             for (int i = 0; i < 6; i++)
             {
-                Sprite enemyFrame = new Sprite(enemyTextures[(int)EnemyTypes.Enemy2]);
+                Sprite enemyFrame = new Sprite(enemyTextures[(int)EnemyTypes.Enemy2-1]);
                 enemyFrame.Origin = new Vector2f(127.5f, 127.5f);
-                enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.WindowWidth,
-                                                0.3f * WindowProperties.WindowHeight);
+                enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.ScaleX,
+                                                0.3f * WindowProperties.ScaleY);
                 enemyFrame.Position = RandomHorizontalPosition();
                 enemyFrame.TextureRect = new IntRect(i * 255, 0, 255, 255);
 
                 enemyFrames.Add(enemyFrame);
             }
-
-            dimensions.X = 255 * 0.3f * WindowProperties.WindowWidth;
-            dimensions.Y = 255 * 0.3f * WindowProperties.WindowHeight;
 
             hpBar = new HPBar(dimensions);
 
@@ -61,7 +60,7 @@ namespace ASTROMARINES.Characters.Enemies
             {
                 public Vector2f Position;
                 public Vector2f BulletVector;
-                public Cannon(Vector2f position,Vector2f bulletVector)
+                public Cannon(Vector2f position, Vector2f bulletVector)
                 {
                     Position = position;
                     BulletVector = bulletVector;

@@ -97,9 +97,9 @@ namespace ASTROMARINES.Characters.Player
         void BounceIfPleyerTriesToEscapeMap()
         {
             bool FlewOutOfLeftSide = Position.X < dimensions.X / 1.5;
-            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + dimensions.X / 1.5);
+            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth - dimensions.X / 1.5);
             bool FlewOutOfTheTop = Position.Y < dimensions.Y / 1.5;
-            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + dimensions.Y / 1.5);
+            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight - dimensions.Y / 1.3);
 
             if (FlewOutOfLeftSide || FlewOutOfRightSide)
             {

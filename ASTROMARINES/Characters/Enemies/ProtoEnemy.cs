@@ -42,7 +42,7 @@ namespace ASTROMARINES.Characters.Enemies
             }
         }
 
-        public Vector2f Position { get => enemyFrames[0].Position; private set { Position = value; } }
+        public Vector2f Position { get => enemyFrames[0].Position; }
 
         public FloatRect BoudingBox { get => enemyFrames[0].GetGlobalBounds(); }
 
@@ -65,8 +65,8 @@ namespace ASTROMARINES.Characters.Enemies
         protected int ActualAnimationFrame()
         {
             var timeFromLastAnimationRestart = animationClock.ElapsedTime.AsSeconds();
-            var actualAnimationFrame = (int)(timeFromLastAnimationRestart * 10);                //new frame every 0.1 second
-            if(actualAnimationFrame > enemyFrames.Count)
+            var actualAnimationFrame = (int)(timeFromLastAnimationRestart * 5);                //new frame every 0.1 second
+            if(actualAnimationFrame >= enemyFrames.Count)
             {
                 actualAnimationFrame = 0;
                 animationClock.Restart();
@@ -93,15 +93,16 @@ namespace ASTROMARINES.Characters.Enemies
             foreach(var enemyFrame in enemyFrames)
             {
                 var moveVector = new Vector2f(0, 1 * WindowProperties.ScaleY);
-                Position += moveVector;
+                enemyFrame.Position += moveVector;
             }
             CheckIfFlewOutOfMap();
         }
 
-        public void DrawEnemy(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             hpBar.SetHPBarPositon(Position, dimensions);
-            window.Draw(enemyFrames[ActualAnimationFrame()]);
+            var actualAnimationFrame = ActualAnimationFrame();
+            window.Draw(enemyFrames[actualAnimationFrame]);
             hpBar.Draw(window);
         }
 

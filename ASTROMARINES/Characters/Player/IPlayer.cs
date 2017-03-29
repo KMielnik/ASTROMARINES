@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using ASTROMARINES.Other;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,6 @@ namespace ASTROMARINES.Characters.Player
         void LevelUp();
         bool ShouldBeDeleted { get; }
         FloatRect BoundingBox { get; }
+        List<Bullet> Bullets { get; }
     }
 }

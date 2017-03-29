@@ -10,7 +10,7 @@ namespace ASTROMARINES.Characters.Enemies
     {
         void Shoot(List<Bullet> EnemiesBullets);
         void Move();
-        void DrawEnemy(RenderWindow window);
+        void Draw(RenderWindow window);
         void Damaged();
         bool ShouldBeDeleted { get; }
         FloatRect BoudingBox { get; }

@@ -196,7 +196,7 @@ namespace ASTROMARINES.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to assets\\images\\hotToPlay.png.
+        ///   Looks up a localized string similar to assets\\images\\howToPlay.png.
         /// </summary>
         internal static string HowToPlayBG {
             get {

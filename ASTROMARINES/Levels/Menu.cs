@@ -5,7 +5,6 @@ using SFML.System;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace ASTROMARINES.Levels
 {
@@ -36,23 +35,25 @@ namespace ASTROMARINES.Levels
         /// <returns></returns>
         public Queue<Tuple<string, string>> MenuLogic(RenderWindow window)
         {
+            var levelNamesQueue = new Queue<Tuple<string, string>>();
+
             var mousePosition = Mouse.GetPosition(window);
 
             mousePointer.HoversOverItemOFF();
-            foreach(var button in buttons)
+            foreach (var button in buttons)
             {
                 if (button.BoundingBox.Contains(mousePosition.X, mousePosition.Y))
                 {
                     mousePointer.HoversOverItemON();
-                    if(Mouse.IsButtonPressed(Mouse.Button.Left))
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left))
                         switch (button.Label)
                         {
                             case "START":
-
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level1", "SendPlayerAsArgument"));
                                 break;
 
                             case "HOW TO PLAY":
-
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.HowToPlayBG));
                                 break;
 
                             case "EXIT":
@@ -61,8 +62,6 @@ namespace ASTROMARINES.Levels
                         }
                 }
             }
-            
-            var levelNamesQueue = new Queue<Tuple<string, string>>();
             return levelNamesQueue;
         }
 

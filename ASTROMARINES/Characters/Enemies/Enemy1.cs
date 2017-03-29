@@ -17,21 +17,21 @@ namespace ASTROMARINES.Characters.Enemies
 
         public Enemy1(List<Texture> enemyTextures) : base()
         {
-            for(int i = 0;i<6;i++)
+            dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
+            dimensions.Y = 255 * 0.3f * WindowProperties.ScaleY;
+
+            for (int i = 0;i<6;i++)
             {
-                Sprite enemyFrame = new Sprite(enemyTextures[(int)EnemyTypes.PowerUp]);
+                Sprite enemyFrame = new Sprite(enemyTextures[(int)EnemyTypes.PowerUp-1]);
                 enemyFrame.Origin = new Vector2f(127.5f, 127.5f);
-                enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.WindowWidth,
-                                                0.3f * WindowProperties.WindowHeight);
+                enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.ScaleX,
+                                                0.3f * WindowProperties.ScaleY);
                 enemyFrame.Position = new Vector2f(WindowProperties.WindowWidth / 2,
                                                    WindowProperties.WindowHeight / 2);
                 enemyFrame.TextureRect = new IntRect(i * 255, 0, 255, 255);
 
                 enemyFrames.Add(enemyFrame);
             }
-
-            dimensions.X = 255 * 0.3f * WindowProperties.WindowWidth;
-            dimensions.Y = 255 * 0.3f * WindowProperties.WindowHeight;
 
             DecideStartingPostition();
 
@@ -85,7 +85,7 @@ namespace ASTROMARINES.Characters.Enemies
             }
         }
 
-        public void Shoot()
+        public override void Shoot(List<Bullet> enemiesBullets)
         {
             //PowerUpIsKind = true;
         }

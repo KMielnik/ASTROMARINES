@@ -3,6 +3,7 @@ using SFML.System;
 using ASTROMARINES.Properties;
 using ASTROMARINES.Other;
 using System;
+using SFML.Window;
 
 namespace ASTROMARINES.Levels
 {
@@ -21,7 +22,7 @@ namespace ASTROMARINES.Levels
             sprite.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
         }
 
-        public bool HasLevelEnded { get => clock.ElapsedTime.AsSeconds() > 1; } //DEBUG
+        public bool HasLevelEnded { get; private set; }
 
         public void Draw(RenderWindow window)
         {
@@ -32,7 +33,8 @@ namespace ASTROMARINES.Levels
 
         public void LevelLogic(RenderWindow window)
         {
-
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && clock.ElapsedTime.AsMilliseconds() > 100)
+                HasLevelEnded = true;
         }
 
         public void Dispose()

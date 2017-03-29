@@ -23,7 +23,7 @@ namespace ASTROMARINES.Other
                 explosionFrame.Scale *= scale;
         }
 
-        public void DrawExplosion(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             window.Draw(ExplosionFrames[ActualFrame]);
             ActualFrame++;

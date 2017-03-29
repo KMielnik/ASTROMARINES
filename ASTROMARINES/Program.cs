@@ -26,6 +26,7 @@ namespace ASTROMARINES
             WindowProperties.WindowHeight = window.Size.Y;
             window.SetFramerateLimit(60);
             window.SetMouseCursorVisible(false);
+            window.SetVerticalSyncEnabled(true);
 
             Game game = new Game(window);
             

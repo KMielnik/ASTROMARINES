@@ -7,24 +7,27 @@ namespace ASTROMARINES.Characters.Enemies
 {
     class Enemy3 : ProtoEnemy, IEnemy
     {
+        Cannons cannons;
         public Enemy3(List<Texture> enemyTextures) : base()
         {
+            dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
+            dimensions.Y = 255 * 0.3f * WindowProperties.ScaleY;
+
             for (int i = 0; i < 6; i++)
             {
-                Sprite enemyFrame = new Sprite(enemyTextures[(int)EnemyTypes.Enemy3]);
+                Sprite enemyFrame = new Sprite(enemyTextures[(int)EnemyTypes.Enemy3-1]);
                 enemyFrame.Origin = new Vector2f(127.5f, 195.0f);
-                enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.WindowWidth,
-                                                0.3f * WindowProperties.WindowHeight);
+                enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.ScaleX,
+                                                0.3f * WindowProperties.ScaleY);
                 enemyFrame.Position = RandomHorizontalPosition();
                 enemyFrame.TextureRect = new IntRect(i * 255, 0, 255, 390);
 
                 enemyFrames.Add(enemyFrame);
             }
 
-            dimensions.X = 255 * 0.3f * WindowProperties.WindowWidth;
-            dimensions.Y = 255 * 0.3f * WindowProperties.WindowHeight;
-
             hpBar = new HPBar(dimensions);
+
+            cannons = new Cannons(Position, dimensions);
 
             HPMax = 12;
             HP = HPMax;
@@ -34,8 +37,9 @@ namespace ASTROMARINES.Characters.Enemies
         {
             if (reloadingClock.ElapsedTime.AsMilliseconds() > 30)
             {
-                Cannons cannons = new Cannons(Position, dimensions);
                 Bullet bullet;
+
+                cannons.CalibrateCannons(Position, dimensions);
 
                 switch (cannons.ActualCannon)
                 {
@@ -87,14 +91,14 @@ namespace ASTROMARINES.Characters.Enemies
                 }
             }
 
-            public Cannon Cannon1 { get; private set; }
-            public Cannon Cannon2 { get; private set; }
-            public Cannon Cannon3 { get; private set; }
-            public Cannon Cannon4 { get; private set; }
-            public Cannon Cannon5 { get; private set; }
-            public Cannon Cannon6 { get; private set; }
+            public Cannon Cannon1;
+            public Cannon Cannon2;
+            public Cannon Cannon3;
+            public Cannon Cannon4;
+            public Cannon Cannon5;
+            public Cannon Cannon6;
 
-            private float CannonCounter = 1.0f;
+            private float CannonCounter;
             public int ActualCannon
             {
                 get
@@ -110,6 +114,8 @@ namespace ASTROMARINES.Characters.Enemies
             {
                 Vector2f cannonPosition;
                 Vector2f bulletVector;
+
+                CannonCounter = 1.0f;
 
                 //Cannon1
                 cannonPosition = new Vector2f(enemyPosition.X + enemyDimensions.X / 3,
@@ -152,6 +158,40 @@ namespace ASTROMARINES.Characters.Enemies
                 bulletVector = new Vector2f(-5.13f * WindowProperties.ScaleX,
                                             1 * WindowProperties.ScaleY);
                 Cannon6 = new Cannon(cannonPosition, bulletVector);
+            }
+
+            public void CalibrateCannons(Vector2f enemyPosition, Vector2f enemyDimensions)
+            {
+                Vector2f cannonPosition;
+
+                cannonPosition = new Vector2f(enemyPosition.X + enemyDimensions.X / 3,
+                                              enemyPosition.Y - enemyDimensions.Y / 2);
+                Cannon1.Position = cannonPosition;
+
+                //Cannon2
+                cannonPosition = new Vector2f(enemyPosition.X,
+                                              enemyPosition.Y - enemyDimensions.Y / 2);
+                Cannon2.Position = cannonPosition;
+
+                //Cannon3
+                cannonPosition = new Vector2f(enemyPosition.X - enemyDimensions.X / 3,
+                                              enemyPosition.Y - enemyDimensions.Y / 2);
+                Cannon3.Position = cannonPosition;
+
+                //Cannon4
+                cannonPosition = new Vector2f(enemyPosition.X,
+                                              enemyPosition.Y + enemyDimensions.Y / 2);
+                Cannon4.Position = cannonPosition;
+
+                //Cannon5
+                cannonPosition = new Vector2f(enemyPosition.X + enemyDimensions.X / 2.4f,
+                                              enemyPosition.Y + enemyDimensions.Y / 18);
+                Cannon5.Position = cannonPosition;
+
+                //Cannon6
+                cannonPosition = new Vector2f(enemyPosition.X - enemyDimensions.X / 2.4f,
+                                              enemyPosition.Y + enemyDimensions.Y / 18);
+                Cannon6.Position = cannonPosition;
             }
         }
     }

@@ -169,7 +169,7 @@
     <value>assets\\fonts\\mainGameFont.ttf</value>
   </data>
   <data name="HowToPlayBG" xml:space="preserve">
-    <value>assets\\images\\hotToPlay.png</value>
+    <value>assets\\images\\howToPlay.png</value>
     <comment>Path</comment>
   </data>
   <data name="Level1BGMusic" xml:space="preserve">

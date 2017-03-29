@@ -3,6 +3,7 @@ using SFML.Graphics;
 using SFML.System;
 using ASTROMARINES.Properties;
 using ASTROMARINES.Other;
+using SFML.Window;
 
 namespace ASTROMARINES.Levels
 {
@@ -24,7 +25,7 @@ namespace ASTROMARINES.Levels
             text.Color = new Color(Color.White);
         }
 
-        public bool HasLevelEnded { get => clock.ElapsedTime.AsSeconds() > 1; } //DEBUG
+        public bool HasLevelEnded { get; private set; }
 
         public void Dispose()
         {
@@ -42,7 +43,8 @@ namespace ASTROMARINES.Levels
 
         public void LevelLogic(RenderWindow window)
         {
-
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && clock.ElapsedTime.AsMilliseconds() > 100)
+                HasLevelEnded = true;
         }
     }
 }
