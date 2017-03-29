@@ -1,6 +1,7 @@
 ﻿using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
 using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,12 @@ namespace ASTROMARINES.Levels
             mousePointer = new MousePointer();
             backgroundTexture = new Texture(Resources.MenuBG);
             background = new Sprite(backgroundTexture);
+            background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
             buttons = new List<Button>();
+
+            buttons.Add(new Button("START",       new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 28 / 50f)));
+            buttons.Add(new Button("HOW TO PLAY", new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 34 / 50f)));
+            buttons.Add(new Button("EXIT",        new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 40 / 50f)));
         }
 
         /// <summary>
@@ -28,10 +34,36 @@ namespace ASTROMARINES.Levels
         /// levelQueue, if not choosen returns empty queue to give another frame in menu
         /// </summary>
         /// <returns></returns>
-        public Queue<Tuple<string, string>> MenuLogic()
+        public Queue<Tuple<string, string>> MenuLogic(RenderWindow window)
         {
-            Queue<Tuple<string, string>> elo = new Queue<Tuple<string, string>>();
-            return elo;
+            var mousePosition = Mouse.GetPosition(window);
+
+            mousePointer.HoversOverItemOFF();
+            foreach(var button in buttons)
+            {
+                if (button.BoundingBox.Contains(mousePosition.X, mousePosition.Y))
+                {
+                    mousePointer.HoversOverItemON();
+                    if(Mouse.IsButtonPressed(Mouse.Button.Left))
+                        switch (button.Label)
+                        {
+                            case "START":
+
+                                break;
+
+                            case "HOW TO PLAY":
+
+                                break;
+
+                            case "EXIT":
+                                window.Close();
+                                break;
+                        }
+                }
+            }
+            
+            var levelNamesQueue = new Queue<Tuple<string, string>>();
+            return levelNamesQueue;
         }
 
         public void Draw(RenderWindow window)

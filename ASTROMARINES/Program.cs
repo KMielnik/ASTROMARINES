@@ -22,9 +22,13 @@ namespace ASTROMARINES
         static void Main(string[] args)
         {
             window = new RenderWindow(new VideoMode(1000, 580), "dsada");
-            Game game = new Game(window);
+            WindowProperties.WindowWidth = window.Size.X;
+            WindowProperties.WindowHeight = window.Size.Y;
             window.SetFramerateLimit(60);
+            window.SetMouseCursorVisible(false);
 
+            Game game = new Game(window);
+            
             window.Closed += (s, a) => window.Close();
             while(window.IsOpen)
             {

@@ -14,6 +14,7 @@ namespace ASTROMARINES.Levels
             public FloatRect BoundingBox { get => button.GetGlobalBounds(); }
             Text text;
             Font font;
+            public string Label { get => text.DisplayedString; }
 
             public void Draw(RenderWindow window)
             {
@@ -31,7 +32,7 @@ namespace ASTROMARINES.Levels
             public Button(string desiredText, Vector2f position)
             {
                 button = new RectangleShape();
-                button.Size = new Vector2f(WindowProperties.WindowWidth / 5, WindowProperties.WindowHeight / 10);
+                button.Size = new Vector2f(WindowProperties.WindowWidth / 4, WindowProperties.WindowHeight / 12);
                 button.FillColor = new Color(Color.White);
                 button.OutlineColor = new Color(Color.Black);
                 button.OutlineThickness = 5;

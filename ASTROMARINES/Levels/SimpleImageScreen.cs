@@ -19,12 +19,9 @@ namespace ASTROMARINES.Levels
             sprite = new Sprite(texture);
             FloatRect spriteBoundingBox = sprite.GetLocalBounds();
             sprite.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
-            sprite.Origin = new Vector2f(spriteBoundingBox.Left + spriteBoundingBox.Width / 2,
-                                       spriteBoundingBox.Top + spriteBoundingBox.Height / 2);
-            sprite.Position = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
         }
 
-        public bool HasLevelEnded { get => clock.ElapsedTime.AsSeconds() > 2; } //DEBUG
+        public bool HasLevelEnded { get => clock.ElapsedTime.AsSeconds() > 1; } //DEBUG
 
         public void Draw(RenderWindow window)
         {
