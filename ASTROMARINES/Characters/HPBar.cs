@@ -1,9 +1,10 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using System;
 
 namespace ASTROMARINES.Characters
 {
-    class HPBar
+    class HPBar : IDisposable
     {
         RectangleShape HPBarMeter;
         RectangleShape HPBarBackground;
@@ -39,6 +40,12 @@ namespace ASTROMARINES.Characters
         {
             var newHPBarSize = new Vector2f((HPBarBackground.Size.X - 2) * HP / HPMax, 3);
             HPBarMeter.Size = newHPBarSize;
+        }
+
+        public void Dispose()
+        {
+            HPBarMeter.Dispose();
+            HPBarBackground.Dispose();
         }
     }
 }

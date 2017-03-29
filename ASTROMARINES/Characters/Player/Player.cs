@@ -138,5 +138,15 @@ namespace ASTROMARINES.Characters.Player
         {
             speedVector += new Vector2f(0.7f, 0);
         }
+
+        public void Dispose()
+        {
+            playerTexture.Dispose();
+            playerSprite.Dispose();
+            weapon.Dispose();
+            hpBar.Dispose();
+            foreach (var bullet in Bullets)
+                bullet.Dispose();
+        }
     }
 }

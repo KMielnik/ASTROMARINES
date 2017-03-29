@@ -1,11 +1,12 @@
-﻿using SFML.Graphics;
+﻿using ASTROMARINES.Properties;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
 
 namespace ASTROMARINES.Characters.Enemies
 {
-    public interface IEnemyFactory
+    public interface IEnemyFactory: IDisposable
     {
         IEnemy CreateEnemy(EnemyTypes enemyType);
         bool IsNewEnemyAvalible();
@@ -18,9 +19,14 @@ namespace ASTROMARINES.Characters.Enemies
         private Clock enemyReloadClock;
         private Clock powerupReloadClock;
 
-        public EnemyFactory(List<Texture> enemyTextures)
+        public EnemyFactory()
         {
-            this.enemyTextures = enemyTextures;
+            enemyTextures = new List<Texture>();
+            enemyTextures.Add(new Texture(Resources.Enemy1));
+            enemyTextures.Add(new Texture(Resources.Enemy2));
+            enemyTextures.Add(new Texture(Resources.Enemy3));
+            enemyTextures.Add(new Texture(Resources.Enemy4));
+
             enemyReloadClock = new Clock();
             powerupReloadClock = new Clock();
         }
@@ -49,6 +55,14 @@ namespace ASTROMARINES.Characters.Enemies
             var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(EnemyValues.Length));
 
             return CreateEnemy(randomEnemy);
+        }
+
+        public void Dispose()
+        {
+            foreach (var enemyTexture in enemyTextures)
+                enemyTexture.Dispose();
+            enemyReloadClock.Dispose();
+            powerupReloadClock.Dispose();
         }
 
         public bool IsNewEnemyAvalible()

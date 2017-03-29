@@ -91,6 +91,7 @@
     <Compile Include="Levels\Game.cs" />
     <Compile Include="Levels\Menu.Button.cs" />
     <Compile Include="Levels\Menu.cs" />
+    <Compile Include="Levels\SimpleImageScreen.cs" />
     <Compile Include="Levels\SimpleTextScreen.cs" />
     <Compile Include="Other\MousePointer.cs" />
     <Compile Include="Characters\Player\Player.cs" />

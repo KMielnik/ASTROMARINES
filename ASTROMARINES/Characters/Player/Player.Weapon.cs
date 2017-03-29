@@ -9,7 +9,7 @@ namespace ASTROMARINES.Characters.Player
 {
     partial class Player : IPlayer
     {
-        class Weapon
+        class Weapon : IDisposable
         {
             List<RectangleShape> Cannons;
             Clock reloadClock;
@@ -151,6 +151,13 @@ namespace ASTROMARINES.Characters.Player
                 float newY = -(y / (z / newZ));
 
                 return new Vector2f(newX, newZ);
+            }
+
+            public void Dispose()
+            {
+                foreach (var cannon in Cannons)
+                    cannon.Dispose();
+                reloadClock.Dispose();
             }
         }
     }

@@ -26,6 +26,13 @@ namespace ASTROMARINES.Levels
 
         public bool HasLevelEnded { get => clock.ElapsedTime.AsSeconds() > 1; } //DEBUG
 
+        public void Dispose()
+        {
+            font.Dispose();
+            text.Dispose();
+            clock.Dispose();
+        }
+
         public void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);

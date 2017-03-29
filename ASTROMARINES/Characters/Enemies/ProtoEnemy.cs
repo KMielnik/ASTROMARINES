@@ -110,5 +110,14 @@ namespace ASTROMARINES.Characters.Enemies
             HP--;
             hpBar.UpdateHPBarSize(HP, HPMax);
         }
+
+        public void Dispose()
+        {
+            foreach(var enemyFrame in enemyFrames)
+                enemyFrame.Dispose();
+            hpBar.Dispose();
+            reloadingClock.Dispose();
+            animationClock.Dispose();
+        }
     }
 }

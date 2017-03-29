@@ -2,12 +2,13 @@
 using SFML.System;
 using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
+using System;
 
 namespace ASTROMARINES.Levels
 {
     partial class Menu
     {
-        class Button
+        class Button : IDisposable
         {
             RectangleShape button;
             public FloatRect BoundingBox { get => button.GetGlobalBounds(); }
@@ -18,6 +19,13 @@ namespace ASTROMARINES.Levels
             {
                 window.Draw(button);
                 window.Draw(text);
+            }
+
+            public void Dispose()
+            {
+                button.Dispose();
+                text.Dispose();
+                font.Dispose();
             }
 
             public Button(string desiredText, Vector2f position)

@@ -1,5 +1,6 @@
 ﻿using ASTROMARINES.Characters.Player;
 using ASTROMARINES.Other;
+using ASTROMARINES.Properties;
 using SFML.Graphics;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace ASTROMARINES.Levels
     class Game
     {
         IPlayer player;
-        Queue<string> levelNamesQueue;
+        Queue<Tuple<string,string>> levelNamesQueue;
         ILevel currentLevel;
         Menu menu;
         RenderWindow window;
@@ -17,31 +18,39 @@ namespace ASTROMARINES.Levels
         public Game(RenderWindow window)
         {
             player = new Player();
-            levelNamesQueue = new Queue<string>();
-            currentLevel = new SimpleTextScreen("XD");
+            levelNamesQueue = new Queue<Tuple<string, string>>();
+            currentLevel = new SimpleImageScreen(Resources.TitleBG);
             menu = new Menu();
             this.window = window;
         }
 
         public void Run()
         {
-            if (levelNamesQueue.Count == 0 && currentLevel.HasLevelEnded)
+            if(currentLevel.HasLevelEnded)
             {
-                levelNamesQueue = menu.MenuLogic();
-                menu.Draw(window);
-            }
-            else if(currentLevel.HasLevelEnded)
-            {
-                string levelName = levelNamesQueue.Dequeue();
-                var levelType = Type.GetType($"ASTROMARINES.Levels.{levelName}");
-                currentLevel = (ILevel)Activator.CreateInstance(levelType,"XdasdD");
+                if (levelNamesQueue.Count == 0)
+                {
+                    levelNamesQueue = menu.MenuLogic();
+                    menu.Draw(window);
+                }
+                else
+                {
+                    currentLevel.Dispose();
+                    var levelNameAndArg = levelNamesQueue.Dequeue();
+                    var levelType = Type.GetType($"ASTROMARINES.Levels.{levelNameAndArg.Item1}");
+
+                    if (levelNameAndArg.Item2.Equals("SendPlayerAsArgument"))
+                        currentLevel = (ILevel)Activator.CreateInstance(levelType, player);
+                    else
+                        currentLevel = (ILevel)Activator.CreateInstance(levelType, levelNameAndArg.Item2);
+                }
             }
             else
             {
                 currentLevel.LevelLogic(window);
                 currentLevel.Draw(window);
             }
-
+            
             if(player.ShouldBeDeleted)
             {
                 player = new Player();

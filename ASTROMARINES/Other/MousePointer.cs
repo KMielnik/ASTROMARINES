@@ -1,10 +1,11 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using System;
 
 namespace ASTROMARINES.Other
 {
-    public class MousePointer
+    public class MousePointer : IDisposable
     {
         CircleShape target;
         RectangleShape targetLineX;
@@ -50,6 +51,13 @@ namespace ASTROMARINES.Other
             target.FillColor = new Color(Color.Red);
             targetLineX.FillColor = new Color(Color.Red);
             targetLineY.FillColor = new Color(Color.Red);
+        }
+
+        public void Dispose()
+        {
+            target.Dispose();
+            targetLineX.Dispose();
+            targetLineY.Dispose();
         }
     }
 }

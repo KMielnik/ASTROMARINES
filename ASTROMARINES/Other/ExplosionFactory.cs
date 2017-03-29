@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ASTROMARINES.Other
 {
-    public class ExplosionFactory
+    public class ExplosionFactory : IDisposable
     {
         List<Sprite> ExplosionFrames = new List<Sprite>();
         Texture ExplosionTexture;
@@ -28,6 +28,13 @@ namespace ASTROMARINES.Other
         public Explosion CreateExplosion(Vector2f position)
         {
             return new Explosion(position,ExplosionFrames);
+        }
+
+        public void Dispose()
+        {
+            foreach (var explosionFrame in ExplosionFrames)
+                explosionFrame.Dispose();
+            ExplosionTexture.Dispose();
         }
     }
 }

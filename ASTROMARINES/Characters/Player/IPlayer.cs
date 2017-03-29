@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASTROMARINES.Characters.Player
 {
-    interface IPlayer
+    interface IPlayer : IDisposable
     {
         void Move();
         void AccelerateUp();

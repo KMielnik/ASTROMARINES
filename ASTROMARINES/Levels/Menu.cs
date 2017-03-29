@@ -1,11 +1,14 @@
 ﻿using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
 using SFML.Graphics;
+using SFML.Window;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ASTROMARINES.Levels
 {
-    partial class Menu
+    partial class Menu : IDisposable
     {
         MousePointer mousePointer;
         Texture backgroundTexture;
@@ -25,10 +28,9 @@ namespace ASTROMARINES.Levels
         /// levelQueue, if not choosen returns empty queue to give another frame in menu
         /// </summary>
         /// <returns></returns>
-        public Queue<string> MenuLogic()
+        public Queue<Tuple<string, string>> MenuLogic()
         {
-            Queue<string> elo = new Queue<string>();
-            elo.Enqueue("SimpleTextScreen");
+            Queue<Tuple<string, string>> elo = new Queue<Tuple<string, string>>();
             return elo;
         }
 
@@ -42,6 +44,15 @@ namespace ASTROMARINES.Levels
             mousePointer.Draw(window);
 
             window.Display();
+        }
+
+        public void Dispose()
+        {
+            mousePointer.Dispose();
+            backgroundTexture.Dispose();
+            background.Dispose();
+            foreach (var button in buttons)
+                button.Dispose();
         }
     }
 }

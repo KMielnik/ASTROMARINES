@@ -22,7 +22,8 @@ namespace ASTROMARINES
         static void Main(string[] args)
         {
             window = new RenderWindow(new VideoMode(1000, 580), "dsada");
-            Game gra = new Game(window);
+            Game game = new Game(window);
+            window.SetFramerateLimit(60);
 
             window.Closed += (s, a) => window.Close();
             while(window.IsOpen)
@@ -31,7 +32,7 @@ namespace ASTROMARINES
                 if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
                     window.Close();
 
-                gra.Run();
+                game.Run();
             }
         }
 

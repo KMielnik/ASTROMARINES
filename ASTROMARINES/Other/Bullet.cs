@@ -1,9 +1,10 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using System;
 
 namespace ASTROMARINES.Other
 {
-    public class Bullet
+    public class Bullet : IDisposable
     {
         public Vector2f Position { get; private set; }
         Vector2f Vector;
@@ -57,6 +58,11 @@ namespace ASTROMARINES.Other
             bulletForDrawing.Position = Position;
             bulletForDrawing.FillColor = color;
             window.Draw(bulletForDrawing);
+        }
+
+        public void Dispose()
+        {
+            bulletForDrawing.Dispose();
         }
     }
 }
