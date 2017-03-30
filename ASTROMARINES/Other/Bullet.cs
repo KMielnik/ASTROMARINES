@@ -50,6 +50,7 @@ namespace ASTROMARINES.Other
         public void Draw(RenderWindow window)
         {
             bulletForDrawing.Position = Position;
+            bulletForDrawing.FillColor = Color.White;
             window.Draw(bulletForDrawing);
         }
 
