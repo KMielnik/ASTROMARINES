@@ -28,11 +28,7 @@ namespace ASTROMARINES.Levels
         MousePointer mousePointer;
         bool hasLevelEnded;
 
-        public bool HasLevelEnded
-        {
-            get => hasLevelEnded = levelClock.ElapsedTime.AsSeconds() > 65;
-            private set => hasLevelEnded = value;
-        }
+        public bool HasLevelEnded { get => hasLevelEnded; private set => hasLevelEnded = value; }
 
         public Level1(IPlayer player)
         {
@@ -76,6 +72,7 @@ namespace ASTROMARINES.Levels
             digitalClockFont.Dispose();
             digitalClock.Dispose();
             mousePointer.Dispose();
+            backgroundMusic.Stop();
             backgroundMusic.Dispose();
         }
 
@@ -109,12 +106,25 @@ namespace ASTROMARINES.Levels
 
         private void LevelTime()
         {
-            Time levelLength = Time.FromSeconds(60);
+            Time levelLength = Time.FromSeconds(1);
             Time timeLeft = levelLength - levelClock.ElapsedTime;
             int seconds = (int)timeLeft.AsSeconds();
             string miliseconds = (timeLeft.AsSeconds() - seconds).ToString();
             string timeToBeDisplayed = seconds.ToString() + '.' + miliseconds[2];
             digitalClock.DisplayedString = timeToBeDisplayed;
+            if (seconds <= 0 && miliseconds[2]=='.')
+            {
+                digitalClock.DisplayedString = "END";
+                foreach (var enemy in enemies)
+                    enemy.ShouldBeDeleted = true;
+                foreach (var enemyBullet in enemyBullets)
+                    enemyBullet.ShouldBeDeleted = true;
+            }
+            if (seconds <= -5)
+            {
+                HasLevelEnded = true;
+                backgroundMusic.Stop();
+            }
         }
 
         private void MoveThoseWhoShallBeMoved()
@@ -136,6 +146,9 @@ namespace ASTROMARINES.Levels
             for (int i = 0; i < enemies.Count; i++)
                 if (enemies[i].ShouldBeDeleted)
                 {
+                    var newExplosion = explosionFactory.CreateExplosion(enemies[i].Position);
+                    explosions.Add(newExplosion);
+
                     enemies[i].Dispose();
                     enemies[i] = null;
                     enemies.RemoveAt(i);
@@ -146,6 +159,13 @@ namespace ASTROMARINES.Levels
                     enemyBullets[i].Dispose();
                     enemyBullets[i] = null;
                     enemyBullets.RemoveAt(i);
+                }
+            for (int i = 0; i < explosions.Count; i++)
+                if (explosions[i].ShouldBeDeleted)
+                {
+                    explosions[i].Dispose();
+                    explosions[i] = null;
+                    explosions.RemoveAt(i);
                 }
         }
 
@@ -159,6 +179,8 @@ namespace ASTROMARINES.Levels
                 foreach (var playerBullet in player.Bullets)
                     if (enemy.BoudingBox.Contains(playerBullet.Position.X, playerBullet.Position.Y))
                     {
+                        if (enemy.GetType() == typeof(Enemy1))
+                            player.LevelUp();
                         enemy.Damaged();
                         playerBullet.ShouldBeDeleted = true;
                     }

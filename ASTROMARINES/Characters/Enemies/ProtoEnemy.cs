@@ -98,7 +98,7 @@ namespace ASTROMARINES.Characters.Enemies
             CheckIfFlewOutOfMap();
         }
 
-        public void Draw(RenderWindow window)
+        public virtual void Draw(RenderWindow window)
         {
             hpBar.SetHPBarPositon(Position, dimensions);
             var actualAnimationFrame = ActualAnimationFrame();

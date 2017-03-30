@@ -120,5 +120,11 @@ namespace ASTROMARINES.Characters.Enemies
 
             CheckIfFlewOutOfMap();
         }
+
+        public override void Draw(RenderWindow window)
+        {
+            var actualAnimationFrame = ActualAnimationFrame();
+            window.Draw(enemyFrames[actualAnimationFrame]);
+        }
     }
 }

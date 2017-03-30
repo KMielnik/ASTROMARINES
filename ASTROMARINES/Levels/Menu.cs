@@ -49,7 +49,10 @@ namespace ASTROMARINES.Levels
                         switch (button.Label)
                         {
                             case "START":
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "Your journey begins"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level1", "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "INCOMING"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level2", "SendPlayerAsArgument"));
                                 break;
 
                             case "HOW TO PLAY":

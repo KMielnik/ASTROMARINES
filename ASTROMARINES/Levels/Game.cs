@@ -37,10 +37,15 @@ namespace ASTROMARINES.Levels
             {
                 if (levelNamesQueue.Count == 0)
                 {
+                    if (mainMenuMusic.Status == SoundStatus.Stopped)
+                        mainMenuMusic.Play();
                     levelNamesQueue = menu.MenuLogic(window);
                     menu.Draw(window);
-                    player.Dispose();
-                    player = new Player();
+                    if (levelNamesQueue.Count != 0)
+                    {
+                        player.Dispose();
+                        player = new Player();
+                    }
                 }
                 else
                 {
