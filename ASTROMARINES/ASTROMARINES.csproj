@@ -91,6 +91,7 @@
     <Compile Include="Levels\Game.cs" />
     <Compile Include="Levels\Level1.cs" />
     <Compile Include="Levels\Level2.cs" />
+    <Compile Include="Levels\Level3.cs" />
     <Compile Include="Levels\Menu.Button.cs" />
     <Compile Include="Levels\Menu.cs" />
     <Compile Include="Levels\SimpleImageScreen.cs" />

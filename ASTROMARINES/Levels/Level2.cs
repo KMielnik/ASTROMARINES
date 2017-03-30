@@ -50,7 +50,6 @@ namespace ASTROMARINES.Levels
 
         public void Dispose()
         {
-            player.LevelUp();
             HasLevelEnded = true;
 
             backgroundTexture.Dispose();

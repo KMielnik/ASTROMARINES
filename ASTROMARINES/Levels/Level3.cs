@@ -1,17 +1,16 @@
-﻿using System;
-using SFML.Graphics;
+﻿using ASTROMARINES.Characters.Enemies;
 using ASTROMARINES.Characters.Player;
-using System.Collections.Generic;
-using ASTROMARINES.Characters.Enemies;
 using ASTROMARINES.Other;
-using SFML.Audio;
-using SFML.System;
 using ASTROMARINES.Properties;
+using SFML.Audio;
+using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
+using System.Collections.Generic;
 
 namespace ASTROMARINES.Levels
 {
-    class Level1 : ILevel
+    class Level3 : ILevel
     {
         Texture backgroundTexture;
         Sprite background;
@@ -30,7 +29,7 @@ namespace ASTROMARINES.Levels
 
         public bool HasLevelEnded { get => hasLevelEnded; private set => hasLevelEnded = value; }
 
-        public Level1(IPlayer player)
+        public Level3(IPlayer player)
         {
             backgroundTexture = new Texture(Resources.LevelBG);
             background = new Sprite(backgroundTexture);
@@ -105,13 +104,13 @@ namespace ASTROMARINES.Levels
 
         private void LevelTime()
         {
-            Time levelLength = Time.FromSeconds(1);
+            Time levelLength = Time.FromSeconds(30);
             Time timeLeft = levelLength - levelClock.ElapsedTime;
             int seconds = (int)timeLeft.AsSeconds();
             string miliseconds = (timeLeft.AsSeconds() - seconds).ToString();
             string timeToBeDisplayed = seconds.ToString() + '.' + miliseconds[2];
             digitalClock.DisplayedString = timeToBeDisplayed;
-            if (seconds <= 0 && miliseconds[2]=='.')
+            if (seconds <= 0 && miliseconds[2] == '.')
             {
                 digitalClock.DisplayedString = "END";
                 foreach (var enemy in enemies)
@@ -129,9 +128,11 @@ namespace ASTROMARINES.Levels
         private void MoveThoseWhoShallBeMoved()
         {
             player.Move();
+            player.Move();
             foreach (var enemy in enemies)
             {
                 enemy.Move();
+                enemy.Shoot(enemyBullets);
                 enemy.Shoot(enemyBullets);
             }
             foreach (var bullet in enemyBullets)
@@ -185,9 +186,9 @@ namespace ASTROMARINES.Levels
                     }
             }
 
-            foreach(var enemyBullet in enemyBullets)
+            foreach (var enemyBullet in enemyBullets)
             {
-                if(player.BoundingBox.Contains(enemyBullet.Position.X,enemyBullet.Position.Y))
+                if (player.BoundingBox.Contains(enemyBullet.Position.X, enemyBullet.Position.Y))
                 {
                     player.Damaged();
                     enemyBullet.ShouldBeDeleted = true;
@@ -209,12 +210,18 @@ namespace ASTROMARINES.Levels
                 player.Shoot(window);
         }
 
+        int howMuchEnemiesToCreate = 0;
         void TryToCreateNewEnemy()
         {
+            if (howMuchEnemiesToCreate < 6)
+            {
+                enemies.Add(enemyFactory.CreateEnemy(EnemyTypes.Enemy3));
+                howMuchEnemiesToCreate++;
+            }
             if (enemyFactory.IsNewEnemyAvalible())
-                enemies.Add(enemyFactory.CreateRandomEnemy());
-            if (enemyFactory.IsPowerUpAvalible())
-                enemies.Add(enemyFactory.CreateEnemy(EnemyTypes.PowerUp));
+            {
+                howMuchEnemiesToCreate = 0;
+            }
         }
     }
 }

@@ -23,8 +23,9 @@ namespace ASTROMARINES.Levels
             background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
             buttons = new List<Button>();
 
-            buttons.Add(new Button("START",       new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 28 / 50f)));
-            buttons.Add(new Button("HOW TO PLAY", new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 34 / 50f)));
+            buttons.Add(new Button("START",       new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 22 / 50f)));
+            buttons.Add(new Button("HOW TO PLAY", new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 28 / 50f)));
+            buttons.Add(new Button("CREDITS",     new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 34 / 50f)));
             buttons.Add(new Button("EXIT",        new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 40 / 50f)));
         }
 
@@ -49,14 +50,23 @@ namespace ASTROMARINES.Levels
                         switch (button.Label)
                         {
                             case "START":
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "Your journey begins"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "your journey begins"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level1", "SendPlayerAsArgument"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "INCOMING"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "INCOMING!"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level2", "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "thanks to all those powerups"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you have EVOLVED"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "but be carefull"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "because THEY got stronger too"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level3", "SendPlayerAsArgument"));
                                 break;
 
                             case "HOW TO PLAY":
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.HowToPlayBG));
+                                break;
+
+                            case "CREDITS":
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.CreditsBG));
                                 break;
 
                             case "EXIT":
