@@ -69,7 +69,7 @@ namespace ASTROMARINES.Characters.Player
                 x = MousePosition.X - playerPosition.X;
                 y = playerPosition.Y - MousePosition.Y - playerDimensions.Y / 6;
 
-                return (float)(Math.Atan2(y, x) / (2 * Math.PI)) * 360;
+                return (float)(Math.Atan2(x, y) / (2 * Math.PI)) * 360;
             }
 
             public void Draw(RenderWindow window, PlayerLevel playerLevel)
@@ -105,28 +105,36 @@ namespace ASTROMARINES.Characters.Player
                 {
                     case PlayerLevel.Level1:
                         if (reloadClock.ElapsedTime.AsMilliseconds() > 200)
-                            newBullets.Add(new Bullet(Cannons[0].Size + vector, vector / 2));
+                        {
+                            newBullets.Add(new Bullet(Cannons[0].Position + vector, vector / 2));
+                            reloadClock.Restart();
+                        }
                         break;
                     case PlayerLevel.Level2:
                         if (reloadClock.ElapsedTime.AsMilliseconds() > 50)
-                            newBullets.Add(new Bullet(Cannons[0].Size + vector, vector / 4));
+                        {
+                            newBullets.Add(new Bullet(Cannons[0].Position + vector, vector / 4));
+                            reloadClock.Restart();
+                        }
                         break;
                     case PlayerLevel.Level3:
                         if (reloadClock.ElapsedTime.AsMilliseconds() > 150)
                         {
-                            newBullets.Add(new Bullet(Cannons[0].Size + vector, vector / 1));
-                            newBullets.Add(new Bullet(Cannons[1].Size + vector, vector / 1));
-                            newBullets.Add(new Bullet(Cannons[2].Size + vector, vector / 1));
+                            newBullets.Add(new Bullet(Cannons[0].Position + vector, vector / 1));
+                            newBullets.Add(new Bullet(Cannons[1].Position + vector, vector / 1));
+                            newBullets.Add(new Bullet(Cannons[2].Position + vector, vector / 1));
+                            reloadClock.Restart();
                         }
                         break;
                     case PlayerLevel.Level4:
                         if (reloadClock.ElapsedTime.AsMilliseconds() > 100)
                         {
-                            newBullets.Add(new Bullet(Cannons[0].Size + vector, vector / 1));
-                            newBullets.Add(new Bullet(Cannons[1].Size + vector, vector / 3));
-                            newBullets.Add(new Bullet(Cannons[2].Size + vector, vector / 3));
-                            newBullets.Add(new Bullet(Cannons[3].Size + vector, vector / 2));
-                            newBullets.Add(new Bullet(Cannons[4].Size + vector, vector / 2));
+                            newBullets.Add(new Bullet(Cannons[0].Position + vector, vector / 1));
+                            newBullets.Add(new Bullet(Cannons[1].Position + vector, vector / 3));
+                            newBullets.Add(new Bullet(Cannons[2].Position + vector, vector / 3));
+                            newBullets.Add(new Bullet(Cannons[3].Position + vector, vector / 2));
+                            newBullets.Add(new Bullet(Cannons[4].Position + vector, vector / 2));
+                            reloadClock.Restart();
                         }
                         break;
                     default:
@@ -146,11 +154,11 @@ namespace ASTROMARINES.Characters.Player
                 float z = (float)Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
 
                 //calculate speed vector relative relative to length of cannon
-                float newZ = Cannons[0].Size.Y + 2;
+                float newZ = Cannons[0].Size.Y -2;
                 float newX = x / (z / newZ);
                 float newY = -(y / (z / newZ));
 
-                return new Vector2f(newX, newZ);
+                return new Vector2f(newX, newY);
             }
 
             public void Dispose()

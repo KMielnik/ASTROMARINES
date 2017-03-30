@@ -34,6 +34,7 @@ namespace ASTROMARINES.Characters.Player
             playerSprite.Position = new Vector2f(WindowProperties.WindowWidth / 2,
                                                  WindowProperties.WindowHeight - dimensions.Y);
             playerLevel = new PlayerLevel();
+            playerLevel = PlayerLevel.Level1;
 
             weapon = new Weapon();
             hpBar = new HPBar(dimensions);
@@ -54,9 +55,10 @@ namespace ASTROMARINES.Characters.Player
             hpBar.UpdateHPBarSize(HP, HPMax);
         }
 
-        public void DrawPlayer(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             window.Draw(playerSprite);
+            weapon.SetWeaponPosition(Position, dimensions, window);
             weapon.Draw(window, playerLevel);
             foreach (var bullet in Bullets)
                 bullet.Draw(window);
@@ -92,6 +94,18 @@ namespace ASTROMARINES.Characters.Player
             playerSprite.Position += speedVector;
             speedVector /= 1.08f;
             hpBar.SetHPBarPositon(Position, dimensions);
+            DeleteOldBullets();
+        }
+
+        private void DeleteOldBullets()
+        {
+            for(int i=0;i<Bullets.Count;i++)
+                if(Bullets[i].ShouldBeDeleted)
+                {
+                    Bullets[i].Dispose();
+                    Bullets[i] = null;
+                    Bullets.RemoveAt(i);
+                }
         }
 
         void BounceIfPleyerTriesToEscapeMap()
@@ -116,7 +130,8 @@ namespace ASTROMARINES.Characters.Player
 
         public void Shoot(RenderWindow window)
         {
-            Bullets = weapon.Shoot(playerLevel, Position, dimensions, window);
+            var newBullets = weapon.Shoot(playerLevel, Position, dimensions, window);
+            Bullets.AddRange(newBullets);
         }
 
         public void AccelerateUp()

@@ -16,7 +16,7 @@ namespace ASTROMARINES.Characters.Player
         void AccelerateLeft();
         void AccelerateRight();
         void Shoot(RenderWindow window);
-        void DrawPlayer(RenderWindow window);
+        void Draw(RenderWindow window);
         void Damaged();
         void LevelUp();
         bool ShouldBeDeleted { get; }

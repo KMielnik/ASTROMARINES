@@ -62,7 +62,6 @@ namespace ASTROMARINES.Other
 
         public void Dispose()
         {
-            bulletForDrawing.Dispose();
         }
     }
 }

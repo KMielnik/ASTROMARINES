@@ -52,12 +52,12 @@ namespace ASTROMARINES.Levels
                     {
                         currentLevel = (ILevel)Activator.CreateInstance(levelType, player);
                         if (mainMenuMusic.Status == SoundStatus.Playing)
-                            mainMenuMusic.Pause();
+                            mainMenuMusic.Stop();
                     }
                     else
                     {
                         currentLevel = (ILevel)Activator.CreateInstance(levelType, levelNameAndArg.Item2);
-                        if (mainMenuMusic.Status == SoundStatus.Paused)
+                        if (mainMenuMusic.Status == SoundStatus.Stopped)
                             mainMenuMusic.Play();
                     }
                 }
@@ -70,9 +70,11 @@ namespace ASTROMARINES.Levels
             
             if(player.ShouldBeDeleted)
             {
+                currentLevel.Dispose();
+                currentLevel = new SimpleTextScreen("YOU DIED");
+                mainMenuMusic.Play();
                 player.Dispose();
                 player = new Player();
-                currentLevel.Dispose();
                 levelNamesQueue.Clear();
             }
         }

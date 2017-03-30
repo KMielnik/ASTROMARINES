@@ -42,7 +42,7 @@ namespace ASTROMARINES.Characters.Enemies
         private void DecideStartingPostition()
         {
             var random = new Random();
-            movementDirection = (Directions)random.Next(1, 5);
+            movementDirection = (Directions)random.Next(0, 4);
             int minX;
             int maxX;
             int minY;

@@ -48,10 +48,10 @@ namespace ASTROMARINES.Characters.Enemies
 
         protected void CheckIfFlewOutOfMap()
         {
-            bool FlewOutOfLeftSide = Position.X < (-dimensions.X * WindowProperties.ScaleX);
-            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + (dimensions.X * WindowProperties.ScaleX));
-            bool FlewOutOfTheTop = Position.Y < (-dimensions.Y * WindowProperties.ScaleY);
-            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + (dimensions.Y * WindowProperties.ScaleY));
+            bool FlewOutOfLeftSide = Position.X < 2*(-dimensions.X * WindowProperties.ScaleX);
+            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + 2*(dimensions.X * WindowProperties.ScaleX));
+            bool FlewOutOfTheTop = Position.Y < 2*(-dimensions.Y * WindowProperties.ScaleY);
+            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + 2*(dimensions.Y * WindowProperties.ScaleY));
 
             if (FlewOutOfLeftSide ||
                 FlewOutOfRightSide ||
