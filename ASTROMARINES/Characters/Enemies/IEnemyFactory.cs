@@ -57,7 +57,7 @@ namespace ASTROMARINES.Characters.Enemies
         {
             var random = new Random();
             var EnemyValues = Enum.GetValues(typeof(EnemyTypes));
-            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(0,EnemyValues.Length-1));
+            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(0, (int)EnemyTypes.Boss1 - 1));
 
             return CreateEnemy(randomEnemy);
         }

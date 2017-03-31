@@ -77,6 +77,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\Enemies\Boss1.cs" />
     <Compile Include="Characters\Enemies\Enemy1.cs" />
     <Compile Include="Characters\Enemies\Enemy2.cs" />
     <Compile Include="Characters\Enemies\Enemy3.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Levels\Menu.cs" />
     <Compile Include="Levels\SimpleImageScreen.cs" />
     <Compile Include="Levels\SimpleTextScreen.cs" />
+    <Compile Include="Other\Directions.cs" />
     <Compile Include="Other\MousePointer.cs" />
     <Compile Include="Characters\Player\Player.cs" />
     <Compile Include="Characters\Player\Player.PlayerLevel.cs" />

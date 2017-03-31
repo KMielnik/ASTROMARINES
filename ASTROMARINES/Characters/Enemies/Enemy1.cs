@@ -8,11 +8,6 @@ namespace ASTROMARINES.Characters.Enemies
 {
     class Enemy1 : ProtoEnemy, IEnemy
     {
-        public enum Directions
-        {
-            Up, Down, Left, Right
-        }
-
         Directions movementDirection;
 
         public Enemy1(Texture enemyTexture) : base()
