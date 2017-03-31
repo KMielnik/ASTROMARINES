@@ -1,4 +1,5 @@
 ﻿using ASTROMARINES.Characters.Player;
+using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
 using SFML.Audio;
 using SFML.Graphics;
@@ -18,11 +19,16 @@ namespace ASTROMARINES.Levels
 
         public Game(RenderWindow window)
         {
+            WindowProperties.WindowWidth = window.Size.X;
+            WindowProperties.WindowHeight = window.Size.Y;
+            window.SetFramerateLimit(60);
+            window.SetMouseCursorVisible(false);
+            window.SetVerticalSyncEnabled(true);
+
             player = new Player();
             currentLevel = new SimpleImageScreen(Resources.TitleBG);
             levelNamesQueue = new Queue<Tuple<string, string>>();
             levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.PlotBG));
-            levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.CreditsBG));
             menu = new Menu();
             this.window = window;
 

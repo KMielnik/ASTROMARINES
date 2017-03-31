@@ -22,25 +22,25 @@ namespace ASTROMARINES
         static void Main(string[] args)
         {
             window = new RenderWindow(new VideoMode(1000, 580), "dsada");
-            WindowProperties.WindowWidth = window.Size.X;
-            WindowProperties.WindowHeight = window.Size.Y;
-            window.SetFramerateLimit(60);
-            window.SetMouseCursorVisible(false);
-            window.SetVerticalSyncEnabled(true);
+            window.KeyPressed += Window_KeyPressed;
+            window.Closed += (s, a) => window.Close();
 
             Game game = new Game(window);
             
-            window.Closed += (s, a) => window.Close();
             while(window.IsOpen)
             {
                 window.DispatchEvents();
-                if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
-                    window.Close();
-
                 game.Run();
             }
         }
 
+        private static void Window_KeyPressed(object sender, KeyEventArgs e)
+        {
+            if(e.Code == Keyboard.Key.Escape)
+            {
+                window.Close();
+            }
+        }
     }
 
 
