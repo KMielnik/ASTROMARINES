@@ -38,16 +38,16 @@ namespace ASTROMARINES.Characters.Enemies
             {
                 case EnemyTypes.PowerUp:
                     powerupReloadClock.Restart();
-                    return new Enemy1(enemyTextures);
+                    return new Enemy1(enemyTextures[(int)EnemyTypes.PowerUp]);
                 case EnemyTypes.Enemy2:
                     enemyReloadClock.Restart();
-                    return new Enemy2(enemyTextures);
+                    return new Enemy2(enemyTextures[(int)EnemyTypes.Enemy2]);
                 case EnemyTypes.Enemy3:
                     enemyReloadClock.Restart();
-                    return new Enemy3(enemyTextures);
+                    return new Enemy3(enemyTextures[(int)EnemyTypes.Enemy3]);
                 case EnemyTypes.Enemy4:
                     enemyReloadClock.Restart();
-                    return new Enemy4(enemyTextures);
+                    return new Enemy4(enemyTextures[(int)EnemyTypes.Enemy4]);
                 default:
                     throw new Exception("You tried to create non-existing enemy");
             }
@@ -57,7 +57,7 @@ namespace ASTROMARINES.Characters.Enemies
         {
             var random = new Random();
             var EnemyValues = Enum.GetValues(typeof(EnemyTypes));
-            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(1,EnemyValues.Length));
+            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(0,EnemyValues.Length-1));
 
             return CreateEnemy(randomEnemy);
         }

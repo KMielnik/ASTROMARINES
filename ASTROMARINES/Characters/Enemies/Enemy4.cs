@@ -9,14 +9,14 @@ namespace ASTROMARINES.Characters.Enemies
     {
         Cannons cannons;
 
-        public Enemy4(List<Texture> enemyTextures) : base()
+        public Enemy4(Texture enemyTexture) : base()
         {
             dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
             dimensions.Y = 255 * 0.3f * WindowProperties.ScaleY;
 
             for (int i = 0; i < 6; i++)
             {
-                Sprite enemyFrame = new Sprite(enemyTextures[(int)EnemyTypes.Enemy4-1]);
+                Sprite enemyFrame = new Sprite(enemyTexture);
                 enemyFrame.Origin = new Vector2f(127.5f, 127.5f);
                 enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.ScaleX,
                                                 0.3f * WindowProperties.ScaleY);
