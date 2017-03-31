@@ -79,13 +79,13 @@ namespace ASTROMARINES.Levels
             window.Clear(Color.Black);
 
             window.Draw(background);
-            foreach (var explosion in explosions)
-                explosion.Draw(window);
             foreach (var enemy in enemies)
                 enemy.Draw(window);
             foreach (var bullet in enemyBullets)
                 bullet.Draw(window, Color.Cyan);
             player.Draw(window);
+            foreach (var explosion in explosions)
+                explosion.Draw(window);
             window.Draw(digitalClock);
             mousePointer.Draw(window);
 

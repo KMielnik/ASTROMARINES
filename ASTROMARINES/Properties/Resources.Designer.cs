@@ -61,38 +61,38 @@ namespace ASTROMARINES.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to assets\\characters\\boss1.png.
+        ///   Looks up a localized string similar to assets\\characters\\boss.png.
         /// </summary>
-        internal static string Boss1 {
+        internal static string Boss {
             get {
-                return ResourceManager.GetString("Boss1", resourceCulture);
+                return ResourceManager.GetString("Boss", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to assets\\music\\boss1bg.ogg.
+        ///   Looks up a localized string similar to assets\\music\\bossbg.ogg.
         /// </summary>
-        internal static string Boss1BGMusic {
+        internal static string BossBGMusic {
             get {
-                return ResourceManager.GetString("Boss1BGMusic", resourceCulture);
+                return ResourceManager.GetString("BossBGMusic", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to assets\\characters\\boss1maincannon.png.
+        ///   Looks up a localized string similar to assets\\characters\\bossmaincannon.png.
         /// </summary>
-        internal static string Boss1MainCannon {
+        internal static string BossMainCannon {
             get {
-                return ResourceManager.GetString("Boss1MainCannon", resourceCulture);
+                return ResourceManager.GetString("BossMainCannon", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to assets\\sfx\\boss1SpecialSFX.ogg.
         /// </summary>
-        internal static string Boss1SpecialSFX {
+        internal static string BossSpecialSFX {
             get {
-                return ResourceManager.GetString("Boss1SpecialSFX", resourceCulture);
+                return ResourceManager.GetString("BossSpecialSFX", resourceCulture);
             }
         }
         
@@ -115,7 +115,7 @@ namespace ASTROMARINES.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to assets\\characters\\enemy1.png.
+        ///   Looks up a localized string similar to assets\\characters\\powerup.png.
         /// </summary>
         internal static string Enemy1 {
             get {

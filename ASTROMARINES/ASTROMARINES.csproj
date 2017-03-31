@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ASTROMARINES</RootNamespace>
     <AssemblyName>ASTROMARINES</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publish\</PublishUrl>
@@ -26,6 +26,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -77,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Characters\Enemies\Boss1.cs" />
+    <Compile Include="Characters\Enemies\Boss.cs" />
     <Compile Include="Characters\Enemies\Enemy1.cs" />
     <Compile Include="Characters\Enemies\Enemy2.cs" />
     <Compile Include="Characters\Enemies\Enemy3.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Levels\Level1.cs" />
     <Compile Include="Levels\Level2.cs" />
     <Compile Include="Levels\Level3.cs" />
+    <Compile Include="Levels\LevelBoss.cs" />
     <Compile Include="Levels\Menu.Button.cs" />
     <Compile Include="Levels\Menu.cs" />
     <Compile Include="Levels\SimpleImageScreen.cs" />
@@ -115,14 +117,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\characters\boss1.png" />
-    <Content Include="assets\characters\boss1maincannon.png" />
-    <Content Include="assets\characters\enemy1.png" />
     <Content Include="assets\characters\enemy2.png" />
     <Content Include="assets\characters\enemy3.png" />
     <Content Include="assets\characters\enemy4.png" />
     <Content Include="assets\characters\player.png" />
-    <Content Include="assets\icon.ico" />
     <Content Include="assets\images\credits.png" />
     <Content Include="assets\images\howToPlay.png" />
     <Content Include="assets\images\levelbg.png" />
@@ -172,6 +170,7 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="assets\fonts\digitalClock.ttf" />
     <None Include="assets\fonts\digitalFont.ttf" />
     <None Include="assets\fonts\mainGameFont.ttf" />

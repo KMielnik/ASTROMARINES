@@ -6,6 +6,6 @@
         Enemy2,
         Enemy3,
         Enemy4,
-        Boss1
+        Boss
     };
 }

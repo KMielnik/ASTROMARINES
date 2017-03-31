@@ -28,13 +28,16 @@ namespace ASTROMARINES.Characters.Enemies
             enemyTextures.Add(new Texture(Resources.Enemy3));
             enemyTextures.Add(new Texture(Resources.Enemy4));
 
+            enemyTextures.Add(new Texture(Resources.BossMainCannon));
+            enemyTextures.Add(new Texture(Resources.Boss));
+
             enemyReloadClock = new Clock();
             powerupReloadClock = new Clock();
         }
 
         public IEnemy CreateEnemy(EnemyTypes enemyType)
         {
-            switch(enemyType)
+            switch (enemyType)
             {
                 case EnemyTypes.PowerUp:
                     powerupReloadClock.Restart();
@@ -48,6 +51,9 @@ namespace ASTROMARINES.Characters.Enemies
                 case EnemyTypes.Enemy4:
                     enemyReloadClock.Restart();
                     return new Enemy4(enemyTextures[(int)EnemyTypes.Enemy4]);
+                case EnemyTypes.Boss:
+                    return new Boss(enemyTextures[(int)EnemyTypes.Boss],
+                                    enemyTextures[(int)EnemyTypes.Boss + 1]);
                 default:
                     throw new Exception("You tried to create non-existing enemy");
             }
@@ -57,7 +63,7 @@ namespace ASTROMARINES.Characters.Enemies
         {
             var random = new Random();
             var EnemyValues = Enum.GetValues(typeof(EnemyTypes));
-            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(0, (int)EnemyTypes.Boss1 - 1));
+            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(0, (int)EnemyTypes.Boss - 1));
 
             return CreateEnemy(randomEnemy);
         }
