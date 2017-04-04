@@ -3,6 +3,7 @@ using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
 using SFML.Audio;
 using SFML.Graphics;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 

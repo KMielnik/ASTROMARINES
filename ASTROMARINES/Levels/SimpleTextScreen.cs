@@ -43,7 +43,7 @@ namespace ASTROMARINES.Levels
 
         public void LevelLogic(RenderWindow window)
         {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && clock.ElapsedTime.AsMilliseconds() > 100)
+            if (Mouse.IsButtonPressed(Mouse.Button.Right) && clock.ElapsedTime.AsMilliseconds() > 100)
                 HasLevelEnded = true;
         }
     }
