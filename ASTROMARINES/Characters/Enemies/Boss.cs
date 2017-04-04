@@ -75,7 +75,7 @@ namespace ASTROMARINES.Characters.Enemies
                 howMuchBossFliedInOneDirection = new Vector2f(WindowProperties.WindowWidth / 4,
                                                               WindowProperties.WindowHeight / 8);
 
-                HPMax = 2;
+                HPMax = 3000;
                 HP = HPMax;
             }
         }

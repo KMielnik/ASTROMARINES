@@ -63,7 +63,7 @@ namespace ASTROMARINES.Characters.Enemies
         {
             var random = new Random();
             var EnemyValues = Enum.GetValues(typeof(EnemyTypes));
-            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(0, (int)EnemyTypes.Boss - 1));
+            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(1, (int)EnemyTypes.Boss - 1));
 
             return CreateEnemy(randomEnemy);
         }
@@ -78,7 +78,7 @@ namespace ASTROMARINES.Characters.Enemies
 
         public bool IsNewEnemyAvalible()
         {
-            return enemyReloadClock.ElapsedTime.AsSeconds() > 3;
+            return enemyReloadClock.ElapsedTime.AsSeconds() > 1.5;
         }
 
         public bool IsPowerUpAvalible()

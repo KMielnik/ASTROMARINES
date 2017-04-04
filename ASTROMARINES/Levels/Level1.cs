@@ -52,7 +52,7 @@ namespace ASTROMARINES.Levels
             digitalClock.Position = new Vector2f(WindowProperties.WindowWidth * 30 / 32, WindowProperties.WindowHeight * 30 / 32);
             digitalClock.Color = new Color(Color.White);
 
-            backgroundMusic = new Music(Resources.Level1BGMusic);
+            backgroundMusic = new Music(Resources.LevelBGMusic);
             backgroundMusic.Loop = true;
             backgroundMusic.Play();
         }
@@ -105,7 +105,7 @@ namespace ASTROMARINES.Levels
 
         private void LevelTime()
         {
-            Time levelLength = Time.FromSeconds(1);
+            Time levelLength = Time.FromSeconds(60);
             Time timeLeft = levelLength - levelClock.ElapsedTime;
             int seconds = (int)timeLeft.AsSeconds();
             string miliseconds = (timeLeft.AsSeconds() - seconds).ToString();

@@ -43,7 +43,7 @@ namespace ASTROMARINES.Levels
             explosions = new List<Explosion>();
             levelClock = new Clock();
 
-            backgroundMusic = new Music(Resources.Level1BGMusic);
+            backgroundMusic = new Music(Resources.LevelBGMusic);
             backgroundMusic.Loop = true;
             backgroundMusic.Play();
         }
@@ -99,7 +99,7 @@ namespace ASTROMARINES.Levels
                 foreach (var enemy in enemies)
                     enemy.ShouldBeDeleted = true;
             }
-            if (seconds <= -1)
+            if (seconds <= -2)
             {
                 HasLevelEnded = true;
                 backgroundMusic.Stop();

@@ -40,7 +40,7 @@ namespace ASTROMARINES.Characters.Player
             hpBar = new HPBar(dimensions);
             Bullets = new List<Bullet>();
 
-            HPMax = 100;
+            HPMax = 250;
             HP = HPMax;
         }
 

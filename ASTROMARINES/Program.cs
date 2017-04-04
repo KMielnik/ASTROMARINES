@@ -21,7 +21,7 @@ namespace ASTROMARINES
 
         static void Main(string[] args)
         {
-            window = new RenderWindow(new VideoMode(1000, 580), "dsada");
+            window = new RenderWindow(new VideoMode(1500, 880), "dsada");
             window.KeyPressed += Window_KeyPressed;
             window.Closed += (s, a) => window.Close();
 
@@ -32,6 +32,8 @@ namespace ASTROMARINES
                 window.DispatchEvents();
                 game.Run();
             }
+
+            game.Dispose();
         }
 
         private static void Window_KeyPressed(object sender, KeyEventArgs e)

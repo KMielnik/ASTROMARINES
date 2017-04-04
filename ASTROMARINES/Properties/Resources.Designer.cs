@@ -106,15 +106,6 @@ namespace ASTROMARINES.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to assets\\sfx\\enemiesWonSFX.ogg.
-        /// </summary>
-        internal static string EnemiesWonSFX {
-            get {
-                return ResourceManager.GetString("EnemiesWonSFX", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to assets\\characters\\powerup.png.
         /// </summary>
         internal static string Enemy1 {
@@ -205,20 +196,20 @@ namespace ASTROMARINES.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to assets\\music\\level1bg.ogg.
-        /// </summary>
-        internal static string Level1BGMusic {
-            get {
-                return ResourceManager.GetString("Level1BGMusic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to assets\\images\\levelbg.png.
         /// </summary>
         internal static string LevelBG {
             get {
                 return ResourceManager.GetString("LevelBG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to assets\\music\\levelbg.ogg.
+        /// </summary>
+        internal static string LevelBGMusic {
+            get {
+                return ResourceManager.GetString("LevelBGMusic", resourceCulture);
             }
         }
         

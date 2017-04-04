@@ -51,7 +51,7 @@ namespace ASTROMARINES.Levels
             digitalClock.Position = new Vector2f(WindowProperties.WindowWidth * 30 / 32, WindowProperties.WindowHeight * 30 / 32);
             digitalClock.Color = new Color(Color.White);
 
-            backgroundMusic = new Music(Resources.Level1BGMusic);
+            backgroundMusic = new Music(Resources.LevelBGMusic);
             backgroundMusic.Loop = true;
             backgroundMusic.Play();
         }
@@ -213,7 +213,7 @@ namespace ASTROMARINES.Levels
         int howMuchEnemiesToCreate = 0;
         void TryToCreateNewEnemy()
         {
-            if (howMuchEnemiesToCreate < 6)
+            if (howMuchEnemiesToCreate < 7)
             {
                 enemies.Add(enemyFactory.CreateEnemy(EnemyTypes.Enemy3));
                 howMuchEnemiesToCreate++;

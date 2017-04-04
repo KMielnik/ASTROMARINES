@@ -58,7 +58,7 @@ namespace ASTROMARINES.Levels
             explosions = new List<Explosion>();
             levelClock = new Clock();
 
-            backgroundMusic = new Music(Resources.Level1BGMusic);
+            backgroundMusic = new Music(Resources.BossBGMusic);
             backgroundMusic.Loop = true;
             backgroundMusic.Play();
 
@@ -158,7 +158,7 @@ namespace ASTROMARINES.Levels
                     {
                         var random = new Random();
                         var randXInBoss = random.Next((int)(boss.BoudingBox.Left),
-                                                      (int)(boss.BoudingBox.Left + boss.BoudingBox.Width));
+                                                      (int)(boss.BoudingBox.Left + boss.BoudingBox.Width * 1.5f));
                         var randYInBoss = random.Next((int)(boss.BoudingBox.Top),
                                                       (int)(boss.BoudingBox.Top + boss.BoudingBox.Height));
                         var explosion = explosionFactory.CreateExplosion(new Vector2f(randXInBoss, randYInBoss));
@@ -171,16 +171,19 @@ namespace ASTROMARINES.Levels
 
         private void CheckDamage()
         {
-            if (player.BoundingBox.Intersects(boss.BoudingBox))
-                player.Damaged();
+            if (boss.ShouldBeDeleted == false)
+            {
+                if (player.BoundingBox.Intersects(boss.BoudingBox))
+                    player.Damaged();
 
-            foreach (var playerBullet in player.Bullets)
-                if (boss.BoudingBox.Contains(playerBullet.Position.X, playerBullet.Position.Y))
-                {
-                    boss.Damaged();
-                    playerBullet.ShouldBeDeleted = true;
-                    explosions.Add(explosionFactory.CreateExplosion(playerBullet.Position));
-                }
+                foreach (var playerBullet in player.Bullets)
+                    if (boss.BoudingBox.Contains(playerBullet.Position.X, playerBullet.Position.Y))
+                    {
+                        boss.Damaged();
+                        playerBullet.ShouldBeDeleted = true;
+                        explosions.Add(explosionFactory.CreateExplosion(playerBullet.Position));
+                    }
+            }
 
             foreach (var bossBullet in bossBullets)
             {

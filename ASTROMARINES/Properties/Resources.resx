@@ -135,10 +135,6 @@
     <value>assets\\images\\credits.png</value>
     <comment>Path</comment>
   </data>
-  <data name="EnemiesWonSFX" xml:space="preserve">
-    <value>assets\\sfx\\enemiesWonSFX.ogg</value>
-    <comment>Path</comment>
-  </data>
   <data name="Enemy1" xml:space="preserve">
     <value>assets\\characters\\powerup.png</value>
   </data>
@@ -172,12 +168,12 @@
     <value>assets\\images\\howToPlay.png</value>
     <comment>Path</comment>
   </data>
-  <data name="Level1BGMusic" xml:space="preserve">
-    <value>assets\\music\\level1bg.ogg</value>
-    <comment>Path</comment>
-  </data>
   <data name="LevelBG" xml:space="preserve">
     <value>assets\\images\\levelbg.png</value>
+    <comment>Path</comment>
+  </data>
+  <data name="LevelBGMusic" xml:space="preserve">
+    <value>assets\\music\\levelbg.ogg</value>
     <comment>Path</comment>
   </data>
   <data name="MenuBG" xml:space="preserve">

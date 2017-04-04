@@ -23,10 +23,10 @@ namespace ASTROMARINES.Levels
             background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
             buttons = new List<Button>();
 
-            buttons.Add(new Button("START",       new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 22 / 50f)));
-            buttons.Add(new Button("HOW TO PLAY", new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 28 / 50f)));
-            buttons.Add(new Button("CREDITS",     new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 34 / 50f)));
-            buttons.Add(new Button("EXIT",        new Vector2f(WindowProperties.WindowWidth / 1.3f, WindowProperties.WindowHeight * 40 / 50f)));
+            buttons.Add(new Button("START",       new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 22 / 50f)));
+            buttons.Add(new Button("HOW TO PLAY", new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 28 / 50f)));
+            buttons.Add(new Button("CREDITS",     new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 34 / 50f)));
+            buttons.Add(new Button("EXIT",        new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 40 / 50f)));
         }
 
         /// <summary>
@@ -51,14 +51,23 @@ namespace ASTROMARINES.Levels
                         {
                             case "START":
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "your journey begins"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("LevelBoss", "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "estimated travel time to the next level: 60 seconds "));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level1", "SendPlayerAsArgument"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "INCOMING!"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "FROM EVERY SIDE!"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level2", "SendPlayerAsArgument"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "thanks to all those powerups"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you have EVOLVED"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "but be carefull"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "because THEY got stronger too"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you will need those new powers"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "good luck!"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level3", "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "You found him"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "Your final enemy"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "THE TRASH BOSS"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("LevelBoss", "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you did it!"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you saved THE UNIVERSE!"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "Congratulations!"));
                                 break;
 
                             case "HOW TO PLAY":
