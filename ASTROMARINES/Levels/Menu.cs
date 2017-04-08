@@ -52,7 +52,7 @@ namespace ASTROMARINES.Levels
                             case "START":
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "your journey begins"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "estimated travel time to the next level: 60 seconds"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level1", "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("LevelBoss", "SendPlayerAsArgument"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "INCOMING!"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "from EVERY SIDE!"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level2", "SendPlayerAsArgument"));

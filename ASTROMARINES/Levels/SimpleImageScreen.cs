@@ -33,8 +33,9 @@ namespace ASTROMARINES.Levels
 
         public void LevelLogic(RenderWindow window)
         {
-            if (Mouse.IsButtonPressed(Mouse.Button.Right) && clock.ElapsedTime.AsMilliseconds() > 100)
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && clock.ElapsedTime.AsMilliseconds() > 100)
                 HasLevelEnded = true;
+            Mouse.SetPosition(new Vector2i((int)WindowProperties.WindowWidth / 2, (int)WindowProperties.WindowHeight / 2), window);
         }
 
         public void Dispose()

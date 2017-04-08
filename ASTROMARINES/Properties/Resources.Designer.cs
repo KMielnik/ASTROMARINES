@@ -97,6 +97,15 @@ namespace ASTROMARINES.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to assets\\sfx\\warp.ogg.
+        /// </summary>
+        internal static string BossWarpSound {
+            get {
+                return ResourceManager.GetString("BossWarpSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to assets\\images\\credits.png.
         /// </summary>
         internal static string CreditsBG {

@@ -131,6 +131,9 @@
     <value>assets\\sfx\\boss1SpecialSFX.ogg</value>
     <comment>Path</comment>
   </data>
+  <data name="BossWarpSound" xml:space="preserve">
+    <value>assets\\sfx\\warp.ogg</value>
+  </data>
   <data name="CreditsBG" xml:space="preserve">
     <value>assets\\images\\credits.png</value>
     <comment>Path</comment>

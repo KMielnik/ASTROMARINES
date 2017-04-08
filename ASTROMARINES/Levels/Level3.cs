@@ -213,7 +213,7 @@ namespace ASTROMARINES.Levels
         int howMuchEnemiesToCreate = 0;
         void TryToCreateNewEnemy()
         {
-            if (howMuchEnemiesToCreate < 7)
+            if (howMuchEnemiesToCreate < 4)
             {
                 enemies.Add(enemyFactory.CreateEnemy(EnemyTypes.Enemy3));
                 howMuchEnemiesToCreate++;
