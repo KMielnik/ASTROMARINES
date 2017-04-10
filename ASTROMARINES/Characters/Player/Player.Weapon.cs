@@ -45,11 +45,11 @@ namespace ASTROMARINES.Characters.Player
                 Cannons[1].Position = CannonOrigin;
 
                 CannonOrigin = playerPosition;
-                CannonOrigin += new Vector2f(playerDimensions.X / 2.8f, playerDimensions.Y / 3);
+                CannonOrigin += new Vector2f(-playerDimensions.X / 3.7f, -playerDimensions.Y / 3.5f);
                 Cannons[2].Position = CannonOrigin;
 
                 CannonOrigin = playerPosition;
-                CannonOrigin += new Vector2f(-playerDimensions.X / 3.7f, -playerDimensions.Y / 3.5f);
+                CannonOrigin += new Vector2f(playerDimensions.X / 2.8f, playerDimensions.Y / 3);
                 Cannons[3].Position = CannonOrigin;
 
                 CannonOrigin = playerPosition;

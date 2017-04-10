@@ -52,7 +52,7 @@ namespace ASTROMARINES.Levels
                             case "START":
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "your journey begins"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "estimated travel time to the next level: 60 seconds"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("LevelBoss", "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level1", "SendPlayerAsArgument"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "INCOMING!"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "from EVERY SIDE!"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level2", "SendPlayerAsArgument"));
@@ -61,7 +61,7 @@ namespace ASTROMARINES.Levels
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you will need those new powers"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "good luck!"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level3", "SendPlayerAsArgument"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "You found him"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you found him"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "your final enemy"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "THE TRASH BOSS"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("LevelBoss", "SendPlayerAsArgument"));
