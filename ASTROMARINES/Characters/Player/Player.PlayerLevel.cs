@@ -1,6 +1,6 @@
 ﻿namespace ASTROMARINES.Characters.Player
 {
-    public partial class Player : IPlayer
+    public partial class Player
     {
         enum PlayerLevel
         {

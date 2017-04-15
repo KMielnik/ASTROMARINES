@@ -1,20 +1,20 @@
-﻿using SFML.Graphics;
-using SFML.System;
+﻿using System;
 using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
-using System;
+using SFML.Graphics;
+using SFML.System;
 
 namespace ASTROMARINES.Levels
 {
-    partial class Menu
+    internal partial class Menu
     {
-        class Button : IDisposable
+        private class Button : IDisposable
         {
-            RectangleShape button;
-            public FloatRect BoundingBox { get => button.GetGlobalBounds(); }
-            Text text;
-            Font font;
-            public string Label { get => text.DisplayedString; }
+            private RectangleShape button;
+            public FloatRect BoundingBox => button.GetGlobalBounds();
+            private Text text;
+            private Font font;
+            public string Label => text.DisplayedString;
 
             public void Draw(RenderWindow window)
             {
@@ -43,7 +43,7 @@ namespace ASTROMARINES.Levels
                 text = new Text(desiredText, font);
                 text.Color = new Color(Color.Black);
                 text.CharacterSize = (uint)(button.Size.Y / 1.3f);
-                FloatRect textBoundingBox = text.GetLocalBounds();
+                var textBoundingBox = text.GetLocalBounds();
                 text.Origin = new Vector2f(textBoundingBox.Left + textBoundingBox.Width / 2,
                                            textBoundingBox.Top + textBoundingBox.Height / 2);
                 text.Position = button.Position;

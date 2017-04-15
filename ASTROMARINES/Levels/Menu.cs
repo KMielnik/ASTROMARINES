@@ -1,19 +1,19 @@
-﻿using ASTROMARINES.Other;
+﻿using System;
+using System.Collections.Generic;
+using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using System;
-using System.Collections.Generic;
 
 namespace ASTROMARINES.Levels
 {
-    partial class Menu : IDisposable
+    internal partial class Menu : IDisposable
     {
-        MousePointer mousePointer;
-        Texture backgroundTexture;
-        Sprite background;
-        List<Button> buttons;
+        private MousePointer mousePointer;
+        private Texture backgroundTexture;
+        private Sprite background;
+        private List<Button> buttons;
         
         public Menu()
         {
@@ -40,12 +40,12 @@ namespace ASTROMARINES.Levels
 
             var mousePosition = Mouse.GetPosition(window);
 
-            mousePointer.HoversOverItemOFF();
+            mousePointer.HoversOverItemOff();
             foreach (var button in buttons)
             {
                 if (button.BoundingBox.Contains(mousePosition.X, mousePosition.Y))
                 {
-                    mousePointer.HoversOverItemON();
+                    mousePointer.HoversOverItemOn();
                     if (Mouse.IsButtonPressed(Mouse.Button.Left))
                         switch (button.Label)
                         {

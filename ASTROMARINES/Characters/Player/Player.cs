@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ASTROMARINES.Other;
+using ASTROMARINES.Properties;
 using SFML.Graphics;
 using SFML.System;
-using ASTROMARINES.Properties;
-using ASTROMARINES.Other;
+using System.Collections.Generic;
 
 namespace ASTROMARINES.Characters.Player
 {
-    partial class Player : IPlayer
+    partial class Player
     {
-        int HP;
-        int HPMax;
+        int hp;
+        int hpMax;
         Texture playerTexture;
         Sprite playerSprite;
         Vector2f dimensions;
         Vector2f speedVector;
         Weapon weapon;
         PlayerLevel playerLevel;
-        HPBar hpBar;
+        HpBar hpBar;
         public List<Bullet> Bullets { get; private set; }
         public Vector2f Position { get => playerSprite.Position; }
 
@@ -28,7 +27,7 @@ namespace ASTROMARINES.Characters.Player
             playerSprite = new Sprite(playerTexture);
             playerSprite.Scale = new Vector2f(0.25f * WindowProperties.ScaleX,
                                               0.25f * WindowProperties.ScaleY);
-            playerSprite.Origin = new Vector2f(256 / 2, 256 / 2);
+            playerSprite.Origin = new Vector2f(128, 128);
             dimensions.X = 256 * 0.25f * WindowProperties.ScaleX;
             dimensions.Y = 256 * 0.25f * WindowProperties.ScaleY;
             playerSprite.Position = new Vector2f(WindowProperties.WindowWidth / 2,
@@ -37,22 +36,22 @@ namespace ASTROMARINES.Characters.Player
             playerLevel = PlayerLevel.Level3;
 
             weapon = new Weapon();
-            hpBar = new HPBar(dimensions);
+            hpBar = new HpBar(dimensions);
             Bullets = new List<Bullet>();
 
-            HPMax = 250;
-            HP = HPMax;
+            hpMax = 250;
+            hp = hpMax;
         }
 
 
-        public bool ShouldBeDeleted { get => HP <= 0; }
+        public bool ShouldBeDeleted { get => hp <= 0; }
 
         public FloatRect BoundingBox { get => playerSprite.GetGlobalBounds(); }
 
         public void Damaged()
         {
-            HP--;
-            hpBar.UpdateHPBarSize(HP, HPMax);
+            hp--;
+            hpBar.UpdateHpBarSize(hp, hpMax);
         }
 
         public void Draw(RenderWindow window)
@@ -80,8 +79,6 @@ namespace ASTROMARINES.Characters.Player
                     break;
                 case PlayerLevel.Level4:
                     break;
-                default:
-                    break;
             }
         }
 
@@ -93,7 +90,7 @@ namespace ASTROMARINES.Characters.Player
             BounceIfPleyerTriesToEscapeMap();
             playerSprite.Position += speedVector;
             speedVector /= 1.08f;
-            hpBar.SetHPBarPositon(Position, dimensions);
+            hpBar.SetHpBarPositon(Position, dimensions);
             DeleteOldBullets();
         }
 
@@ -110,18 +107,18 @@ namespace ASTROMARINES.Characters.Player
 
         void BounceIfPleyerTriesToEscapeMap()
         {
-            bool FlewOutOfLeftSide = Position.X < dimensions.X / 1.5;
-            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth - dimensions.X / 1.5);
-            bool FlewOutOfTheTop = Position.Y < dimensions.Y / 1.5;
-            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight - dimensions.Y / 1.3);
+            bool flewOutOfLeftSide = Position.X < dimensions.X / 1.5;
+            bool flewOutOfRightSide = Position.X > (WindowProperties.WindowWidth - dimensions.X / 1.5);
+            bool flewOutOfTheTop = Position.Y < dimensions.Y / 1.5;
+            bool flewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight - dimensions.Y / 1.3);
 
-            if (FlewOutOfLeftSide || FlewOutOfRightSide)
+            if (flewOutOfLeftSide || flewOutOfRightSide)
             {
                 speedVector.X = -speedVector.X * 1.3f;
                 speedVector.Y = speedVector.Y * 1.3f;
             }
 
-            if (FlewOutOfTheBottom || FlewOutOfTheTop)
+            if (flewOutOfTheBottom || flewOutOfTheTop)
             {
                 speedVector.X = speedVector.X * 1.3f;
                 speedVector.Y = -speedVector.Y * 1.3f;

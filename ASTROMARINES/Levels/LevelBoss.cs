@@ -1,44 +1,38 @@
 ﻿using System;
-using SFML.Graphics;
-using ASTROMARINES.Characters.Player;
 using System.Collections.Generic;
 using ASTROMARINES.Characters.Enemies;
+using ASTROMARINES.Characters.Player;
 using ASTROMARINES.Other;
-using SFML.Audio;
-using SFML.System;
 using ASTROMARINES.Properties;
+using SFML.Audio;
+using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 
 namespace ASTROMARINES.Levels
 {
-    class LevelBoss : ILevel
+    internal class LevelBoss : ILevel
     {
-        Texture backgroundTexture;
-        Sprite background;
-        IPlayer player;
-        IEnemyFactory enemyFactory;
-        IEnemy boss;
-        List<Bullet> bossBullets;
-        ExplosionFactory explosionFactory;
-        List<Explosion> explosions;
-        Clock levelClock;
-        Music backgroundMusic;
-        MousePointer mousePointer;
-        Music bossDeathSound;
+        private Texture backgroundTexture;
+        private Sprite background;
+        private IPlayer player;
+        private IEnemyFactory enemyFactory;
+        private IEnemy boss;
+        private List<Bullet> bossBullets;
+        private ExplosionFactory explosionFactory;
+        private List<Explosion> explosions;
+        private Clock levelClock;
+        private Music backgroundMusic;
+        private MousePointer mousePointer;
+        private Music bossDeathSound;
 
-        bool hasBossDied;
-        bool hasLevelEnded;
+        private bool hasBossDied;
+        private bool hasLevelEnded;
 
         public bool HasLevelEnded
         {
-            get
-            {
-                return (hasBossDied && levelClock.ElapsedTime.AsSeconds() > 5) || hasLevelEnded;
-            }
-            private set
-            {
-                hasLevelEnded = value;
-            }
+            get => (hasBossDied && levelClock.ElapsedTime.AsSeconds() > 5) || hasLevelEnded;
+            private set => hasLevelEnded = value;
         }
 
         public LevelBoss(IPlayer player)
@@ -133,14 +127,14 @@ namespace ASTROMARINES.Levels
                     bossDeathSound.Play();
                 }
             }
-            for (int i = 0; i < bossBullets.Count; i++)
+            for (var i = 0; i < bossBullets.Count; i++)
                 if (bossBullets[i].ShouldBeDeleted)
                 {
                     bossBullets[i].Dispose();
                     bossBullets[i] = null;
                     bossBullets.RemoveAt(i);
                 }
-            for (int i = 0; i < explosions.Count; i++)
+            for (var i = 0; i < explosions.Count; i++)
                 if (explosions[i].ShouldBeDeleted)
                 {
                     explosions[i].Dispose();

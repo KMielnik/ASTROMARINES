@@ -1,15 +1,15 @@
-﻿using SFML.Graphics;
+﻿using System;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using System;
 
 namespace ASTROMARINES.Other
 {
     public class MousePointer : IDisposable
     {
-        CircleShape target;
-        RectangleShape targetLineX;
-        RectangleShape targetLineY;
+        private CircleShape target;
+        private RectangleShape targetLineX;
+        private RectangleShape targetLineY;
         public MousePointer()
         {
             target = new CircleShape(3);
@@ -29,7 +29,7 @@ namespace ASTROMARINES.Other
 
         public void Draw(RenderWindow window)
         {
-            Vector2f mousePosition = (Vector2f)Mouse.GetPosition(window);
+            var mousePosition = (Vector2f)Mouse.GetPosition(window);
             target.Position = mousePosition;
             targetLineX.Position = mousePosition;
             targetLineY.Position = mousePosition;
@@ -39,14 +39,14 @@ namespace ASTROMARINES.Other
             window.Draw(targetLineY);
         }
 
-        public void HoversOverItemON()
+        public void HoversOverItemOn()
         {
             target.FillColor = new Color(Color.Green);
             targetLineX.FillColor = new Color(Color.Green);
             targetLineY.FillColor = new Color(Color.Green);
         }
 
-        public void HoversOverItemOFF()
+        public void HoversOverItemOff()
         {
             target.FillColor = new Color(Color.Red);
             targetLineX.FillColor = new Color(Color.Red);

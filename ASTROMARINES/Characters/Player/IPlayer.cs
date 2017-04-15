@@ -1,14 +1,11 @@
-﻿using ASTROMARINES.Other;
-using SFML.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ASTROMARINES.Other;
+using SFML.Graphics;
 
 namespace ASTROMARINES.Characters.Player
 {
-    interface IPlayer : IDisposable
+    internal interface IPlayer : IDisposable
     {
         void Move();
         void AccelerateUp();

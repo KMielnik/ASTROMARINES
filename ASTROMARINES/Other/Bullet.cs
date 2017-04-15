@@ -1,15 +1,15 @@
-﻿using SFML.Graphics;
+﻿using System;
+using SFML.Graphics;
 using SFML.System;
-using System;
 
 namespace ASTROMARINES.Other
 {
     public class Bullet : IDisposable
     {
         public Vector2f Position { get; private set; }
-        Vector2f Vector;
-        static CircleShape bulletForDrawing;
-        private bool shouldBeDeleted = false;
+        private Vector2f vector;
+        private static CircleShape bulletForDrawing;
+        private bool shouldBeDeleted;
 
         static Bullet()
         {
@@ -20,28 +20,28 @@ namespace ASTROMARINES.Other
         public Bullet(Vector2f position, Vector2f vector)
         {
             Position = position;
-            Vector = vector;
+            this.vector = vector;
         }
 
         public bool ShouldBeDeleted { get => shouldBeDeleted; set => shouldBeDeleted = value; }
 
         public void Move()
         {
-            Position += Vector;
+            Position += vector;
             CheckIfFlewOutOfMap();
         }
 
         private void CheckIfFlewOutOfMap()
         {
-            bool FlewOutOfLeftSide = Position.X < (-30 * WindowProperties.ScaleX);
-            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + (30 * WindowProperties.ScaleX));
-            bool FlewOutOfTheTop = Position.Y < (-30 * WindowProperties.ScaleY);
-            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + (30 * WindowProperties.ScaleY));
+            var flewOutOfLeftSide = Position.X < (-30 * WindowProperties.ScaleX);
+            var flewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + (30 * WindowProperties.ScaleX));
+            var flewOutOfTheTop = Position.Y < (-30 * WindowProperties.ScaleY);
+            var flewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + (30 * WindowProperties.ScaleY));
 
-            if (FlewOutOfLeftSide  ||
-                FlewOutOfRightSide ||
-                FlewOutOfTheBottom ||
-                FlewOutOfTheTop)
+            if (flewOutOfLeftSide  ||
+                flewOutOfRightSide ||
+                flewOutOfTheBottom ||
+                flewOutOfTheTop)
             {
                 ShouldBeDeleted = true;
             }

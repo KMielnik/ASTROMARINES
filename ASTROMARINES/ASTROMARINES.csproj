@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>ASTROMARINES</RootNamespace>
     <AssemblyName>ASTROMARINES</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publish\</PublishUrl>
@@ -89,6 +89,8 @@
     <Compile Include="Characters\Enemies\IEnemyFactory.cs" />
     <Compile Include="Characters\Enemies\ProtoEnemy.cs" />
     <Compile Include="Characters\Player\IPlayer.cs" />
+    <Compile Include="Characters\Player\Player.cs" />
+    <Compile Include="Characters\Player\Player.Weapon.cs" />
     <Compile Include="Levels\ILevel.cs" />
     <Compile Include="Levels\Game.cs" />
     <Compile Include="Levels\Level1.cs" />
@@ -101,9 +103,7 @@
     <Compile Include="Levels\SimpleTextScreen.cs" />
     <Compile Include="Other\Directions.cs" />
     <Compile Include="Other\MousePointer.cs" />
-    <Compile Include="Characters\Player\Player.cs" />
     <Compile Include="Characters\Player\Player.PlayerLevel.cs" />
-    <Compile Include="Characters\Player\Player.Weapon.cs" />
     <Compile Include="Other\Bullet.cs" />
     <Compile Include="Other\Explosion.cs" />
     <Compile Include="Other\ExplosionFactory.cs" />

@@ -7,5 +7,5 @@
         Enemy3,
         Enemy4,
         Boss
-    };
+    }
 }

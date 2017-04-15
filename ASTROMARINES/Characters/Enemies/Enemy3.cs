@@ -1,84 +1,84 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ASTROMARINES.Other;
+using SFML.Graphics;
+using SFML.System;
 
 namespace ASTROMARINES.Characters.Enemies
 {
-    class Enemy3 : ProtoEnemy, IEnemy
+    internal class Enemy3 : ProtoEnemy
     {
-        Cannons cannons;
-        public Enemy3(Texture enemyTexture) : base()
+        private Cannons cannons;
+        public Enemy3(Texture enemyTexture)
         {
-            dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
-            dimensions.Y = 255 * 0.3f * WindowProperties.ScaleY;
+            Dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
+            Dimensions.Y = 255 * 0.3f * WindowProperties.ScaleY;
 
-            for (int i = 0; i < 6; i++)
+            for (var i = 0; i < 6; i++)
             {
-                Sprite enemyFrame = new Sprite(enemyTexture);
+                var enemyFrame = new Sprite(enemyTexture);
                 enemyFrame.Origin = new Vector2f(127.5f, 195.0f);
                 enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.ScaleX,
                                                 0.3f * WindowProperties.ScaleY);
                 enemyFrame.Position = RandomHorizontalPosition();
                 enemyFrame.TextureRect = new IntRect(i * 255, 0, 255, 390);
 
-                enemyFrames.Add(enemyFrame);
+                EnemyFrames.Add(enemyFrame);
             }
 
-            hpBar = new HPBar(dimensions);
+            HpBar = new HpBar(Dimensions);
 
-            cannons = new Cannons(Position, dimensions);
+            cannons = new Cannons(Position, Dimensions);
 
-            HPMax = 12;
-            HP = HPMax;
+            HpMax = 12;
+            Hp = HpMax;
         }
 
-        public override void Shoot(List<Bullet> EnemiesBullets)
+        public override void Shoot(List<Bullet> enemiesBullets)
         {
-            if (reloadingClock.ElapsedTime.AsMilliseconds() > 30)
+            if (ReloadingClock.ElapsedTime.AsMilliseconds() > 30)
             {
                 Bullet bullet;
 
-                cannons.CalibrateCannons(Position, dimensions);
+                cannons.CalibrateCannons(Position, Dimensions);
 
                 switch (cannons.ActualCannon)
                 {
                     case 1:
                         bullet = new Bullet(cannons.Cannon1.Position, cannons.Cannon1.BulletVector);
-                        EnemiesBullets.Add(bullet);
+                        enemiesBullets.Add(bullet);
                         break;
 
                     case 2:
                         bullet = new Bullet(cannons.Cannon2.Position, cannons.Cannon2.BulletVector);
-                        EnemiesBullets.Add(bullet);
+                        enemiesBullets.Add(bullet);
                         break;
 
                     case 3:
                         bullet = new Bullet(cannons.Cannon3.Position, cannons.Cannon3.BulletVector);
-                        EnemiesBullets.Add(bullet);
+                        enemiesBullets.Add(bullet);
                         break;
 
                     case 4:
                         bullet = new Bullet(cannons.Cannon4.Position, cannons.Cannon4.BulletVector);
-                        EnemiesBullets.Add(bullet);
+                        enemiesBullets.Add(bullet);
                         break;
 
                     case 5:
                         bullet = new Bullet(cannons.Cannon5.Position, cannons.Cannon5.BulletVector);
-                        EnemiesBullets.Add(bullet);
+                        enemiesBullets.Add(bullet);
                         break;
 
                     case 6:
                         bullet = new Bullet(cannons.Cannon6.Position, cannons.Cannon6.BulletVector);
-                        EnemiesBullets.Add(bullet);
+                        enemiesBullets.Add(bullet);
                         break;
                 }
                 
-                reloadingClock.Restart();
+                ReloadingClock.Restart();
             }
         }
 
-        class Cannons
+        private class Cannons
         {
             public struct Cannon
             {
@@ -98,15 +98,15 @@ namespace ASTROMARINES.Characters.Enemies
             public Cannon Cannon5;
             public Cannon Cannon6;
 
-            private float CannonCounter;
+            private float cannonCounter;
             public int ActualCannon
             {
                 get
                 {
-                    CannonCounter += 0.1f;
-                    if (CannonCounter > 7)
-                        CannonCounter = 1.0f;
-                    return (int)(CannonCounter);
+                    cannonCounter += 0.1f;
+                    if (cannonCounter > 7)
+                        cannonCounter = 1.0f;
+                    return (int)(cannonCounter);
                 }
             }
 
@@ -115,7 +115,7 @@ namespace ASTROMARINES.Characters.Enemies
                 Vector2f cannonPosition;
                 Vector2f bulletVector;
 
-                CannonCounter = 1.0f;
+                cannonCounter = 1.0f;
 
                 //Cannon1
                 cannonPosition = new Vector2f(enemyPosition.X + enemyDimensions.X / 3,

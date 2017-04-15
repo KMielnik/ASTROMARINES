@@ -1,16 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ASTROMARINES;
+﻿using ASTROMARINES.Other;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SFML.Graphics;
-using SFML.Window;
 using SFML.System;
+using SFML.Window;
 
 namespace AstroMarinesTests
 {
     [TestClass]
     public class ExplosionTests
     {
-        RenderWindow window;
-        ExplosionFactory explosionFactory;
+        private RenderWindow window;
+        private ExplosionFactory explosionFactory;
 
         [TestInitialize]
         public void SetUp()

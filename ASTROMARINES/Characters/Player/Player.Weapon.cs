@@ -18,17 +18,17 @@ namespace ASTROMARINES.Characters.Player
             {
                 Cannons = new List<RectangleShape>();
 
-                var Cannon = new RectangleShape(new Vector2f(3, 20));
-                Cannon.Origin = new Vector2f(1.5f, 20);
-                Cannon.FillColor = new Color(Color.White);
-                Cannon.OutlineThickness = 2;
-                Cannon.OutlineColor = new Color(Color.Black);
-                Cannons.Add(Cannon);
+                var cannon = new RectangleShape(new Vector2f(3, 20));
+                cannon.Origin = new Vector2f(1.5f, 20);
+                cannon.FillColor = new Color(Color.White);
+                cannon.OutlineThickness = 2;
+                cannon.OutlineColor = new Color(Color.Black);
+                Cannons.Add(cannon);
 
                 for(int i=0;i<4;i++)
                 {
-                    var NextCannon = new RectangleShape(Cannon);
-                    Cannons.Add(NextCannon);
+                    var nextCannon = new RectangleShape(cannon);
+                    Cannons.Add(nextCannon);
                 }
 
                 reloadClock = new Clock();
@@ -36,25 +36,25 @@ namespace ASTROMARINES.Characters.Player
 
             public void SetWeaponPosition(Vector2f playerPosition, Vector2f playerDimensions, RenderWindow window)
             {
-                Vector2f CannonOrigin = playerPosition;
-                CannonOrigin += new Vector2f(0, -playerDimensions.Y / 6);
-                Cannons[0].Position = CannonOrigin;
+                Vector2f cannonOrigin = playerPosition;
+                cannonOrigin += new Vector2f(0, -playerDimensions.Y / 6);
+                Cannons[0].Position = cannonOrigin;
 
-                CannonOrigin = playerPosition;
-                CannonOrigin += new Vector2f(playerDimensions.X / 2.8f, -playerDimensions.Y / 3);
-                Cannons[1].Position = CannonOrigin;
+                cannonOrigin = playerPosition;
+                cannonOrigin += new Vector2f(playerDimensions.X / 2.8f, -playerDimensions.Y / 3);
+                Cannons[1].Position = cannonOrigin;
 
-                CannonOrigin = playerPosition;
-                CannonOrigin += new Vector2f(-playerDimensions.X / 3.7f, -playerDimensions.Y / 3.5f);
-                Cannons[2].Position = CannonOrigin;
+                cannonOrigin = playerPosition;
+                cannonOrigin += new Vector2f(-playerDimensions.X / 3.7f, -playerDimensions.Y / 3.5f);
+                Cannons[2].Position = cannonOrigin;
 
-                CannonOrigin = playerPosition;
-                CannonOrigin += new Vector2f(playerDimensions.X / 2.8f, playerDimensions.Y / 3);
-                Cannons[3].Position = CannonOrigin;
+                cannonOrigin = playerPosition;
+                cannonOrigin += new Vector2f(playerDimensions.X / 2.8f, playerDimensions.Y / 3);
+                Cannons[3].Position = cannonOrigin;
 
-                CannonOrigin = playerPosition;
-                CannonOrigin += new Vector2f(-playerDimensions.X / 3.7f, playerDimensions.Y / 3.5f);
-                Cannons[4].Position = CannonOrigin;
+                cannonOrigin = playerPosition;
+                cannonOrigin += new Vector2f(-playerDimensions.X / 3.7f, playerDimensions.Y / 3.5f);
+                Cannons[4].Position = cannonOrigin;
 
                 var angle = CalculateAngle(playerPosition, playerDimensions, window);
                 foreach (var cannon in Cannons)
@@ -65,9 +65,9 @@ namespace ASTROMARINES.Characters.Player
             {
                 float x;
                 float y;
-                var MousePosition = Mouse.GetPosition(window);
-                x = MousePosition.X - playerPosition.X;
-                y = playerPosition.Y - MousePosition.Y - playerDimensions.Y / 6;
+                var mousePosition = Mouse.GetPosition(window);
+                x = mousePosition.X - playerPosition.X;
+                y = playerPosition.Y - mousePosition.Y - playerDimensions.Y / 6;
 
                 return (float)(Math.Atan2(x, y) / (2 * Math.PI)) * 360;
             }
@@ -136,8 +136,6 @@ namespace ASTROMARINES.Characters.Player
                             newBullets.Add(new Bullet(Cannons[4].Position + vector, vector / 2));
                             reloadClock.Restart();
                         }
-                        break;
-                    default:
                         break;
                 }
 

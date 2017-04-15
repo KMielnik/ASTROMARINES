@@ -1,51 +1,51 @@
-﻿using SFML.Graphics;
+﻿using System;
+using SFML.Graphics;
 using SFML.System;
-using System;
 
 namespace ASTROMARINES.Characters
 {
-    class HPBar : IDisposable
+    internal class HpBar : IDisposable
     {
-        RectangleShape HPBarMeter;
-        RectangleShape HPBarBackground;
+        private RectangleShape hpBarMeter;
+        private RectangleShape hpBarBackground;
 
-        public HPBar(Vector2f characterDimensions)
+        public HpBar(Vector2f characterDimensions)
         {
-            HPBarMeter = new RectangleShape();
-            HPBarBackground = new RectangleShape();
+            hpBarMeter = new RectangleShape();
+            hpBarBackground = new RectangleShape();
 
-            HPBarMeter.Size = new Vector2f(characterDimensions.X, 3);
-            HPBarMeter.Origin = new Vector2f(characterDimensions.X / 2, 1.5f);
-            HPBarMeter.FillColor = new Color(Color.Red);
-            HPBarBackground.Size = new Vector2f(characterDimensions.X + 2, 5);
-            HPBarBackground.Origin = new Vector2f(characterDimensions.X / 2 + 1, 2.5f);
-            HPBarBackground.FillColor = new Color(Color.White);
+            hpBarMeter.Size = new Vector2f(characterDimensions.X, 3);
+            hpBarMeter.Origin = new Vector2f(characterDimensions.X / 2, 1.5f);
+            hpBarMeter.FillColor = new Color(Color.Red);
+            hpBarBackground.Size = new Vector2f(characterDimensions.X + 2, 5);
+            hpBarBackground.Origin = new Vector2f(characterDimensions.X / 2 + 1, 2.5f);
+            hpBarBackground.FillColor = new Color(Color.White);
         }
 
-        public void SetHPBarPositon(Vector2f characterPosition, Vector2f characterDimensions)
+        public void SetHpBarPositon(Vector2f characterPosition, Vector2f characterDimensions)
         {
-            var newHPBarPosition = new Vector2f(characterPosition.X,
+            var newHpBarPosition = new Vector2f(characterPosition.X,
                                                 characterPosition.Y + (characterDimensions.Y * 7 / 10));
-            HPBarMeter.Position = newHPBarPosition;
-            HPBarBackground.Position = newHPBarPosition;
+            hpBarMeter.Position = newHpBarPosition;
+            hpBarBackground.Position = newHpBarPosition;
         }
 
         public void Draw(RenderWindow window)
         {
-            window.Draw(HPBarBackground);
-            window.Draw(HPBarMeter);
+            window.Draw(hpBarBackground);
+            window.Draw(hpBarMeter);
         }
 
-        public void UpdateHPBarSize(float HP, float HPMax)
+        public void UpdateHpBarSize(float hp, float hpMax)
         {
-            var newHPBarSize = new Vector2f((HPBarBackground.Size.X - 2) * HP / HPMax, 3);
-            HPBarMeter.Size = newHPBarSize;
+            var newHpBarSize = new Vector2f((hpBarBackground.Size.X - 2) * hp / hpMax, 3);
+            hpBarMeter.Size = newHpBarSize;
         }
 
         public void Dispose()
         {
-            HPBarMeter.Dispose();
-            HPBarBackground.Dispose();
+            hpBarMeter.Dispose();
+            hpBarBackground.Dispose();
         }
     }
 }

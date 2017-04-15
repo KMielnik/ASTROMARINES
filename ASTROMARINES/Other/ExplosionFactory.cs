@@ -1,40 +1,40 @@
-﻿using ASTROMARINES.Properties;
+﻿using System;
+using System.Collections.Generic;
+using ASTROMARINES.Properties;
 using SFML.Graphics;
 using SFML.System;
-using System;
-using System.Collections.Generic;
 
 namespace ASTROMARINES.Other
 {
     public class ExplosionFactory : IDisposable
     {
-        List<Sprite> ExplosionFrames = new List<Sprite>();
-        Texture ExplosionTexture;
+        private List<Sprite> explosionFrames = new List<Sprite>();
+        private Texture explosionTexture;
         public ExplosionFactory()
         {
-            ExplosionTexture = new Texture(Resources.ExplosionSprite);
+            explosionTexture = new Texture(Resources.ExplosionSprite);
 
-            for(int i=0;i<9;i++)
-                for(int j=0;j<9;j++)
+            for(var i=0;i<9;i++)
+                for(var j=0;j<9;j++)
                 {
-                   Sprite explosionFrame = new Sprite(ExplosionTexture);
+                   var explosionFrame = new Sprite(explosionTexture);
                     explosionFrame.Origin = new Vector2f(50, 40);
                     explosionFrame.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
                     explosionFrame.TextureRect = new IntRect(j * 100, i * 100, 100, 100);
-                    ExplosionFrames.Add(explosionFrame);
+                    explosionFrames.Add(explosionFrame);
                 }
         }
 
         public Explosion CreateExplosion(Vector2f position)
         {
-            return new Explosion(position,ExplosionFrames);
+            return new Explosion(position,explosionFrames);
         }
 
         public void Dispose()
         {
-            foreach (var explosionFrame in ExplosionFrames)
+            foreach (var explosionFrame in explosionFrames)
                 explosionFrame.Dispose();
-            ExplosionTexture.Dispose();
+            explosionTexture.Dispose();
         }
     }
 }

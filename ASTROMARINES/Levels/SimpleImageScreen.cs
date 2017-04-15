@@ -1,24 +1,21 @@
-﻿using SFML.Graphics;
+﻿using ASTROMARINES.Other;
+using SFML.Graphics;
 using SFML.System;
-using ASTROMARINES.Properties;
-using ASTROMARINES.Other;
-using System;
 using SFML.Window;
 
 namespace ASTROMARINES.Levels
 {
-    class SimpleImageScreen : ILevel, IDisposable
+    internal class SimpleImageScreen : ILevel
     {
-        Clock clock;
-        Texture texture;
-        Sprite sprite;
+        private Clock clock;
+        private Texture texture;
+        private Sprite sprite;
 
         public SimpleImageScreen(string imageSource)
         {
             clock = new Clock();
             texture = new Texture(imageSource);
             sprite = new Sprite(texture);
-            FloatRect spriteBoundingBox = sprite.GetLocalBounds();
             sprite.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
         }
 

@@ -1,8 +1,8 @@
-﻿using ASTROMARINES.Properties;
+﻿using System;
+using System.Collections.Generic;
+using ASTROMARINES.Properties;
 using SFML.Graphics;
 using SFML.System;
-using System;
-using System.Collections.Generic;
 
 namespace ASTROMARINES.Characters.Enemies
 {
@@ -62,8 +62,8 @@ namespace ASTROMARINES.Characters.Enemies
         public IEnemy CreateRandomEnemy()
         {
             var random = new Random();
-            var EnemyValues = Enum.GetValues(typeof(EnemyTypes));
-            var randomEnemy = (EnemyTypes)EnemyValues.GetValue(random.Next(1, (int)EnemyTypes.Boss - 1));
+            var enemyValues = Enum.GetValues(typeof(EnemyTypes));
+            var randomEnemy = (EnemyTypes)enemyValues.GetValue(random.Next(1, (int)EnemyTypes.Boss - 1));
 
             return CreateEnemy(randomEnemy);
         }

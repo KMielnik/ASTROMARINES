@@ -1,4 +1,4 @@
-﻿namespace ASTROMARINES.Characters.Enemies
+﻿namespace ASTROMARINES.Other
 {
     public enum Directions
     {

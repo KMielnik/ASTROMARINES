@@ -1,22 +1,21 @@
-﻿using ASTROMARINES.Characters.Player;
+﻿using System;
+using System.Collections.Generic;
+using ASTROMARINES.Characters.Player;
 using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
 using SFML.Audio;
 using SFML.Graphics;
-using SFML.Window;
-using System;
-using System.Collections.Generic;
 
 namespace ASTROMARINES.Levels
 {
-    class Game : IDisposable
+    internal class Game : IDisposable
     {
-        IPlayer player;
-        Queue<Tuple<string,string>> levelNamesQueue;
-        ILevel currentLevel;
-        Menu menu;
-        RenderWindow window;
-        Music mainMenuMusic;
+        private IPlayer player;
+        private Queue<Tuple<string,string>> levelNamesQueue;
+        private ILevel currentLevel;
+        private Menu menu;
+        private RenderWindow window;
+        private Music mainMenuMusic;
 
         public Game(RenderWindow window)
         {
@@ -62,13 +61,15 @@ namespace ASTROMARINES.Levels
 
                     if (levelNameAndArg.Item2.Equals("SendPlayerAsArgument"))
                     {
-                        currentLevel = (ILevel)Activator.CreateInstance(levelType, player);
+                        if (levelType != null)
+                            currentLevel = (ILevel) Activator.CreateInstance(levelType, player);
                         if (mainMenuMusic.Status == SoundStatus.Playing)
                             mainMenuMusic.Stop();
                     }
                     else
                     {
-                        currentLevel = (ILevel)Activator.CreateInstance(levelType, levelNameAndArg.Item2);
+                        if (levelType != null)
+                            currentLevel = (ILevel) Activator.CreateInstance(levelType, levelNameAndArg.Item2);
                         if (mainMenuMusic.Status == SoundStatus.Stopped)
                             mainMenuMusic.Play();
                     }

@@ -1,29 +1,28 @@
-﻿using System;
-using SFML.Graphics;
-using ASTROMARINES.Characters.Player;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ASTROMARINES.Characters.Enemies;
+using ASTROMARINES.Characters.Player;
 using ASTROMARINES.Other;
-using SFML.Audio;
-using SFML.System;
 using ASTROMARINES.Properties;
+using SFML.Audio;
+using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 
 namespace ASTROMARINES.Levels
 {
-    class Level2 : ILevel
+    internal class Level2 : ILevel
     {
-        Texture backgroundTexture;
-        Sprite background;
-        IPlayer player;
-        IEnemyFactory enemyFactory;
-        List<IEnemy> enemies;
-        ExplosionFactory explosionFactory;
-        List<Explosion> explosions;
-        Clock levelClock;
-        Music backgroundMusic;
-        MousePointer mousePointer;
-        bool hasLevelEnded;
+        private Texture backgroundTexture;
+        private Sprite background;
+        private IPlayer player;
+        private IEnemyFactory enemyFactory;
+        private List<IEnemy> enemies;
+        private ExplosionFactory explosionFactory;
+        private List<Explosion> explosions;
+        private Clock levelClock;
+        private Music backgroundMusic;
+        private MousePointer mousePointer;
+        private bool hasLevelEnded;
 
         public bool HasLevelEnded { get => hasLevelEnded; private set => hasLevelEnded = value; }
 
@@ -91,9 +90,9 @@ namespace ASTROMARINES.Levels
 
         private void LevelTime()
         {
-            Time levelLength = Time.FromSeconds(7);
-            Time timeLeft = levelLength - levelClock.ElapsedTime;
-            int seconds = (int)timeLeft.AsSeconds();
+            var levelLength = Time.FromSeconds(7);
+            var timeLeft = levelLength - levelClock.ElapsedTime;
+            var seconds = (int)timeLeft.AsSeconds();
             if (seconds < 0)
             {
                 foreach (var enemy in enemies)
@@ -118,7 +117,7 @@ namespace ASTROMARINES.Levels
 
         private void DeleteObjectsSetForDeletion()
         {
-            for (int i = 0; i < enemies.Count; i++)
+            for (var i = 0; i < enemies.Count; i++)
                 if (enemies[i].ShouldBeDeleted)
                 {
                     var newExplosion = explosionFactory.CreateExplosion(enemies[i].Position);
@@ -128,7 +127,7 @@ namespace ASTROMARINES.Levels
                     enemies[i] = null;
                     enemies.RemoveAt(i);
                 }
-            for (int i = 0; i < explosions.Count; i++)
+            for (var i = 0; i < explosions.Count; i++)
                 if (explosions[i].ShouldBeDeleted)
                 {
                     explosions[i].Dispose();
@@ -169,8 +168,9 @@ namespace ASTROMARINES.Levels
                 player.Shoot(window);
         }
 
-        int howMuchEnemiesToCreate = 0;
-        void TryToCreateNewEnemy()
+        private int howMuchEnemiesToCreate;
+
+        private void TryToCreateNewEnemy()
         {
             if (howMuchEnemiesToCreate < 40)
             {

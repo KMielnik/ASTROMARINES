@@ -1,23 +1,23 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using ASTROMARINES.Other;
+using SFML.Graphics;
+using SFML.System;
 
 namespace ASTROMARINES.Characters.Enemies
 {
-    class Enemy1 : ProtoEnemy, IEnemy
+    internal class Enemy1 : ProtoEnemy
     {
-        Directions movementDirection;
+        private Directions movementDirection;
 
-        public Enemy1(Texture enemyTexture) : base()
+        public Enemy1(Texture enemyTexture)
         {
-            dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
-            dimensions.Y = 255 * 0.3f * WindowProperties.ScaleY;
+            Dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
+            Dimensions.Y = 255 * 0.3f * WindowProperties.ScaleY;
 
-            for (int i = 0;i<6;i++)
+            for (var i = 0;i<6;i++)
             {
-                Sprite enemyFrame = new Sprite(enemyTexture);
+                var enemyFrame = new Sprite(enemyTexture);
                 enemyFrame.Origin = new Vector2f(127.5f, 127.5f);
                 enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.ScaleX,
                                                 0.3f * WindowProperties.ScaleY);
@@ -25,13 +25,13 @@ namespace ASTROMARINES.Characters.Enemies
                                                    WindowProperties.WindowHeight / 2);
                 enemyFrame.TextureRect = new IntRect(i * 255, 0, 255, 255);
 
-                enemyFrames.Add(enemyFrame);
+                EnemyFrames.Add(enemyFrame);
             }
 
             DecideStartingPostition();
 
-            HPMax = 1;
-            HP = HPMax;
+            HpMax = 1;
+            Hp = HpMax;
         }
 
         private void DecideStartingPostition()
@@ -47,35 +47,35 @@ namespace ASTROMARINES.Characters.Enemies
             switch (movementDirection)
             {
                 case Directions.Down:
-                    minX = (int)(dimensions.X / 2);
-                    maxX = (int)(WindowProperties.WindowWidth - dimensions.X / 2);
+                    minX = (int)(Dimensions.X / 2);
+                    maxX = (int)(WindowProperties.WindowWidth - Dimensions.X / 2);
                     randomXPosition = random.Next(minX, maxX);
-                    foreach (var enemyFrame in enemyFrames)
-                        enemyFrame.Position = new Vector2f(randomXPosition, 0 - dimensions.Y);
+                    foreach (var enemyFrame in EnemyFrames)
+                        enemyFrame.Position = new Vector2f(randomXPosition, 0 - Dimensions.Y);
                     break;
 
                 case Directions.Up:
-                    minX = (int)(dimensions.X / 2);
-                    maxX = (int)(WindowProperties.WindowWidth - dimensions.X / 2);
+                    minX = (int)(Dimensions.X / 2);
+                    maxX = (int)(WindowProperties.WindowWidth - Dimensions.X / 2);
                     randomXPosition = random.Next(minX, maxX);
-                    foreach (var enemyFrame in enemyFrames)
-                        enemyFrame.Position = new Vector2f(randomXPosition, WindowProperties.WindowHeight + dimensions.Y);
+                    foreach (var enemyFrame in EnemyFrames)
+                        enemyFrame.Position = new Vector2f(randomXPosition, WindowProperties.WindowHeight + Dimensions.Y);
                     break;
 
                 case Directions.Right:
-                    minY = (int)(dimensions.Y / 2);
-                    maxY = (int)(WindowProperties.WindowHeight - dimensions.Y / 2);
+                    minY = (int)(Dimensions.Y / 2);
+                    maxY = (int)(WindowProperties.WindowHeight - Dimensions.Y / 2);
                     randomYPosition = random.Next(minY, maxY);
-                    foreach (var enemyFrame in enemyFrames)
-                        enemyFrame.Position = new Vector2f(0 - dimensions.X, randomYPosition);
+                    foreach (var enemyFrame in EnemyFrames)
+                        enemyFrame.Position = new Vector2f(0 - Dimensions.X, randomYPosition);
                     break;
 
                 case Directions.Left:
-                    minY = (int)(dimensions.Y / 2);
-                    maxY = (int)(WindowProperties.WindowHeight - dimensions.Y / 2);
+                    minY = (int)(Dimensions.Y / 2);
+                    maxY = (int)(WindowProperties.WindowHeight - Dimensions.Y / 2);
                     randomYPosition = random.Next(minY, maxY);
-                    foreach (var enemyFrame in enemyFrames)
-                        enemyFrame.Position = new Vector2f(WindowProperties.WindowWidth + dimensions.X,randomYPosition);
+                    foreach (var enemyFrame in EnemyFrames)
+                        enemyFrame.Position = new Vector2f(WindowProperties.WindowWidth + Dimensions.X,randomYPosition);
                     break;
             }
         }
@@ -90,27 +90,27 @@ namespace ASTROMARINES.Characters.Enemies
             switch (movementDirection)
             {
                 case Directions.Down:
-                    foreach (var enemyFrame in enemyFrames)
+                    foreach (var enemyFrame in EnemyFrames)
                         enemyFrame.Position += new Vector2f(0 * WindowProperties.ScaleX, 10 * WindowProperties.ScaleY);
                     break;
 
                 case Directions.Up:
-                    foreach (var enemyFrame in enemyFrames)
+                    foreach (var enemyFrame in EnemyFrames)
                         enemyFrame.Position += new Vector2f(0 * WindowProperties.ScaleX, -10 * WindowProperties.ScaleY);
                     break;
 
                 case Directions.Right:
-                    foreach (var enemyFrame in enemyFrames)
+                    foreach (var enemyFrame in EnemyFrames)
                         enemyFrame.Position += new Vector2f(10 * WindowProperties.ScaleX, 0 * WindowProperties.ScaleY);
                     break;
 
                 case Directions.Left:
-                    foreach (var enemyFrame in enemyFrames)
+                    foreach (var enemyFrame in EnemyFrames)
                         enemyFrame.Position += new Vector2f(-10 * WindowProperties.ScaleX, 0 * WindowProperties.ScaleY);
                     break;
             }
 
-            foreach (var enemyFrame in enemyFrames)
+            foreach (var enemyFrame in EnemyFrames)
                 enemyFrame.Rotation += 8;
 
             CheckIfFlewOutOfMap();
@@ -119,7 +119,7 @@ namespace ASTROMARINES.Characters.Enemies
         public override void Draw(RenderWindow window)
         {
             var actualAnimationFrame = ActualAnimationFrame();
-            window.Draw(enemyFrames[actualAnimationFrame]);
+            window.Draw(EnemyFrames[actualAnimationFrame]);
         }
     }
 }

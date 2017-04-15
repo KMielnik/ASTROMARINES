@@ -1,56 +1,59 @@
-﻿using SFML.Graphics;
-using SFML.System;
+﻿using System;
 using System.Collections.Generic;
 using ASTROMARINES.Other;
-using System;
-using SFML.Audio;
 using ASTROMARINES.Properties;
+using SFML.Audio;
+using SFML.Graphics;
+using SFML.System;
 
 namespace ASTROMARINES.Characters.Enemies
 {
-    class Boss : IEnemy
+    internal class Boss : IEnemy
     {
-        struct DirectionsVector
+        private struct DirectionsVector
         {
             public Directions X;
             public Directions Y;
             public DirectionsVector(Directions x,Directions y)
             {
-                this.X = x;
-                this.Y = y;
+                X = x;
+                Y = y;
             }
         }
 
-        DirectionsVector movementDirection;
-        Vector2f howMuchBossFliedInOneDirection;
-        float HP;
-        float HPMax;
-        Vector2f dimensions;
-        List<Sprite> bossFrames;
-        List<Sprite> backgroundBossFrames;
-        HPBar hpBar;
-        Clock reloadingClock;
-        Clock animationClock;
-        Clock bossClock;
-        Random random;
-        Music changingAttackSound;
+        private DirectionsVector movementDirection;
+        private Vector2f howMuchBossFliedInOneDirection;
+        private float hp;
+        private float hpMax;
+        private Vector2f dimensions;
+        private List<Sprite> bossFrames;
+        private List<Sprite> backgroundBossFrames;
+        private HpBar hpBar;
+        private Clock reloadingClock;
+        private Clock animationClock;
+        private Clock bossClock;
+        private Random random;
+        private Music changingAttackSound;
 
-        int shootingMethod;
+        private int shootingMethod;
 
-        bool shouldBeDeleted;
+        private bool shouldBeDeleted;
 
         public Boss(Texture bossTexture, Texture backgroundBossTexture)
         {
-            dimensions.X = 512 * 0.7f * WindowProperties.ScaleX;
-            dimensions.Y = 204 * 0.7f * WindowProperties.ScaleY;
+            dimensions = new Vector2f
+            {
+                X = 512 * 0.7f * WindowProperties.ScaleX,
+                Y = 204 * 0.7f * WindowProperties.ScaleY
+            };
 
             bossFrames = new List<Sprite>();
             backgroundBossFrames = new List<Sprite>();
 
-            for (int i = 0; i < 6; i++)
+            for (var i = 0; i < 6; i++)
             {
                 {
-                    Sprite enemyFrame = new Sprite(bossTexture);
+                    var enemyFrame = new Sprite(bossTexture);
                     enemyFrame.Origin = new Vector2f(256f, 192f);
                     enemyFrame.Scale = new Vector2f(0.7f * WindowProperties.ScaleX,
                                                     0.7f * WindowProperties.ScaleY);
@@ -61,7 +64,7 @@ namespace ASTROMARINES.Characters.Enemies
                 }
 
                 {
-                    Sprite backgroundEnemyFrame = new Sprite(backgroundBossTexture);
+                    var backgroundEnemyFrame = new Sprite(backgroundBossTexture);
                     backgroundEnemyFrame.Origin = new Vector2f(500f, 104f);
                     backgroundEnemyFrame.Scale = new Vector2f(0.7f * WindowProperties.ScaleX,
                                                               0.7f * WindowProperties.ScaleY);
@@ -74,7 +77,7 @@ namespace ASTROMARINES.Characters.Enemies
             movementDirection = new DirectionsVector(Directions.Left,
                                                      Directions.Down);
 
-            hpBar = new HPBar(new Vector2f(WindowProperties.WindowWidth / 1.3f,
+            hpBar = new HpBar(new Vector2f(WindowProperties.WindowWidth / 1.3f,
                                            WindowProperties.WindowHeight / 15));
 
             changingAttackSound = new Music(Resources.BossWarpSound);
@@ -89,23 +92,23 @@ namespace ASTROMARINES.Characters.Enemies
             howMuchBossFliedInOneDirection = new Vector2f(WindowProperties.WindowWidth / 4,
                                                           WindowProperties.WindowHeight / 8);
 
-            HPMax = 3000;
-            HP = HPMax;
+            hpMax = 3000;
+            hp = hpMax;
         }
 
         public bool ShouldBeDeleted
         {
             get
             {
-                if (shouldBeDeleted == true)
+                if (shouldBeDeleted)
                     return true;
-                if (HP <= 0)
+                if (hp <= 0)
                     return true;
                 return false;
             }
             set
             {
-                if (value == true)
+                if (value)
                     shouldBeDeleted = true;
             }
         }
@@ -122,14 +125,14 @@ namespace ASTROMARINES.Characters.Enemies
             return actualAnimationFrame;
         }
 
-        public Vector2f Position { get => bossFrames[0].Position; }
+        public Vector2f Position => bossFrames[0].Position;
 
-        public FloatRect BoudingBox { get => bossFrames[0].GetGlobalBounds(); }
+        public FloatRect BoudingBox => bossFrames[0].GetGlobalBounds();
 
         public void Damaged()
         {
-            HP--;
-            hpBar.UpdateHPBarSize(HP, HPMax);
+            hp--;
+            hpBar.UpdateHpBarSize(hp, hpMax);
         }
 
         public void Dispose()
@@ -152,7 +155,7 @@ namespace ASTROMARINES.Characters.Enemies
                                                  WindowProperties.WindowHeight * 10 / 11);
             var healthBarDimensions = new Vector2f(WindowProperties.WindowWidth / 1.3f,
                                                    WindowProperties.WindowHeight / 15);
-            hpBar.SetHPBarPositon(healthBarPosition, healthBarDimensions);
+            hpBar.SetHpBarPositon(healthBarPosition, healthBarDimensions);
             var actualAnimationFrame = ActualAnimationFrame();
             window.Draw(backgroundBossFrames[actualAnimationFrame]);
             window.Draw(bossFrames[actualAnimationFrame]);
@@ -161,7 +164,7 @@ namespace ASTROMARINES.Characters.Enemies
 
         public void Move()
         {
-            Vector2f movement = new Vector2f();
+            var movement = new Vector2f();
 
             if(movementDirection.X == Directions.Left)
             {
@@ -219,7 +222,7 @@ namespace ASTROMARINES.Characters.Enemies
             }
         }
 
-        public void Shoot(List<Bullet> EnemiesBullets)
+        public void Shoot(List<Bullet> enemiesBullets)
         {
             if ((int)bossClock.ElapsedTime.AsSeconds() % 7 == 0)
             {
@@ -230,7 +233,7 @@ namespace ASTROMARINES.Characters.Enemies
                 foreach (var bossFrame in bossFrames)
                     bossFrame.Position = backgroundBossFrames[0].Position;
 
-                int newShootingMethod = shootingMethod;
+                var newShootingMethod = shootingMethod;
                 while (newShootingMethod == shootingMethod)
                     newShootingMethod = random.Next(0, 2);
                 shootingMethod = newShootingMethod;
@@ -240,16 +243,14 @@ namespace ASTROMARINES.Characters.Enemies
                 switch (shootingMethod)
                 {
                     case 0:
-                        ShootBulletsFromTwister(EnemiesBullets);
+                        ShootBulletsFromTwister(enemiesBullets);
                         break;
                     case 1:
-                        ShootRandomBulletsBellow(EnemiesBullets);
+                        ShootRandomBulletsBellow(enemiesBullets);
                         break;
                     case 2:
                         break;
                     case 3:
-                        break;
-                    default:
                         break;
                 }
             }
@@ -278,16 +279,16 @@ namespace ASTROMARINES.Characters.Enemies
                 bossFrame.Position = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
         }
 
-        private void ShootRandomBulletsBellow(List<Bullet> EnemiesBullets)
+        private void ShootRandomBulletsBellow(List<Bullet> enemiesBullets)
         {
             if (reloadingClock.ElapsedTime.AsMilliseconds() > 200)
             {
-                for (int i = 0; i <= 8; i++)
+                for (var i = 0; i <= 8; i++)
                 {
                     var vector = new Vector2f(random.Next(-6, 6), random.Next(2, 4));
                     vector.X *= WindowProperties.ScaleX;
                     vector.Y *= WindowProperties.ScaleY;
-                    EnemiesBullets.Add(new Bullet(Position, vector));
+                    enemiesBullets.Add(new Bullet(Position, vector));
                 }
 
                 reloadingClock.Restart();

@@ -1,40 +1,40 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using SFML.Graphics;
+using SFML.System;
 
 namespace ASTROMARINES.Other
 {
     public class Explosion :IDisposable
     {
-        int ActualFrame;
-        List<Sprite> ExplosionFrames;
-        public bool ShouldBeDeleted { get => ActualFrame >= (ExplosionFrames.Count - 1); }
+        private int actualFrame;
+        private List<Sprite> explosionFrames;
+        public bool ShouldBeDeleted => actualFrame >= (explosionFrames.Count - 1);
 
         public Explosion(Vector2f position, List<Sprite> explosionFrames)
         {
-            ActualFrame = 0;
-            ExplosionFrames = new List<Sprite>();
+            actualFrame = 0;
+            this.explosionFrames = new List<Sprite>();
             foreach (var explosionFrame in explosionFrames)
-                ExplosionFrames.Add(new Sprite(explosionFrame));
+                this.explosionFrames.Add(new Sprite(explosionFrame));
 
-            foreach (var explosionFrame in ExplosionFrames)
+            foreach (var explosionFrame in this.explosionFrames)
                 explosionFrame.Position = position;
         }
 
         public void SetExplosionScale(float scale)
         {
-            foreach (var explosionFrame in ExplosionFrames)
+            foreach (var explosionFrame in explosionFrames)
                 explosionFrame.Scale *= scale;
         }
 
         public void Draw(RenderWindow window)
         {
-            if (ActualFrame >= ExplosionFrames.Count - 1)
-                window.Draw(ExplosionFrames[ExplosionFrames.Count - 1]);
+            if (actualFrame >= explosionFrames.Count - 1)
+                window.Draw(explosionFrames[explosionFrames.Count - 1]);
             else
-            window.Draw(ExplosionFrames[ActualFrame]);
-            ActualFrame++;
+            window.Draw(explosionFrames[actualFrame]);
+            actualFrame++;
         }
 
         public void Dispose()

@@ -1,62 +1,62 @@
-﻿using SFML.Graphics;
-using SFML.System;
+﻿using System;
 using System.Collections.Generic;
-using System;
 using ASTROMARINES.Other;
+using SFML.Graphics;
+using SFML.System;
 
 namespace ASTROMARINES.Characters.Enemies
 {
-    abstract class ProtoEnemy : IEnemy
+    internal abstract class ProtoEnemy : IEnemy
     {
-        protected float HP;
-        protected float HPMax;
-        protected Vector2f dimensions;
-        protected List<Sprite> enemyFrames;
-        protected HPBar hpBar;
-        protected Clock reloadingClock;
-        protected Clock animationClock;
-        protected bool shouldBeDeleted;
+        protected float Hp;
+        protected float HpMax;
+        protected Vector2f Dimensions;
+        protected List<Sprite> EnemyFrames;
+        protected HpBar HpBar;
+        protected Clock ReloadingClock;
+        protected Clock AnimationClock;
+        private bool shouldBeDeleted;
 
         public ProtoEnemy()
         {
-            enemyFrames = new List<Sprite>();
-            reloadingClock = new Clock();
-            animationClock = new Clock();
-            hpBar = new HPBar(dimensions);
+            EnemyFrames = new List<Sprite>();
+            ReloadingClock = new Clock();
+            AnimationClock = new Clock();
+            HpBar = new HpBar(Dimensions);
         }
 
         public bool ShouldBeDeleted
         {
             get
             {
-                if (shouldBeDeleted == true)
+                if (shouldBeDeleted)
                     return true;
-                if (HP <= 0)
+                if (Hp <= 0)
                     return true;
                 return false;
             }
             set
             {
-                if (value == true)
+                if (value)
                     shouldBeDeleted = true;
             }
         }
 
-        public Vector2f Position { get => enemyFrames[0].Position; }
+        public Vector2f Position => EnemyFrames[0].Position;
 
-        public FloatRect BoudingBox { get => enemyFrames[0].GetGlobalBounds(); }
+        public FloatRect BoudingBox => EnemyFrames[0].GetGlobalBounds();
 
         protected void CheckIfFlewOutOfMap()
         {
-            bool FlewOutOfLeftSide = Position.X < 2*(-dimensions.X * WindowProperties.ScaleX);
-            bool FlewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + 2*(dimensions.X * WindowProperties.ScaleX));
-            bool FlewOutOfTheTop = Position.Y < 2*(-dimensions.Y * WindowProperties.ScaleY);
-            bool FlewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + 2*(dimensions.Y * WindowProperties.ScaleY));
+            var flewOutOfLeftSide = Position.X < 2*(-Dimensions.X * WindowProperties.ScaleX);
+            var flewOutOfRightSide = Position.X > (WindowProperties.WindowWidth + 2*(Dimensions.X * WindowProperties.ScaleX));
+            var flewOutOfTheTop = Position.Y < 2*(-Dimensions.Y * WindowProperties.ScaleY);
+            var flewOutOfTheBottom = Position.Y > (WindowProperties.WindowHeight + 2*(Dimensions.Y * WindowProperties.ScaleY));
 
-            if (FlewOutOfLeftSide ||
-                FlewOutOfRightSide ||
-                FlewOutOfTheBottom ||
-                FlewOutOfTheTop)
+            if (flewOutOfLeftSide ||
+                flewOutOfRightSide ||
+                flewOutOfTheBottom ||
+                flewOutOfTheTop)
             {
                 shouldBeDeleted = true;
             }
@@ -64,33 +64,33 @@ namespace ASTROMARINES.Characters.Enemies
 
         protected int ActualAnimationFrame()
         {
-            var timeFromLastAnimationRestart = animationClock.ElapsedTime.AsSeconds();
+            var timeFromLastAnimationRestart = AnimationClock.ElapsedTime.AsSeconds();
             var actualAnimationFrame = (int)(timeFromLastAnimationRestart * 5);                //new frame every 0.1 second
-            if(actualAnimationFrame >= enemyFrames.Count)
+            if(actualAnimationFrame >= EnemyFrames.Count)
             {
                 actualAnimationFrame = 0;
-                animationClock.Restart();
+                AnimationClock.Restart();
             }
             return actualAnimationFrame;
         }
 
         protected Vector2f RandomHorizontalPosition()
         {
-            Random random = new Random();
-            var minX = (int)(dimensions.X / 2);
-            var maxX = (int)(WindowProperties.WindowWidth - (dimensions.X / 2));
-            var newPosition = new Vector2f((float)random.Next(minX, maxX), 0 - dimensions.Y);
+            var random = new Random();
+            var minX = (int)(Dimensions.X / 2);
+            var maxX = (int)(WindowProperties.WindowWidth - (Dimensions.X / 2));
+            var newPosition = new Vector2f(random.Next(minX, maxX), 0 - Dimensions.Y);
             return newPosition;
         }
 
-        public virtual void Shoot(List<Bullet> EnemiesBullets)
+        public virtual void Shoot(List<Bullet> enemiesBullets)
         {
             throw new NotImplementedException();
         }
 
         public virtual void Move()
         {
-            foreach(var enemyFrame in enemyFrames)
+            foreach(var enemyFrame in EnemyFrames)
             {
                 var moveVector = new Vector2f(0, 1 * WindowProperties.ScaleY);
                 enemyFrame.Position += moveVector;
@@ -100,25 +100,25 @@ namespace ASTROMARINES.Characters.Enemies
 
         public virtual void Draw(RenderWindow window)
         {
-            hpBar.SetHPBarPositon(Position, dimensions);
+            HpBar.SetHpBarPositon(Position, Dimensions);
             var actualAnimationFrame = ActualAnimationFrame();
-            window.Draw(enemyFrames[actualAnimationFrame]);
-            hpBar.Draw(window);
+            window.Draw(EnemyFrames[actualAnimationFrame]);
+            HpBar.Draw(window);
         }
 
         public void Damaged()
         {
-            HP--;
-            hpBar.UpdateHPBarSize(HP, HPMax);
+            Hp--;
+            HpBar.UpdateHpBarSize(Hp, HpMax);
         }
 
         public void Dispose()
         {
-            foreach(var enemyFrame in enemyFrames)
+            foreach(var enemyFrame in EnemyFrames)
                 enemyFrame.Dispose();
-            hpBar.Dispose();
-            reloadingClock.Dispose();
-            animationClock.Dispose();
+            HpBar.Dispose();
+            ReloadingClock.Dispose();
+            AnimationClock.Dispose();
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using SFML.Graphics;
-using System;
+﻿using System;
+using SFML.Graphics;
 
 namespace ASTROMARINES.Levels
 {
-    interface ILevel: IDisposable
+    internal interface ILevel: IDisposable
     {
         void LevelLogic(RenderWindow window);
         void Draw(RenderWindow window);

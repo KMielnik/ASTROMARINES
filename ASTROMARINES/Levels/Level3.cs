@@ -1,4 +1,6 @@
-﻿using ASTROMARINES.Characters.Enemies;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using ASTROMARINES.Characters.Enemies;
 using ASTROMARINES.Characters.Player;
 using ASTROMARINES.Other;
 using ASTROMARINES.Properties;
@@ -6,26 +8,25 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using System.Collections.Generic;
 
 namespace ASTROMARINES.Levels
 {
-    class Level3 : ILevel
+    internal class Level3 : ILevel
     {
-        Texture backgroundTexture;
-        Sprite background;
-        IPlayer player;
-        IEnemyFactory enemyFactory;
-        List<IEnemy> enemies;
-        List<Bullet> enemyBullets;
-        ExplosionFactory explosionFactory;
-        List<Explosion> explosions;
-        Clock levelClock;
-        Font digitalClockFont;
-        Text digitalClock;
-        Music backgroundMusic;
-        MousePointer mousePointer;
-        bool hasLevelEnded;
+        private Texture backgroundTexture;
+        private Sprite background;
+        private IPlayer player;
+        private IEnemyFactory enemyFactory;
+        private List<IEnemy> enemies;
+        private List<Bullet> enemyBullets;
+        private ExplosionFactory explosionFactory;
+        private List<Explosion> explosions;
+        private Clock levelClock;
+        private Font digitalClockFont;
+        private Text digitalClock;
+        private Music backgroundMusic;
+        private MousePointer mousePointer;
+        private bool hasLevelEnded;
 
         public bool HasLevelEnded { get => hasLevelEnded; private set => hasLevelEnded = value; }
 
@@ -104,11 +105,11 @@ namespace ASTROMARINES.Levels
 
         private void LevelTime()
         {
-            Time levelLength = Time.FromSeconds(30);
-            Time timeLeft = levelLength - levelClock.ElapsedTime;
-            int seconds = (int)timeLeft.AsSeconds();
-            string miliseconds = (timeLeft.AsSeconds() - seconds).ToString();
-            string timeToBeDisplayed = seconds.ToString() + '.' + miliseconds[2];
+            var levelLength = Time.FromSeconds(30);
+            var timeLeft = levelLength - levelClock.ElapsedTime;
+            var seconds = (int)timeLeft.AsSeconds();
+            var miliseconds = (timeLeft.AsSeconds() - seconds).ToString(CultureInfo.InvariantCulture);
+            var timeToBeDisplayed = seconds.ToString() + '.' + miliseconds[2];
             digitalClock.DisplayedString = timeToBeDisplayed;
             if (seconds <= 0 && miliseconds[2] == '.')
             {
@@ -143,7 +144,7 @@ namespace ASTROMARINES.Levels
 
         private void DeleteObjectsSetForDeletion()
         {
-            for (int i = 0; i < enemies.Count; i++)
+            for (var i = 0; i < enemies.Count; i++)
                 if (enemies[i].ShouldBeDeleted)
                 {
                     var newExplosion = explosionFactory.CreateExplosion(enemies[i].Position);
@@ -153,14 +154,14 @@ namespace ASTROMARINES.Levels
                     enemies[i] = null;
                     enemies.RemoveAt(i);
                 }
-            for (int i = 0; i < enemyBullets.Count; i++)
+            for (var i = 0; i < enemyBullets.Count; i++)
                 if (enemyBullets[i].ShouldBeDeleted)
                 {
                     enemyBullets[i].Dispose();
                     enemyBullets[i] = null;
                     enemyBullets.RemoveAt(i);
                 }
-            for (int i = 0; i < explosions.Count; i++)
+            for (var i = 0; i < explosions.Count; i++)
                 if (explosions[i].ShouldBeDeleted)
                 {
                     explosions[i].Dispose();
@@ -210,8 +211,9 @@ namespace ASTROMARINES.Levels
                 player.Shoot(window);
         }
 
-        int howMuchEnemiesToCreate = 0;
-        void TryToCreateNewEnemy()
+        private int howMuchEnemiesToCreate;
+
+        private void TryToCreateNewEnemy()
         {
             if (howMuchEnemiesToCreate < 4)
             {

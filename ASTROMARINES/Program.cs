@@ -1,35 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Window;
+﻿using ASTROMARINES.Levels;
 using SFML.Graphics;
-using SFML.System;
-using SFML.Audio;
-using ASTROMARINES.Characters.Enemies;
-using System.Threading;
-using ASTROMARINES.Properties;
-using ASTROMARINES.Levels;
-using ASTROMARINES.Other;
+using SFML.Window;
 
 namespace ASTROMARINES
 {
     public class Program
     {
-        public static RenderWindow window;
+        public static RenderWindow Window;
 
-        static void Main(string[] args)
+        private static void Main()
         {
-            window = new RenderWindow(new VideoMode(1500, 880), "dsada");
-            window.KeyPressed += Window_KeyPressed;
-            window.Closed += (s, a) => window.Close();
+            Window = new RenderWindow(new VideoMode(1500, 880), "dsada");
+            Window.KeyPressed += Window_KeyPressed;
+            Window.Closed += (s, a) => Window.Close();
 
-            Game game = new Game(window);
+            var game = new Game(Window);
             
-            while(window.IsOpen)
+            while(Window.IsOpen)
             {
-                window.DispatchEvents();
+                Window.DispatchEvents();
                 game.Run();
             }
 
@@ -40,7 +29,7 @@ namespace ASTROMARINES
         {
             if(e.Code == Keyboard.Key.Escape)
             {
-                window.Close();
+                Window.Close();
             }
         }
     }
