@@ -30,13 +30,13 @@ namespace AstroMarinesTests
             //act
             do
             {
-                explosion.DrawExplosion(window);                         //drawing... 
+                explosion.Draw(window);                         //drawing... 
             } while (explosion.ShouldBeDeleted.Equals(false));           //as long as it has animation frames
 
             //assert
             try
             {
-                explosion.DrawExplosion(window);                         //if this doesn't throw exception
+                explosion.Draw(window);                         //if this doesn't throw exception
                 Assert.Fail();                                           //it should fail
             }
             catch (System.ArgumentOutOfRangeException ex) { }
