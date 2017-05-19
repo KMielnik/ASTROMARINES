@@ -4,21 +4,21 @@ using SFML.Window;
 
 namespace ASTROMARINES
 {
-    public class Program
+    public static class Program
     {
-        public static RenderWindow Window;
+        private static RenderWindow window;
 
         private static void Main()
         {
-            Window = new RenderWindow(new VideoMode(1500, 880), "dsada");
-            Window.KeyPressed += Window_KeyPressed;
-            Window.Closed += (s, a) => Window.Close();
+            window = new RenderWindow(new VideoMode(1500, 880), "ASTROMARINES");
+            window.KeyPressed += Window_KeyPressed;
+            window.Closed += (s, a) => window.Close();
 
-            var game = new Game(Window);
+            var game = new Game(ref window);
             
-            while(Window.IsOpen)
+            while(window.IsOpen)
             {
-                Window.DispatchEvents();
+                window.DispatchEvents();
                 game.Run();
             }
 
@@ -29,7 +29,7 @@ namespace ASTROMARINES
         {
             if(e.Code == Keyboard.Key.Escape)
             {
-                Window.Close();
+                window.Close();
             }
         }
     }

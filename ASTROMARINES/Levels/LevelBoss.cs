@@ -91,7 +91,7 @@ namespace ASTROMARINES.Levels
             window.Display();
         }
 
-        public void LevelLogic(RenderWindow window)
+        public void LevelLogic(ref RenderWindow window)
         {
             ControlPlayer(window);
             MoveThoseWhoShallBeMoved();

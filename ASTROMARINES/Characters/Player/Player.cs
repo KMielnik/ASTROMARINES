@@ -33,7 +33,7 @@ namespace ASTROMARINES.Characters.Player
             playerSprite.Position = new Vector2f(WindowProperties.WindowWidth / 2,
                                                  WindowProperties.WindowHeight - dimensions.Y);
             playerLevel = new PlayerLevel();
-            playerLevel = PlayerLevel.Level3;
+            playerLevel = PlayerLevel.Level1;
 
             weapon = new Weapon();
             hpBar = new HpBar(dimensions);

@@ -17,7 +17,7 @@ namespace ASTROMARINES.Levels
         private RenderWindow window;
         private Music mainMenuMusic;
 
-        public Game(RenderWindow window)
+        public Game(ref RenderWindow window)
         {
             WindowProperties.WindowWidth = window.Size.X;
             WindowProperties.WindowHeight = window.Size.Y;
@@ -77,7 +77,7 @@ namespace ASTROMARINES.Levels
             }
             else
             {
-                currentLevel.LevelLogic(window);
+                currentLevel.LevelLogic(ref window);
                 currentLevel.Draw(window);
             }
             
