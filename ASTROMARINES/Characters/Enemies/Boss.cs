@@ -226,16 +226,17 @@ namespace ASTROMARINES.Characters.Enemies
         {
             if ((int)bossClock.ElapsedTime.AsSeconds() % 7 == 0)
             {
-                if ((int)bossClock.ElapsedTime.AsSeconds() != 0)
-                    if (changingAttackSound.Status != SoundStatus.Playing)
-                        changingAttackSound.Play();
+                if (changingAttackSound.Status != SoundStatus.Playing)
+                    changingAttackSound.Play();
 
                 foreach (var bossFrame in bossFrames)
+                {
                     bossFrame.Position = backgroundBossFrames[0].Position;
-
+                    bossFrame.Color = Color.Red;
+                }
                 var newShootingMethod = shootingMethod;
                 while (newShootingMethod == shootingMethod)
-                    newShootingMethod = random.Next(0, 2);
+                    newShootingMethod = random.Next(1, 3);
                 shootingMethod = newShootingMethod;
             }
             else
@@ -249,9 +250,15 @@ namespace ASTROMARINES.Characters.Enemies
                         ShootRandomBulletsBellow(enemiesBullets);
                         break;
                     case 2:
+                        ShootBulletsToSides(enemiesBullets);
                         break;
                     case 3:
                         break;
+                }
+
+                foreach (var bossFrame in bossFrames)
+                {
+                    bossFrame.Color = Color.White;
                 }
             }
 
@@ -293,6 +300,26 @@ namespace ASTROMARINES.Characters.Enemies
 
                 reloadingClock.Restart();
             }
+        }
+
+        private void ShootBulletsToSides(List<Bullet> enemiesBullets)
+        {
+            if (reloadingClock.ElapsedTime.AsMilliseconds() > 20)
+            {
+                for (float x = 1.5f; x < 5; x += 0.4f)
+                {
+                    var y = (float)(Math.Cos(bossClock.ElapsedTime.AsMilliseconds() % 10000.0 / 700 * Math.PI * 4) * 3);
+
+                    var centerOfTheScreen = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
+
+                    enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(x, y)));
+                    enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(-x, -y)));
+                }
+                reloadingClock.Restart();
+            }
+
+            foreach (var bossFrame in bossFrames)
+                bossFrame.Position = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
         }
     }
 }
