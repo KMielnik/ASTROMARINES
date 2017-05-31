@@ -31,10 +31,9 @@ namespace ASTROMARINES.Levels
 
         public void LevelLogic(ref RenderWindow window)
         {
-
+            window.Close();
             
             window = new RenderWindow(new VideoMode(1920, 1080), "ASTROMARINES - FULL SCREEN", Styles.Fullscreen);
-            System.GC.Collect();
             window.SetActive();
             WindowProperties.WindowWidth = 1920;
             WindowProperties.WindowHeight = 1080;
