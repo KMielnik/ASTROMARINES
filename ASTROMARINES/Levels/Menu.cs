@@ -8,7 +8,7 @@ using SFML.Window;
 
 namespace ASTROMARINES.Levels
 {
-    internal partial class Menu : IDisposable
+    class Menu : IDisposable
     {
         private MousePointer mousePointer;
         private Texture backgroundTexture;
@@ -21,12 +21,14 @@ namespace ASTROMARINES.Levels
             backgroundTexture = new Texture(Resources.MenuBG);
             background = new Sprite(backgroundTexture);
             background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
-            buttons = new List<Button>();
-
-            buttons.Add(new Button("START",       new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 22 / 50f)));
-            buttons.Add(new Button("HOW TO PLAY", new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 28 / 50f)));
-            buttons.Add(new Button("CREDITS",     new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 34 / 50f)));
-            buttons.Add(new Button("EXIT",        new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 40 / 50f)));
+            buttons = new List<Button>
+            {
+                new Button("START",         new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 20 / 50f)),
+                new Button("HOW TO PLAY",   new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 26 / 50f)),
+                new Button("SETTINGS",      new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 32 / 50f)),
+                new Button("CREDITS",       new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 38 / 50f)),
+                new Button("EXIT",          new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 44 / 50f))
+            };
         }
 
         /// <summary>
@@ -59,7 +61,7 @@ namespace ASTROMARINES.Levels
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "thanks to all those powerups"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you have EVOLVED"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you will need those new powers"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "good luck!"));
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "RIGHT NOW"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("Level3", "SendPlayerAsArgument"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you found him"));
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "your final enemy"));
@@ -72,6 +74,9 @@ namespace ASTROMARINES.Levels
 
                             case "HOW TO PLAY":
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.HowToPlayBG));
+                                break;
+                            case "SETTINGS":
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("Settings", ""));
                                 break;
 
                             case "CREDITS":
