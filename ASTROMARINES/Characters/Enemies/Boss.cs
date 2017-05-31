@@ -268,9 +268,6 @@ namespace ASTROMARINES.Characters.Enemies
                     bossFrame.Color = Color.White;
                 }
             }
-
-
-
         }
         
         private void ShootRandomBulletsBellow(List<Bullet> enemiesBullets)
