@@ -30,7 +30,7 @@ namespace ASTROMARINES.Levels
         public Button(string desiredText, Vector2f position)
         {
             button = new RectangleShape();
-            button.Size = new Vector2f(WindowProperties.WindowWidth / 4, WindowProperties.WindowHeight / 12);
+            button.Size = new Vector2f(WindowProperties.WindowWidth / 3, WindowProperties.WindowHeight / 12);
             button.FillColor = new Color(Color.White);
             button.OutlineColor = new Color(Color.Black);
             button.OutlineThickness = 5;
@@ -43,6 +43,18 @@ namespace ASTROMARINES.Levels
                 Color = new Color(Color.Black),
                 CharacterSize = (uint)(button.Size.Y / 1.3f)
             };
+            var textBoundingBox = text.GetLocalBounds();
+            text.Origin = new Vector2f(textBoundingBox.Left + textBoundingBox.Width / 2,
+                                       textBoundingBox.Top + textBoundingBox.Height / 2);
+            text.Position = button.Position;
+        }
+
+        public void SetPosition(Vector2f position)
+        {
+            button.Position = position;
+            button.Origin = button.Size / 2;
+            button.Size = new Vector2f(WindowProperties.WindowWidth / 3, WindowProperties.WindowHeight / 12);
+            text.CharacterSize = (uint)(button.Size.Y / 1.3f);
             var textBoundingBox = text.GetLocalBounds();
             text.Origin = new Vector2f(textBoundingBox.Left + textBoundingBox.Width / 2,
                                        textBoundingBox.Top + textBoundingBox.Height / 2);

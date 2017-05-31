@@ -25,7 +25,7 @@ namespace ASTROMARINES.Levels
             {
                 new Button("START",         new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 20 / 50f)),
                 new Button("HOW TO PLAY",   new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 26 / 50f)),
-                new Button("SETTINGS",      new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 32 / 50f)),
+                new Button("GRAPHICS",      new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 32 / 50f)),
                 new Button("CREDITS",       new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 38 / 50f)),
                 new Button("EXIT",          new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 44 / 50f))
             };
@@ -75,8 +75,8 @@ namespace ASTROMARINES.Levels
                             case "HOW TO PLAY":
                                 levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.HowToPlayBG));
                                 break;
-                            case "SETTINGS":
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("Settings", ""));
+                            case "GRAPHICS":
+                                levelNamesQueue.Enqueue(new Tuple<string, string>("GraphicsSettings", ""));
                                 break;
 
                             case "CREDITS":
@@ -92,10 +92,17 @@ namespace ASTROMARINES.Levels
             return levelNamesQueue;
         }
 
+        public void ResetToNewResolution()
+        {
+            background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
+            for(int i=0;i<buttons.Count;i++)
+                buttons[i].SetPosition(new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * (20 + 6 * i) / 50f));
+            mousePointer = new MousePointer();
+        }
+
         public void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
-
             window.Draw(background);
             foreach (var button in buttons)
                 button.Draw(window);

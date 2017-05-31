@@ -316,7 +316,6 @@ namespace ASTROMARINES.Characters.Enemies
                     var centerOfTheScreen = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
 
                     enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(x, y)));
-                   // enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(-x, -y)));
                 }
                 reloadingClock.Restart();
             }

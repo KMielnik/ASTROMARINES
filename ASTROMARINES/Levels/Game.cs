@@ -20,15 +20,15 @@ namespace ASTROMARINES.Levels
 
         public Game()
         {
-            window = new RenderWindow(new VideoMode(1500, 880), "ASTROMARINES");
+            window = new RenderWindow(VideoMode.DesktopMode, "ASTROMARINES", Styles.Fullscreen);
             window.KeyPressed += Window_KeyPressed;
             window.Closed += (s, a) => window.Close();
-
-            WindowProperties.WindowWidth = window.Size.X;
-            WindowProperties.WindowHeight = window.Size.Y;
             window.SetFramerateLimit(60);
             window.SetMouseCursorVisible(false);
             window.SetVerticalSyncEnabled(true);
+
+            WindowProperties.WindowWidth = window.Size.X;
+            WindowProperties.WindowHeight = window.Size.Y;
 
             player = new Player();
             currentLevel = new SimpleImageScreen(Resources.TitleBG);
@@ -53,6 +53,7 @@ namespace ASTROMARINES.Levels
         {
             if (currentLevel.HasLevelEnded)
             {
+                menu.ResetToNewResolution();
                 if (levelNamesQueue.Count == 0)
                 {
                     if (mainMenuMusic.Status == SoundStatus.Stopped)
