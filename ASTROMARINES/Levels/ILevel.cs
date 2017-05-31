@@ -5,7 +5,7 @@ namespace ASTROMARINES.Levels
 {
     internal interface ILevel: IDisposable
     {
-        void LevelLogic(RenderWindow window);
+        void LevelLogic(ref RenderWindow window);
         void Draw(RenderWindow window);
         bool HasLevelEnded { get; }
     }

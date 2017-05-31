@@ -1,20 +1,21 @@
 ﻿using ASTROMARINES.Other;
+using ASTROMARINES.Properties;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
 namespace ASTROMARINES.Levels
 {
-    internal class SimpleImageScreen : ILevel
+    internal class Settings : ILevel
     {
         private Clock clock;
         private Texture texture;
         private Sprite sprite;
 
-        public SimpleImageScreen(string imageSource)
+        public Settings(string nonUsed)
         {
             clock = new Clock();
-            texture = new Texture(imageSource);
+            texture = new Texture(Resources.MenuBG);
             sprite = new Sprite(texture);
             sprite.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
         }
@@ -30,9 +31,18 @@ namespace ASTROMARINES.Levels
 
         public void LevelLogic(ref RenderWindow window)
         {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && clock.ElapsedTime.AsMilliseconds() > 100)
-                HasLevelEnded = true;
+            window.Close();
+            
+            window = new RenderWindow(new VideoMode(1920, 1080), "ASTROMARINES - FULL SCREEN", Styles.Fullscreen);
+            window.SetActive();
+            WindowProperties.WindowWidth = 1920;
+            WindowProperties.WindowHeight = 1080;
+            window.SetFramerateLimit(60);
+            window.SetMouseCursorVisible(false);
+            window.SetVerticalSyncEnabled(true);
+            HasLevelEnded = true;
             Mouse.SetPosition(new Vector2i((int)WindowProperties.WindowWidth / 2, (int)WindowProperties.WindowHeight / 2), window);
+            
         }
 
         public void Dispose()

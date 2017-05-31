@@ -97,8 +97,9 @@
     <Compile Include="Levels\Level2.cs" />
     <Compile Include="Levels\Level3.cs" />
     <Compile Include="Levels\LevelBoss.cs" />
-    <Compile Include="Levels\Menu.Button.cs" />
+    <Compile Include="Levels\Button.cs" />
     <Compile Include="Levels\Menu.cs" />
+    <Compile Include="Levels\Settings.cs" />
     <Compile Include="Levels\SimpleImageScreen.cs" />
     <Compile Include="Levels\SimpleTextScreen.cs" />
     <Compile Include="Other\Directions.cs" />
