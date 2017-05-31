@@ -236,7 +236,7 @@ namespace ASTROMARINES.Characters.Enemies
                 }
                 var newShootingMethod = shootingMethod;
                 while (newShootingMethod == shootingMethod)
-                    newShootingMethod = random.Next(1, 3);
+                    newShootingMethod = random.Next(0, 6);
                 shootingMethod = newShootingMethod;
             }
             else
@@ -244,15 +244,22 @@ namespace ASTROMARINES.Characters.Enemies
                 switch (shootingMethod)
                 {
                     case 0:
-                        ShootBulletsFromTwister(enemiesBullets);
+                        ShootBulletsFromThinTwister(enemiesBullets);
                         break;
                     case 1:
-                        ShootRandomBulletsBellow(enemiesBullets);
+                        ShootBulletsFromFatTwister(enemiesBullets);
                         break;
                     case 2:
-                        ShootBulletsToSides(enemiesBullets);
+                        ShootRandomBulletsBellow(enemiesBullets);
                         break;
                     case 3:
+                        ShootBulletsToSides(enemiesBullets);
+                        break;
+                    case 4:
+                        ShootArchsInRandomDirection(enemiesBullets);
+                        break;
+                    case 5:
+                        ShootBulletsInCirclePatternFromAbove(enemiesBullets);
                         break;
                 }
 
@@ -265,27 +272,7 @@ namespace ASTROMARINES.Characters.Enemies
 
 
         }
-
-        private void ShootBulletsFromTwister(List<Bullet> enemiesBullets)
-        {
-            if (reloadingClock.ElapsedTime.AsMilliseconds() > 20)
-            {
-
-                var x = (float)(Math.Sin(bossClock.ElapsedTime.AsMilliseconds() % 10000.0 / 10000 * Math.PI * 4) * 4);
-                var y = (float)(Math.Cos(bossClock.ElapsedTime.AsMilliseconds() % 10000.0 / 10000 * Math.PI * 4) * 4);
-
-                var centerOfTheScreen = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
-
-                enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(x, y)));
-                enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(-x, -y)));
-
-                reloadingClock.Restart();
-            }
-
-            foreach (var bossFrame in bossFrames)
-                bossFrame.Position = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
-        }
-
+        
         private void ShootRandomBulletsBellow(List<Bullet> enemiesBullets)
         {
             if (reloadingClock.ElapsedTime.AsMilliseconds() > 200)
@@ -317,7 +304,85 @@ namespace ASTROMARINES.Characters.Enemies
                 }
                 reloadingClock.Restart();
             }
+            SetBossInCenter();
+        }
 
+        private void ShootBulletsFromThinTwister(List<Bullet> enemiesBullets)
+        {
+            if (reloadingClock.ElapsedTime.AsMilliseconds() > 20)
+            {
+                for (int i = bossClock.ElapsedTime.AsMilliseconds() - 5000; i < bossClock.ElapsedTime.AsMilliseconds() + 5000; i += 1000)
+                {
+                    var x = (float)(Math.Sin(i % 10000.0 / 10000 * Math.PI * 4) * 4);
+                    var y = (float)(Math.Cos(i % 10000.0 / 10000 * Math.PI * 4) * 4);
+
+                    var centerOfTheScreen = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
+
+                    enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(x, y)));
+                   // enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(-x, -y)));
+                }
+                reloadingClock.Restart();
+            }
+            SetBossInCenter();
+        }
+
+        private void ShootBulletsFromFatTwister(List<Bullet> enemiesBullets)
+        {
+            if (reloadingClock.ElapsedTime.AsMilliseconds() > 30)
+            {
+                for (int i = bossClock.ElapsedTime.AsMilliseconds() - 400; i < bossClock.ElapsedTime.AsMilliseconds() + 400; i += 80)
+                {
+                    var x = (float)(Math.Sin(i % 10000.0 / 10000 * Math.PI * 4) * 4);
+                    var y = (float)(Math.Cos(i % 10000.0 / 10000 * Math.PI * 4) * 4);
+
+                    var centerOfTheScreen = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
+
+                    enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(x, y)));
+                    enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(-x, -y)));
+                }
+                reloadingClock.Restart();
+            }
+            SetBossInCenter();
+        }
+
+        private void ShootBulletsInCirclePatternFromAbove(List<Bullet> enemiesBullets)
+        {
+            if (reloadingClock.ElapsedTime.AsMilliseconds() > 300)
+            {
+                for (int i = bossClock.ElapsedTime.AsMilliseconds() - 3000; i < bossClock.ElapsedTime.AsMilliseconds() + 3000; i += 500)
+                {
+                    var x = (float)(Math.Sin(i % 10000.0 / 10000 * Math.PI * 4) * 3);
+                    var y = (float)(Math.Cos(i % 10000.0 / 10000 * Math.PI * 4) * 3);
+
+                    var centerOfTheScreen = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
+
+                    enemiesBullets.Add(new Bullet(Position, new Vector2f(x, y)));
+                }
+                reloadingClock.Restart();
+            }
+        }
+
+        private void ShootArchsInRandomDirection(List<Bullet> enemiesBullets)
+        {
+            if (reloadingClock.ElapsedTime.AsMilliseconds() > 300)
+            {
+                int randomDirection = random.Next(10000);
+                for (int i = randomDirection - 500; i < randomDirection + 500; i += 40)
+                {
+                    var x = (float)(Math.Sin(i % 10000.0 / 10000 * Math.PI * 4) * 4);
+                    var y = (float)(Math.Cos(i % 10000.0 / 10000 * Math.PI * 4) * 4);
+
+                    var centerOfTheScreen = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
+
+                    enemiesBullets.Add(new Bullet(centerOfTheScreen, new Vector2f(x, y)));
+                }
+                reloadingClock.Restart();
+            }
+            SetBossInCenter();
+        }
+
+        private void SetBossInCenter()
+        {
             foreach (var bossFrame in bossFrames)
                 bossFrame.Position = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
         }
