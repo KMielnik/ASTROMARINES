@@ -211,18 +211,18 @@ namespace ASTROMARINES.Levels
                 player.Shoot(window);
         }
 
-        private int howMuchEnemiesToCreate;
+        private int enemiesCreated;
 
         private void TryToCreateNewEnemy()
         {
-            if (howMuchEnemiesToCreate < 4)
+            if (enemiesCreated < 4)
             {
                 enemies.Add(enemyFactory.CreateEnemy(EnemyTypes.Enemy3));
-                howMuchEnemiesToCreate++;
+                enemiesCreated++;
             }
             if (enemyFactory.IsNewEnemyAvalible())
             {
-                howMuchEnemiesToCreate = 0;
+                enemiesCreated = 0;
             }
         }
     }
