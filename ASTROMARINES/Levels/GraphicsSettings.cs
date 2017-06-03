@@ -90,23 +90,23 @@ namespace ASTROMARINES.Levels
 
 
                             case "Windowed 1920x1080":
-                                window = new RenderWindow(new VideoMode(1920, 1080), "ASTROMARINES - FULL SCREEN", Styles.None);
+                                window = new RenderWindow(new VideoMode(1920, 1080), "ASTROMARINES", Styles.None);
                                 break;
 
                             case "Windowed 1366x768":
-                                window = new RenderWindow(new VideoMode(1366, 768), "ASTROMARINES - FULL SCREEN", Styles.Close);
+                                window = new RenderWindow(new VideoMode(1366, 768), "ASTROMARINES", Styles.Close);
                                 break;
 
                             case "Windowed 1280x720":
-                                window = new RenderWindow(new VideoMode(1280, 720), "ASTROMARINES - FULL SCREEN", Styles.Close);
+                                window = new RenderWindow(new VideoMode(1280, 720), "ASTROMARINES", Styles.Close);
                                 break;
 
                             case "Windowed 1280x800":
-                                window = new RenderWindow(new VideoMode(1280, 800), "ASTROMARINES - FULL SCREEN", Styles.Close);
+                                window = new RenderWindow(new VideoMode(1280, 800), "ASTROMARINES", Styles.Close);
                                 break;
 
                             case "Windowed 1024x600":
-                                window = new RenderWindow(new VideoMode(1024, 600), "ASTROMARINES - FULL SCREEN", Styles.Close);
+                                window = new RenderWindow(new VideoMode(1024, 600), "ASTROMARINES", Styles.Close);
                                 break;
                         }
 

@@ -116,8 +116,6 @@ namespace ASTROMARINES.Levels
                 digitalClock.DisplayedString = "END";
                 foreach (var enemy in enemies)
                     enemy.ShouldBeDeleted = true;
-                foreach (var enemyBullet in enemyBullets)
-                    enemyBullet.ShouldBeDeleted = true;
             }
             if (seconds <= -5)
             {
