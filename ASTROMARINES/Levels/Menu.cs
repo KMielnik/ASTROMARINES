@@ -36,9 +36,9 @@ namespace ASTROMARINES.Levels
         /// levelQueue, if not choosen returns empty queue to give another frame in menu
         /// </summary>
         /// <returns></returns>
-        public Queue<Tuple<string, string>> MenuLogic(RenderWindow window)
+        public Queue<(string name, string arg)> MenuLogic(RenderWindow window)
         {
-            var levelNamesQueue = new Queue<Tuple<string, string>>();
+            var levelNamesQueue = new Queue<(string name, string arg)>();
 
             var mousePosition = Mouse.GetPosition(window);
 
@@ -52,35 +52,35 @@ namespace ASTROMARINES.Levels
                         switch (button.Label)
                         {
                             case "START":
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "your journey begins"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "estimated travel time to the next level: 60 seconds"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level1", "SendPlayerAsArgument"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "INCOMING!"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "from EVERY SIDE!"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level2", "SendPlayerAsArgument"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "thanks to all those powerups"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you have EVOLVED"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you will need those new powers"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "RIGHT NOW"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("Level3", "SendPlayerAsArgument"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you found him"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "your final enemy"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "THE TRASH BOSS"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("LevelBoss", "SendPlayerAsArgument"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you did it!"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "you saved THE UNIVERSE!"));
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleTextScreen", "Congratulations!"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "your journey begins"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "estimated travel time to the next level: 60 seconds"));
+                                levelNamesQueue.Enqueue((name: "Level1"          , arg: "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "INCOMING!"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "from EVERY SIDE!"));
+                                levelNamesQueue.Enqueue((name: "Level2"          , arg: "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "thanks to all those powerups"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "you have EVOLVED"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "you will need those new powers"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "RIGHT NOW"));
+                                levelNamesQueue.Enqueue((name: "Level3"          , arg: "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "you found him"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "your final enemy"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "THE TRASH BOSS"));
+                                levelNamesQueue.Enqueue((name: "LevelBoss"       , arg: "SendPlayerAsArgument"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "you did it!"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "you saved THE UNIVERSE!"));
+                                levelNamesQueue.Enqueue((name: "SimpleTextScreen", arg: "Congratulations!"));
                                 break;
 
                             case "HOW TO PLAY":
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.HowToPlayBG));
+                                levelNamesQueue.Enqueue((name: "SimpleImageScreen",arg:  Resources.HowToPlayBG));
                                 break;
                             case "GRAPHICS":
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("GraphicsSettings", ""));
+                                levelNamesQueue.Enqueue((name: "GraphicsSettings" ,arg: ""));
                                 break;
 
                             case "CREDITS":
-                                levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.CreditsBG));
+                                levelNamesQueue.Enqueue((name: "SimpleImageScreen",arg:  Resources.CreditsBG));
                                 break;
 
                             case "EXIT":

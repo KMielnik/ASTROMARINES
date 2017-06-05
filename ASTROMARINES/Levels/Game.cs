@@ -12,7 +12,7 @@ namespace ASTROMARINES.Levels
     internal class Game : IDisposable
     {
         private IPlayer player;
-        private Queue<Tuple<string, string>> levelNamesQueue;
+        private Queue<(string name, string arg)> levelNamesQueue;
         private ILevel currentLevel;
         private Menu menu;
         private RenderWindow window;
@@ -32,8 +32,8 @@ namespace ASTROMARINES.Levels
 
             player = new Player();
             currentLevel = new SimpleImageScreen(Resources.TitleBG);
-            levelNamesQueue = new Queue<Tuple<string, string>>();
-            levelNamesQueue.Enqueue(new Tuple<string, string>("SimpleImageScreen", Resources.PlotBG));
+            levelNamesQueue = new Queue<(string name, string arg)>();
+            levelNamesQueue.Enqueue((name: "SimpleImageScreen", arg: Resources.PlotBG));
             menu = new Menu();
 
             mainMenuMusic = new Music(Resources.MenuBGMusic);
@@ -69,10 +69,10 @@ namespace ASTROMARINES.Levels
                 else
                 {
                     currentLevel.Dispose();
-                    var levelNameAndArg = levelNamesQueue.Dequeue();
-                    var levelType = Type.GetType($"ASTROMARINES.Levels.{levelNameAndArg.Item1}");
+                    var (levelName,levelArg) = levelNamesQueue.Dequeue();
+                    var levelType = Type.GetType($"ASTROMARINES.Levels.{levelName}");
 
-                    if (levelNameAndArg.Item2.Equals("SendPlayerAsArgument"))
+                    if (levelArg.Equals("SendPlayerAsArgument"))
                     {
                         if (levelType != null)
                             currentLevel = (ILevel)Activator.CreateInstance(levelType, player);
@@ -82,7 +82,7 @@ namespace ASTROMARINES.Levels
                     else
                     {
                         if (levelType != null)
-                            currentLevel = (ILevel)Activator.CreateInstance(levelType, levelNameAndArg.Item2);
+                            currentLevel = (ILevel)Activator.CreateInstance(levelType, levelArg);
                         if (mainMenuMusic.Status == SoundStatus.Stopped)
                             mainMenuMusic.Play();
                     }
