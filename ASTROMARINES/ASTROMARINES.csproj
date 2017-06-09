@@ -75,7 +75,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="sfmlnet-audio-2, Version=2.2.0.0, Culture=neutral, processorArchitecture=AMD64">
@@ -208,7 +208,6 @@
     <None Include="assets\sfx\boss1SpecialSFX.ogg" />
     <None Include="assets\sfx\enemiesWonSFX.ogg" />
     <None Include="assets\sfx\explosion.ogg" />
-    <None Include="ASTROMARINES_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
