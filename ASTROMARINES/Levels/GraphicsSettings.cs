@@ -123,9 +123,6 @@ namespace ASTROMARINES.Levels
                     }
                 }
             }
-
-            
-            
         }
 
         private void Window_KeyPressed(object sender, KeyEventArgs e)

@@ -61,5 +61,4 @@ namespace ASTROMARINES.Levels
             text.Position = button.Position;
         }
     }
-
 }
