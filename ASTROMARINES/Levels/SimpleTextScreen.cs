@@ -8,41 +8,41 @@ namespace ASTROMARINES.Levels
 {
     internal class SimpleTextScreen : ILevel
     {
-        private Clock clock;
-        private Font font;
-        private Text text;
+        private readonly Clock _clock;
+        private readonly Font _font;
+        private readonly Text _text;
 
         public SimpleTextScreen(string displayedText)
         {
-            clock = new Clock();
-            font = new Font(Resources.FontMainGameFont);
-            text = new Text(displayedText, font);
-            var textBoundingBox = text.GetLocalBounds();
-            text.Origin = new Vector2f(textBoundingBox.Left + textBoundingBox.Width / 2,
+            _clock = new Clock();
+            _font = new Font(Resources.FontMainGameFont);
+            _text = new Text(displayedText, _font);
+            var textBoundingBox = _text.GetLocalBounds();
+            _text.Origin = new Vector2f(textBoundingBox.Left + textBoundingBox.Width / 2,
                                        textBoundingBox.Top + textBoundingBox.Height / 2);
-            text.Position = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
-            text.Color = new Color(Color.White);
+            _text.Position = new Vector2f(WindowProperties.WindowWidth / 2, WindowProperties.WindowHeight / 2);
+            _text.Color = new Color(Color.White);
         }
 
         public bool HasLevelEnded { get; private set; }
 
         public void Dispose()
         {
-            font.Dispose();
-            text.Dispose();
-            clock.Dispose();
+            _font.Dispose();
+            _text.Dispose();
+            _clock.Dispose();
         }
 
         public void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
-            window.Draw(text);
+            window.Draw(_text);
             window.Display();
         }
 
         public void LevelLogic(ref RenderWindow window)
         {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && clock.ElapsedTime.AsMilliseconds() > 100)
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && _clock.ElapsedTime.AsMilliseconds() > 200)
                 HasLevelEnded = true;
             Mouse.SetPosition(new Vector2i((int)WindowProperties.WindowWidth / 2, (int)WindowProperties.WindowHeight / 2), window);
         }

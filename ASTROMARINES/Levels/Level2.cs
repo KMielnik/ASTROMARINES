@@ -12,68 +12,67 @@ namespace ASTROMARINES.Levels
 {
     internal class Level2 : ILevel
     {
-        private Texture backgroundTexture;
-        private Sprite background;
-        private IPlayer player;
-        private IEnemyFactory enemyFactory;
-        private List<IEnemy> enemies;
-        private ExplosionFactory explosionFactory;
-        private List<Explosion> explosions;
-        private Clock levelClock;
-        private Music backgroundMusic;
-        private MousePointer mousePointer;
-        private bool hasLevelEnded;
+        private readonly Texture _backgroundTexture;
+        private readonly Sprite _background;
+        private readonly IPlayer _player;
+        private readonly IEnemyFactory _enemyFactory;
+        private readonly List<IEnemy> _enemies;
+        private readonly ExplosionFactory _explosionFactory;
+        private readonly List<Explosion> _explosions;
+        private readonly Clock _levelClock;
+        private readonly Music _backgroundMusic;
+        private readonly MousePointer _mousePointer;
 
-        public bool HasLevelEnded { get => hasLevelEnded; private set => hasLevelEnded = value; }
+        public bool HasLevelEnded { get; private set; }
 
         public Level2(IPlayer player)
         {
-            backgroundTexture = new Texture(Resources.LevelBG);
-            background = new Sprite(backgroundTexture);
-            background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
+            _backgroundTexture = new Texture(Resources.LevelBG);
+            _background = new Sprite(_backgroundTexture);
+            _background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
 
-            this.player = player;
+            _player = player;
 
-            mousePointer = new MousePointer();
+            _mousePointer = new MousePointer();
 
-            enemyFactory = new EnemyFactory();
-            enemies = new List<IEnemy>();
-            explosionFactory = new ExplosionFactory();
-            explosions = new List<Explosion>();
-            levelClock = new Clock();
+            _enemyFactory = new EnemyFactory();
+            _enemies = new List<IEnemy>();
+            _explosionFactory = new ExplosionFactory();
+            _explosions = new List<Explosion>();
+            _levelClock = new Clock();
 
-            backgroundMusic = new Music(Resources.LevelBGMusic);
-            backgroundMusic.Loop = true;
-            backgroundMusic.Play();
+            _backgroundMusic = new Music(Resources.LevelBGMusic);
+            _backgroundMusic.Loop = true;
+            _backgroundMusic.Play();
         }
 
         public void Dispose()
         {
             HasLevelEnded = true;
 
-            backgroundTexture.Dispose();
-            background.Dispose();
-            enemyFactory.Dispose();
-            foreach (var enemy in enemies)
+            _backgroundTexture.Dispose();
+            _background.Dispose();
+            _enemyFactory.Dispose();
+            foreach (var enemy in _enemies)
                 enemy.Dispose();
-            explosionFactory.Dispose();
-            levelClock.Dispose();
-            mousePointer.Dispose();
-            backgroundMusic.Stop();
-            backgroundMusic.Dispose();
+            _explosionFactory.Dispose();
+            _levelClock.Dispose();
+            _mousePointer.Dispose();
+            _backgroundMusic.Stop();
+            _backgroundMusic.Dispose();
         }
 
         public void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
 
-            window.Draw(background);
-            foreach (var enemy in enemies)
+            window.Draw(_background);
+            foreach (var enemy in _enemies)
                 enemy.Draw(window);
-            player.Draw(window);
-            foreach (var explosion in explosions)
+            _player.Draw(window);
+            foreach (var explosion in _explosions)
                 explosion.Draw(window);
-            mousePointer.Draw(window);
+            _mousePointer.Draw(window);
 
             window.Display();
         }
@@ -91,25 +90,25 @@ namespace ASTROMARINES.Levels
         private void LevelTime()
         {
             var levelLength = Time.FromSeconds(7);
-            var timeLeft = levelLength - levelClock.ElapsedTime;
+            var timeLeft = levelLength - _levelClock.ElapsedTime;
             var seconds = (int)timeLeft.AsSeconds();
             if (seconds < 0)
             {
-                foreach (var enemy in enemies)
+                foreach (var enemy in _enemies)
                     enemy.ShouldBeDeleted = true;
             }
             if (seconds <= -2)
             {
                 HasLevelEnded = true;
-                backgroundMusic.Stop();
+                _backgroundMusic.Stop();
             }
         }
 
         private void MoveThoseWhoShallBeMoved()
         {
-            player.Move();
+            _player.Move();
 
-            foreach (var enemy in enemies)
+            foreach (var enemy in _enemies)
             {
                 enemy.Move();
             }
@@ -117,37 +116,37 @@ namespace ASTROMARINES.Levels
 
         private void DeleteObjectsSetForDeletion()
         {
-            for (var i = 0; i < enemies.Count; i++)
-                if (enemies[i].ShouldBeDeleted)
+            for (var i = 0; i < _enemies.Count; i++)
+                if (_enemies[i].ShouldBeDeleted)
                 {
-                    var newExplosion = explosionFactory.CreateExplosion(enemies[i].Position);
-                    explosions.Add(newExplosion);
+                    var newExplosion = _explosionFactory.CreateExplosion(_enemies[i].Position);
+                    _explosions.Add(newExplosion);
 
-                    enemies[i].Dispose();
-                    enemies[i] = null;
-                    enemies.RemoveAt(i);
+                    _enemies[i].Dispose();
+                    _enemies[i] = null;
+                    _enemies.RemoveAt(i);
                 }
-            for (var i = 0; i < explosions.Count; i++)
-                if (explosions[i].ShouldBeDeleted)
+            for (var i = 0; i < _explosions.Count; i++)
+                if (_explosions[i].ShouldBeDeleted)
                 {
-                    explosions[i].Dispose();
-                    explosions[i] = null;
-                    explosions.RemoveAt(i);
+                    _explosions[i].Dispose();
+                    _explosions[i] = null;
+                    _explosions.RemoveAt(i);
                 }
         }
 
         private void CheckDamage()
         {
-            foreach (var enemy in enemies)
+            foreach (var enemy in _enemies)
             {
-                if (player.BoundingBox.Intersects(enemy.BoudingBox))
-                    player.Damaged();
+                if (_player.BoundingBox.Intersects(enemy.BoudingBox))
+                    _player.Damaged();
 
-                foreach (var playerBullet in player.Bullets)
+                foreach (var playerBullet in _player.Bullets)
                     if (enemy.BoudingBox.Contains(playerBullet.Position.X, playerBullet.Position.Y))
                     {
                         if (enemy.GetType() == typeof(Enemy1))
-                            player.LevelUp();
+                            _player.LevelUp();
                         enemy.Damaged();
                         playerBullet.ShouldBeDeleted = true;
                     }
@@ -157,27 +156,27 @@ namespace ASTROMARINES.Levels
         private void ControlPlayer(RenderWindow window)
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.A))
-                player.AccelerateLeft();
+                _player.AccelerateLeft();
             if (Keyboard.IsKeyPressed(Keyboard.Key.D))
-                player.AccelerateRight();
+                _player.AccelerateRight();
             if (Keyboard.IsKeyPressed(Keyboard.Key.W))
-                player.AccelerateUp();
+                _player.AccelerateUp();
             if (Keyboard.IsKeyPressed(Keyboard.Key.S))
-                player.AccelerateDown();
+                _player.AccelerateDown();
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-                player.Shoot(window);
+                _player.Shoot(window);
         }
 
-        private int howMuchEnemiesToCreate;
+        private int _howMuchEnemiesToCreate;
 
         private void TryToCreateNewEnemy()
         {
-            if (howMuchEnemiesToCreate < 40)
+            if (_howMuchEnemiesToCreate < 40)
             {
-                if (enemyFactory.IsNewEnemyAvalible())
+                if (_enemyFactory.IsNewEnemyAvalible())
                 {
-                    enemies.Add(enemyFactory.CreateEnemy(EnemyTypes.PowerUp));
-                    howMuchEnemiesToCreate++;
+                    _enemies.Add(_enemyFactory.CreateEnemy(EnemyTypes.PowerUp));
+                    _howMuchEnemiesToCreate++;
                 }
             }
         }

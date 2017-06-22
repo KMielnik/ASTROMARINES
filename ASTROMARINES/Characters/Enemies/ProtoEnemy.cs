@@ -15,7 +15,7 @@ namespace ASTROMARINES.Characters.Enemies
         protected HpBar HpBar;
         protected Clock ReloadingClock;
         protected Clock AnimationClock;
-        private bool shouldBeDeleted;
+        private bool _shouldBeDeleted;
 
         public ProtoEnemy()
         {
@@ -29,7 +29,7 @@ namespace ASTROMARINES.Characters.Enemies
         {
             get
             {
-                if (shouldBeDeleted)
+                if (_shouldBeDeleted)
                     return true;
                 if (Hp <= 0)
                     return true;
@@ -38,7 +38,7 @@ namespace ASTROMARINES.Characters.Enemies
             set
             {
                 if (value)
-                    shouldBeDeleted = true;
+                    _shouldBeDeleted = true;
             }
         }
 
@@ -58,7 +58,7 @@ namespace ASTROMARINES.Characters.Enemies
                 flewOutOfTheBottom ||
                 flewOutOfTheTop)
             {
-                shouldBeDeleted = true;
+                _shouldBeDeleted = true;
             }
         }
 

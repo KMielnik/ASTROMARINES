@@ -7,27 +7,26 @@ namespace ASTROMARINES.Other
     public class Bullet : IDisposable
     {
         public Vector2f Position { get; private set; }
-        private Vector2f vector;
-        private static CircleShape bulletForDrawing;
-        private bool shouldBeDeleted;
+        private readonly Vector2f _vector;
+        private static readonly CircleShape BulletForDrawing;
 
         static Bullet()
         {
-            bulletForDrawing = new CircleShape(3);
-            bulletForDrawing.Origin = new Vector2f(3, 3);
+            BulletForDrawing = new CircleShape(3);
+            BulletForDrawing.Origin = new Vector2f(3, 3);
         }
 
         public Bullet(Vector2f position, Vector2f vector)
         {
             Position = position;
-            this.vector = vector;
+            _vector = vector;
         }
 
-        public bool ShouldBeDeleted { get => shouldBeDeleted; set => shouldBeDeleted = value; }
+        public bool ShouldBeDeleted { get; set; }
 
         public void Move()
         {
-            Position += vector;
+            Position += _vector;
             CheckIfFlewOutOfMap();
         }
 
@@ -49,16 +48,16 @@ namespace ASTROMARINES.Other
 
         public void Draw(RenderWindow window)
         {
-            bulletForDrawing.Position = Position;
-            bulletForDrawing.FillColor = Color.White;
-            window.Draw(bulletForDrawing);
+            BulletForDrawing.Position = Position;
+            BulletForDrawing.FillColor = Color.White;
+            window.Draw(BulletForDrawing);
         }
 
         public void Draw(RenderWindow window, Color color)
         {
-            bulletForDrawing.Position = Position;
-            bulletForDrawing.FillColor = color;
-            window.Draw(bulletForDrawing);
+            BulletForDrawing.Position = Position;
+            BulletForDrawing.FillColor = color;
+            window.Draw(BulletForDrawing);
         }
 
         public void Dispose()

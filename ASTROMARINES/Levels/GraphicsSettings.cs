@@ -10,21 +10,22 @@ namespace ASTROMARINES.Levels
 {
     internal class GraphicsSettings : ILevel
     {
-        private Clock clock;
-        private MousePointer mousePointer;
-        private Texture backgroundTexture;
-        private Sprite background;
-        private List<Button> buttons;
+        private readonly Clock _clock;
+        private readonly MousePointer _mousePointer;
+        private readonly Texture _backgroundTexture;
+        private readonly Sprite _background;
+        private readonly List<Button> _buttons;
 
+        // ReSharper disable once UnusedParameter.Local
         public GraphicsSettings(string nonUsed)
         {
-            clock = new Clock();
-            mousePointer = new MousePointer();
-            backgroundTexture = new Texture(Resources.MenuBG);
-            background = new Sprite(backgroundTexture);
-            background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
+            _clock = new Clock();
+            _mousePointer = new MousePointer();
+            _backgroundTexture = new Texture(Resources.MenuBG);
+            _background = new Sprite(_backgroundTexture);
+            _background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
 
-            buttons = new List<Button>
+            _buttons = new List<Button>
             {
                 new Button("1920x1080", new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 20 / 50f)),
                 new Button("1366x768",  new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 26 / 50f)),
@@ -45,10 +46,10 @@ namespace ASTROMARINES.Levels
         public void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
-            window.Draw(background);
-            foreach (var button in buttons)
+            window.Draw(_background);
+            foreach (var button in _buttons)
                 button.Draw(window);
-            mousePointer.Draw(window);
+            _mousePointer.Draw(window);
             window.Display();
         }
 
@@ -56,13 +57,13 @@ namespace ASTROMARINES.Levels
         {
             var mousePosition = Mouse.GetPosition(window);
 
-            mousePointer.HoversOverItemOff();
-            foreach (var button in buttons)
+            _mousePointer.HoversOverItemOff();
+            foreach (var button in _buttons)
             {
                 if (button.BoundingBox.Contains(mousePosition.X, mousePosition.Y))
                 {
-                    mousePointer.HoversOverItemOn();
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left) && clock.ElapsedTime.AsMilliseconds() > 100)
+                    _mousePointer.HoversOverItemOn();
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left) && _clock.ElapsedTime.AsMilliseconds() > 100)
                     {
                         window.Close();
 
@@ -138,9 +139,9 @@ namespace ASTROMARINES.Levels
 
         public void Dispose()
         {
-            clock.Dispose();
-            backgroundTexture.Dispose();
-            background.Dispose();
+            _clock.Dispose();
+            _backgroundTexture.Dispose();
+            _background.Dispose();
         }
     }
 }

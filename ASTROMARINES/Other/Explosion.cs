@@ -7,34 +7,34 @@ namespace ASTROMARINES.Other
 {
     public class Explosion :IDisposable
     {
-        private int actualFrame;
-        private List<Sprite> explosionFrames;
-        public bool ShouldBeDeleted => actualFrame >= (explosionFrames.Count - 1);
+        private int _actualFrame;
+        private readonly List<Sprite> _explosionFrames;
+        public bool ShouldBeDeleted => _actualFrame >= (_explosionFrames.Count - 1);
 
         public Explosion(Vector2f position, List<Sprite> explosionFrames)
         {
-            actualFrame = 0;
-            this.explosionFrames = new List<Sprite>();
+            _actualFrame = 0;
+            _explosionFrames = new List<Sprite>();
             foreach (var explosionFrame in explosionFrames)
-                this.explosionFrames.Add(new Sprite(explosionFrame));
+                _explosionFrames.Add(new Sprite(explosionFrame));
 
-            foreach (var explosionFrame in this.explosionFrames)
+            foreach (var explosionFrame in _explosionFrames)
                 explosionFrame.Position = position;
         }
 
         public void SetExplosionScale(float scale)
         {
-            foreach (var explosionFrame in explosionFrames)
+            foreach (var explosionFrame in _explosionFrames)
                 explosionFrame.Scale *= scale;
         }
 
         public void Draw(RenderWindow window)
         {
-            if (actualFrame >= explosionFrames.Count - 1)
-                window.Draw(explosionFrames[explosionFrames.Count - 1]);
+            if (_actualFrame >= _explosionFrames.Count - 1)
+                window.Draw(_explosionFrames[_explosionFrames.Count - 1]);
             else
-            window.Draw(explosionFrames[actualFrame]);
-            actualFrame++;
+            window.Draw(_explosionFrames[_actualFrame]);
+            _actualFrame++;
         }
 
         public void Dispose()

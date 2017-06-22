@@ -20,7 +20,7 @@ namespace AstroMarinesTests
 
             var vector = new Vector2f(0, 0);
 
-            Bullet[] bullets = new Bullet[5];
+            var bullets = new Bullet[5];
 
             for (var i = 0; i < positions.Length; i++)
             {

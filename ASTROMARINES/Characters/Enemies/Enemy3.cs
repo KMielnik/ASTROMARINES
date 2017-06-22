@@ -7,7 +7,7 @@ namespace ASTROMARINES.Characters.Enemies
 {
     internal class Enemy3 : ProtoEnemy
     {
-        private Cannons cannons;
+        private readonly Cannons _cannons;
         public Enemy3(Texture enemyTexture)
         {
             Dimensions.X = 255 * 0.3f * WindowProperties.ScaleX;
@@ -27,7 +27,7 @@ namespace ASTROMARINES.Characters.Enemies
 
             HpBar = new HpBar(Dimensions);
 
-            cannons = new Cannons(Position, Dimensions);
+            _cannons = new Cannons(Position, Dimensions);
 
             HpMax = 12;
             Hp = HpMax;
@@ -39,37 +39,37 @@ namespace ASTROMARINES.Characters.Enemies
             {
                 Bullet bullet;
 
-                cannons.CalibrateCannons(Position, Dimensions);
+                _cannons.CalibrateCannons(Position, Dimensions);
 
-                switch (cannons.ActualCannon)
+                switch (_cannons.ActualCannon)
                 {
                     case 1:
-                        bullet = new Bullet(cannons.Cannon1.Position, cannons.Cannon1.BulletVector);
+                        bullet = new Bullet(_cannons.Cannon1.Position, _cannons.Cannon1.BulletVector);
                         enemiesBullets.Add(bullet);
                         break;
 
                     case 2:
-                        bullet = new Bullet(cannons.Cannon2.Position, cannons.Cannon2.BulletVector);
+                        bullet = new Bullet(_cannons.Cannon2.Position, _cannons.Cannon2.BulletVector);
                         enemiesBullets.Add(bullet);
                         break;
 
                     case 3:
-                        bullet = new Bullet(cannons.Cannon3.Position, cannons.Cannon3.BulletVector);
+                        bullet = new Bullet(_cannons.Cannon3.Position, _cannons.Cannon3.BulletVector);
                         enemiesBullets.Add(bullet);
                         break;
 
                     case 4:
-                        bullet = new Bullet(cannons.Cannon4.Position, cannons.Cannon4.BulletVector);
+                        bullet = new Bullet(_cannons.Cannon4.Position, _cannons.Cannon4.BulletVector);
                         enemiesBullets.Add(bullet);
                         break;
 
                     case 5:
-                        bullet = new Bullet(cannons.Cannon5.Position, cannons.Cannon5.BulletVector);
+                        bullet = new Bullet(_cannons.Cannon5.Position, _cannons.Cannon5.BulletVector);
                         enemiesBullets.Add(bullet);
                         break;
 
                     case 6:
-                        bullet = new Bullet(cannons.Cannon6.Position, cannons.Cannon6.BulletVector);
+                        bullet = new Bullet(_cannons.Cannon6.Position, _cannons.Cannon6.BulletVector);
                         enemiesBullets.Add(bullet);
                         break;
                 }
@@ -83,7 +83,7 @@ namespace ASTROMARINES.Characters.Enemies
             public struct Cannon
             {
                 public Vector2f Position;
-                public Vector2f BulletVector;
+                public readonly Vector2f BulletVector;
                 public Cannon(Vector2f position, Vector2f bulletVector)
                 {
                     Position = position;
@@ -98,15 +98,15 @@ namespace ASTROMARINES.Characters.Enemies
             public Cannon Cannon5;
             public Cannon Cannon6;
 
-            private float cannonCounter;
+            private float _cannonCounter;
             public int ActualCannon
             {
                 get
                 {
-                    cannonCounter += 0.1f;
-                    if (cannonCounter > 7)
-                        cannonCounter = 1.0f;
-                    return (int)(cannonCounter);
+                    _cannonCounter += 0.1f;
+                    if (_cannonCounter > 7)
+                        _cannonCounter = 1.0f;
+                    return (int)(_cannonCounter);
                 }
             }
 
@@ -115,7 +115,7 @@ namespace ASTROMARINES.Characters.Enemies
                 Vector2f cannonPosition;
                 Vector2f bulletVector;
 
-                cannonCounter = 1.0f;
+                _cannonCounter = 1.0f;
 
                 //Cannon1
                 cannonPosition = new Vector2f(enemyPosition.X + enemyDimensions.X / 3,

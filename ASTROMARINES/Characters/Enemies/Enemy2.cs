@@ -57,8 +57,8 @@ namespace ASTROMARINES.Characters.Enemies
         {
             public struct Cannon
             {
-                public Vector2f Position;
-                public Vector2f BulletVector;
+                public readonly Vector2f Position;
+                public readonly Vector2f BulletVector;
                 public Cannon(Vector2f position, Vector2f bulletVector)
                 {
                     Position = position;

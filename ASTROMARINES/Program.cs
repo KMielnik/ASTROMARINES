@@ -1,6 +1,4 @@
 ﻿using ASTROMARINES.Levels;
-using SFML.Graphics;
-using SFML.Window;
 
 namespace ASTROMARINES
 {

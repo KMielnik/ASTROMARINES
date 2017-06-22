@@ -8,7 +8,7 @@ namespace ASTROMARINES.Characters.Enemies
 {
     internal class Enemy1 : ProtoEnemy
     {
-        private Directions movementDirection;
+        private Directions _movementDirection;
 
         public Enemy1(Texture enemyTexture)
         {
@@ -37,14 +37,14 @@ namespace ASTROMARINES.Characters.Enemies
         private void DecideStartingPostition()
         {
             var random = new Random();
-            movementDirection = (Directions)random.Next(0, 4);
+            _movementDirection = (Directions)random.Next(0, 4);
             int minX;
             int maxX;
             int minY;
             int maxY;
             int randomXPosition;
             int randomYPosition;
-            switch (movementDirection)
+            switch (_movementDirection)
             {
                 case Directions.Down:
                     minX = (int)(Dimensions.X / 2);
@@ -87,7 +87,7 @@ namespace ASTROMARINES.Characters.Enemies
 
         public override void Move()
         {
-            switch (movementDirection)
+            switch (_movementDirection)
             {
                 case Directions.Down:
                     foreach (var enemyFrame in EnemyFrames)

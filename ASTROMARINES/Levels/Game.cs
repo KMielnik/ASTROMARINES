@@ -11,113 +11,113 @@ namespace ASTROMARINES.Levels
 {
     internal class Game : IDisposable
     {
-        private IPlayer player;
-        private Queue<(string name, string arg)> levelNamesQueue;
-        private ILevel currentLevel;
-        private Menu menu;
-        private RenderWindow window;
-        private Music mainMenuMusic;
+        private IPlayer _player;
+        private Queue<(string name, string arg)> _levelNamesQueue;
+        private ILevel _currentLevel;
+        private readonly Menu _menu;
+        private RenderWindow _window;
+        private readonly Music _mainMenuMusic;
 
         public Game()
         {
-            window = new RenderWindow(VideoMode.DesktopMode, "ASTROMARINES", Styles.Fullscreen);
-            window.KeyPressed += Window_KeyPressed;
-            window.Closed += (s, a) => window.Close();
-            window.SetFramerateLimit(60);
-            window.SetMouseCursorVisible(false);
-            window.SetVerticalSyncEnabled(true);
+            _window = new RenderWindow(VideoMode.DesktopMode, "ASTROMARINES", Styles.Fullscreen);
+            _window.KeyPressed += Window_KeyPressed;
+            _window.Closed += (s, a) => _window.Close();
+            _window.SetFramerateLimit(60);
+            _window.SetMouseCursorVisible(false);
+            _window.SetVerticalSyncEnabled(true);
 
-            WindowProperties.WindowWidth = window.Size.X;
-            WindowProperties.WindowHeight = window.Size.Y;
+            WindowProperties.WindowWidth = _window.Size.X;
+            WindowProperties.WindowHeight = _window.Size.Y;
 
-            player = new Player();
-            currentLevel = new SimpleImageScreen(Resources.TitleBG);
-            levelNamesQueue = new Queue<(string name, string arg)>();
-            levelNamesQueue.Enqueue((name: "SimpleImageScreen", arg: Resources.PlotBG));
-            menu = new Menu();
+            _player = new Player();
+            _currentLevel = new SimpleImageScreen(Resources.TitleBG);
+            _levelNamesQueue = new Queue<(string name, string arg)>();
+            _levelNamesQueue.Enqueue((name: "SimpleImageScreen", arg: Resources.PlotBG));
+            _menu = new Menu();
 
-            mainMenuMusic = new Music(Resources.MenuBGMusic);
-            mainMenuMusic.Loop = true;
-            mainMenuMusic.Play();
+            _mainMenuMusic = new Music(Resources.MenuBGMusic);
+            _mainMenuMusic.Loop = true;
+            _mainMenuMusic.Play();
         }
 
         public void Run()
         {
-            while (window.IsOpen)
+            while (_window.IsOpen)
             {
-                window.DispatchEvents();
+                _window.DispatchEvents();
                 NextFrame();
             }
         }
         private void NextFrame()
         {
-            if (currentLevel.HasLevelEnded)
+            if (_currentLevel.HasLevelEnded)
             {
-                menu.ResetToNewResolution();
-                if (levelNamesQueue.Count == 0)
+                _menu.ResetToNewResolution();
+                if (_levelNamesQueue.Count == 0)
                 {
-                    if (mainMenuMusic.Status == SoundStatus.Stopped)
-                        mainMenuMusic.Play();
-                    levelNamesQueue = menu.MenuLogic(window);
-                    menu.Draw(window);
-                    if (levelNamesQueue.Count != 0)
+                    if (_mainMenuMusic.Status == SoundStatus.Stopped)
+                        _mainMenuMusic.Play();
+                    _levelNamesQueue = _menu.MenuLogic(_window);
+                    _menu.Draw(_window);
+                    if (_levelNamesQueue.Count != 0)
                     {
-                        player.Dispose();
-                        player = new Player();
+                        _player.Dispose();
+                        _player = new Player();
                     }
                 }
                 else
                 {
-                    currentLevel.Dispose();
-                    var (levelName,levelArg) = levelNamesQueue.Dequeue();
+                    _currentLevel.Dispose();
+                    var (levelName,levelArg) = _levelNamesQueue.Dequeue();
                     var levelType = Type.GetType($"ASTROMARINES.Levels.{levelName}");
 
                     if (levelArg.Equals("SendPlayerAsArgument"))
                     {
                         if (levelType != null)
-                            currentLevel = (ILevel)Activator.CreateInstance(levelType, player);
-                        if (mainMenuMusic.Status == SoundStatus.Playing)
-                            mainMenuMusic.Stop();
+                            _currentLevel = (ILevel)Activator.CreateInstance(levelType, _player);
+                        if (_mainMenuMusic.Status == SoundStatus.Playing)
+                            _mainMenuMusic.Stop();
                     }
                     else
                     {
                         if (levelType != null)
-                            currentLevel = (ILevel)Activator.CreateInstance(levelType, levelArg);
-                        if (mainMenuMusic.Status == SoundStatus.Stopped)
-                            mainMenuMusic.Play();
+                            _currentLevel = (ILevel)Activator.CreateInstance(levelType, levelArg);
+                        if (_mainMenuMusic.Status == SoundStatus.Stopped)
+                            _mainMenuMusic.Play();
                     }
                 }
             }
             else
             {
-                currentLevel.LevelLogic(ref window);
-                currentLevel.Draw(window);
+                _currentLevel.LevelLogic(ref _window);
+                _currentLevel.Draw(_window);
             }
 
-            if (player.ShouldBeDeleted)
+            if (_player.ShouldBeDeleted)
             {
-                currentLevel.Dispose();
-                currentLevel = new SimpleTextScreen("YOU DIED");
-                mainMenuMusic.Play();
-                player.Dispose();
-                player = new Player();
-                levelNamesQueue.Clear();
+                _currentLevel.Dispose();
+                _currentLevel = new SimpleTextScreen("YOU DIED");
+                _mainMenuMusic.Play();
+                _player.Dispose();
+                _player = new Player();
+                _levelNamesQueue.Clear();
             }
         }
 
         public void Dispose()
         {
-            player.Dispose();
-            currentLevel.Dispose();
-            menu.Dispose();
-            mainMenuMusic.Dispose();
+            _player.Dispose();
+            _currentLevel.Dispose();
+            _menu.Dispose();
+            _mainMenuMusic.Dispose();
         }
 
         private void Window_KeyPressed(object sender, KeyEventArgs e)
         {
             if (e.Code == Keyboard.Key.Escape)
             {
-                window.Close();
+                _window.Close();
             }
         }
     }

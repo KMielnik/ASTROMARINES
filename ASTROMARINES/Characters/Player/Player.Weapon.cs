@@ -11,53 +11,53 @@ namespace ASTROMARINES.Characters.Player
     {
         class Weapon : IDisposable
         {
-            List<RectangleShape> Cannons;
-            Clock reloadClock;
+            readonly List<RectangleShape> _cannons;
+            readonly Clock _reloadClock;
 
             public Weapon()
             {
-                Cannons = new List<RectangleShape>();
+                _cannons = new List<RectangleShape>();
 
                 var cannon = new RectangleShape(new Vector2f(3, 20));
                 cannon.Origin = new Vector2f(1.5f, 20);
                 cannon.FillColor = new Color(Color.White);
                 cannon.OutlineThickness = 2;
                 cannon.OutlineColor = new Color(Color.Black);
-                Cannons.Add(cannon);
+                _cannons.Add(cannon);
 
-                for(int i=0;i<4;i++)
+                for(var i=0;i<4;i++)
                 {
                     var nextCannon = new RectangleShape(cannon);
-                    Cannons.Add(nextCannon);
+                    _cannons.Add(nextCannon);
                 }
 
-                reloadClock = new Clock();
+                _reloadClock = new Clock();
             }
 
             public void SetWeaponPosition(Vector2f playerPosition, Vector2f playerDimensions, RenderWindow window)
             {
-                Vector2f cannonOrigin = playerPosition;
+                var cannonOrigin = playerPosition;
                 cannonOrigin += new Vector2f(0, -playerDimensions.Y / 6);
-                Cannons[0].Position = cannonOrigin;
+                _cannons[0].Position = cannonOrigin;
 
                 cannonOrigin = playerPosition;
                 cannonOrigin += new Vector2f(playerDimensions.X / 2.8f, -playerDimensions.Y / 3);
-                Cannons[1].Position = cannonOrigin;
+                _cannons[1].Position = cannonOrigin;
 
                 cannonOrigin = playerPosition;
                 cannonOrigin += new Vector2f(-playerDimensions.X / 3.7f, -playerDimensions.Y / 3.5f);
-                Cannons[2].Position = cannonOrigin;
+                _cannons[2].Position = cannonOrigin;
 
                 cannonOrigin = playerPosition;
                 cannonOrigin += new Vector2f(playerDimensions.X / 2.8f, playerDimensions.Y / 3);
-                Cannons[3].Position = cannonOrigin;
+                _cannons[3].Position = cannonOrigin;
 
                 cannonOrigin = playerPosition;
                 cannonOrigin += new Vector2f(-playerDimensions.X / 3.7f, playerDimensions.Y / 3.5f);
-                Cannons[4].Position = cannonOrigin;
+                _cannons[4].Position = cannonOrigin;
 
                 var angle = CalculateAngle(playerPosition, playerDimensions, window);
-                foreach (var cannon in Cannons)
+                foreach (var cannon in _cannons)
                     cannon.Rotation = angle;
             }
 
@@ -78,14 +78,14 @@ namespace ASTROMARINES.Characters.Player
                 {
                     case PlayerLevel.Level1:
                     case PlayerLevel.Level2:
-                        window.Draw(Cannons[0]);
+                        window.Draw(_cannons[0]);
                         break;
                     case PlayerLevel.Level3:
-                        for (int i = 0; i < 3; i++)
-                            window.Draw(Cannons[i]);
+                        for (var i = 0; i < 3; i++)
+                            window.Draw(_cannons[i]);
                         break;
                     case PlayerLevel.Level4:
-                        foreach (var cannon in Cannons)
+                        foreach (var cannon in _cannons)
                             window.Draw(cannon);
                         break;
                 }
@@ -99,42 +99,42 @@ namespace ASTROMARINES.Characters.Player
             {
                 var newBullets = new List<Bullet>();
 
-                Vector2f vector = CalculateNew(playerPosition, playerDimensions, window);
+                var vector = CalculateNew(playerPosition, playerDimensions, window);
 
                 switch (playerLevel)
                 {
                     case PlayerLevel.Level1:
-                        if (reloadClock.ElapsedTime.AsMilliseconds() > 200)
+                        if (_reloadClock.ElapsedTime.AsMilliseconds() > 200)
                         {
-                            newBullets.Add(new Bullet(Cannons[0].Position + vector, vector / 2));
-                            reloadClock.Restart();
+                            newBullets.Add(new Bullet(_cannons[0].Position + vector, vector / 2));
+                            _reloadClock.Restart();
                         }
                         break;
                     case PlayerLevel.Level2:
-                        if (reloadClock.ElapsedTime.AsMilliseconds() > 50)
+                        if (_reloadClock.ElapsedTime.AsMilliseconds() > 50)
                         {
-                            newBullets.Add(new Bullet(Cannons[0].Position + vector, vector / 4));
-                            reloadClock.Restart();
+                            newBullets.Add(new Bullet(_cannons[0].Position + vector, vector / 4));
+                            _reloadClock.Restart();
                         }
                         break;
                     case PlayerLevel.Level3:
-                        if (reloadClock.ElapsedTime.AsMilliseconds() > 150)
+                        if (_reloadClock.ElapsedTime.AsMilliseconds() > 150)
                         {
-                            newBullets.Add(new Bullet(Cannons[0].Position + vector, vector / 1));
-                            newBullets.Add(new Bullet(Cannons[1].Position + vector, vector / 1));
-                            newBullets.Add(new Bullet(Cannons[2].Position + vector, vector / 1));
-                            reloadClock.Restart();
+                            newBullets.Add(new Bullet(_cannons[0].Position + vector, vector / 1));
+                            newBullets.Add(new Bullet(_cannons[1].Position + vector, vector / 1));
+                            newBullets.Add(new Bullet(_cannons[2].Position + vector, vector / 1));
+                            _reloadClock.Restart();
                         }
                         break;
                     case PlayerLevel.Level4:
-                        if (reloadClock.ElapsedTime.AsMilliseconds() > 100)
+                        if (_reloadClock.ElapsedTime.AsMilliseconds() > 100)
                         {
-                            newBullets.Add(new Bullet(Cannons[0].Position + vector, vector / 1));
-                            newBullets.Add(new Bullet(Cannons[1].Position + vector, vector / 3));
-                            newBullets.Add(new Bullet(Cannons[2].Position + vector, vector / 3));
-                            newBullets.Add(new Bullet(Cannons[3].Position + vector, vector / 2));
-                            newBullets.Add(new Bullet(Cannons[4].Position + vector, vector / 2));
-                            reloadClock.Restart();
+                            newBullets.Add(new Bullet(_cannons[0].Position + vector, vector / 1));
+                            newBullets.Add(new Bullet(_cannons[1].Position + vector, vector / 3));
+                            newBullets.Add(new Bullet(_cannons[2].Position + vector, vector / 3));
+                            newBullets.Add(new Bullet(_cannons[3].Position + vector, vector / 2));
+                            newBullets.Add(new Bullet(_cannons[4].Position + vector, vector / 2));
+                            _reloadClock.Restart();
                         }
                         break;
                 }
@@ -144,26 +144,26 @@ namespace ASTROMARINES.Characters.Player
 
             Vector2f CalculateNew(Vector2f playerPosition, Vector2f playerDimensions, RenderWindow window)
             {
-                Vector2f mousePosition = (Vector2f)Mouse.GetPosition(window);
+                var mousePosition = (Vector2f)Mouse.GetPosition(window);
 
                 //calculate mouse position relative to player
-                float x = mousePosition.X - playerPosition.X;
-                float y = playerPosition.Y - mousePosition.Y - playerDimensions.Y / 6;
-                float z = (float)Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
+                var x = mousePosition.X - playerPosition.X;
+                var y = playerPosition.Y - mousePosition.Y - playerDimensions.Y / 6;
+                var z = (float)Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
 
                 //calculate speed vector relative relative to length of cannon
-                float newZ = Cannons[0].Size.Y -2;
-                float newX = x / (z / newZ);
-                float newY = -(y / (z / newZ));
+                var newZ = _cannons[0].Size.Y -2;
+                var newX = x / (z / newZ);
+                var newY = -(y / (z / newZ));
 
                 return new Vector2f(newX, newY);
             }
 
             public void Dispose()
             {
-                foreach (var cannon in Cannons)
+                foreach (var cannon in _cannons)
                     cannon.Dispose();
-                reloadClock.Dispose();
+                _reloadClock.Dispose();
             }
         }
     }

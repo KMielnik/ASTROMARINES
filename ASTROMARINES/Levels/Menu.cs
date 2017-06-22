@@ -10,18 +10,18 @@ namespace ASTROMARINES.Levels
 {
     class Menu : IDisposable
     {
-        private MousePointer mousePointer;
-        private Texture backgroundTexture;
-        private Sprite background;
-        private List<Button> buttons;
+        private MousePointer _mousePointer;
+        private readonly Texture _backgroundTexture;
+        private readonly Sprite _background;
+        private readonly List<Button> _buttons;
         
         public Menu()
         {
-            mousePointer = new MousePointer();
-            backgroundTexture = new Texture(Resources.MenuBG);
-            background = new Sprite(backgroundTexture);
-            background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
-            buttons = new List<Button>
+            _mousePointer = new MousePointer();
+            _backgroundTexture = new Texture(Resources.MenuBG);
+            _background = new Sprite(_backgroundTexture);
+            _background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
+            _buttons = new List<Button>
             {
                 new Button("START",         new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 20 / 50f)),
                 new Button("HOW TO PLAY",   new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * 26 / 50f)),
@@ -42,12 +42,12 @@ namespace ASTROMARINES.Levels
 
             var mousePosition = Mouse.GetPosition(window);
 
-            mousePointer.HoversOverItemOff();
-            foreach (var button in buttons)
+            _mousePointer.HoversOverItemOff();
+            foreach (var button in _buttons)
             {
                 if (button.BoundingBox.Contains(mousePosition.X, mousePosition.Y))
                 {
-                    mousePointer.HoversOverItemOn();
+                    _mousePointer.HoversOverItemOn();
                     if (Mouse.IsButtonPressed(Mouse.Button.Left))
                         switch (button.Label)
                         {
@@ -94,29 +94,29 @@ namespace ASTROMARINES.Levels
 
         public void ResetToNewResolution()
         {
-            background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
-            for(int i=0;i<buttons.Count;i++)
-                buttons[i].SetPosition(new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * (20 + 6 * i) / 50f));
-            mousePointer = new MousePointer();
+            _background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
+            for(var i=0;i<_buttons.Count;i++)
+                _buttons[i].SetPosition(new Vector2f(WindowProperties.WindowWidth * 0.3f, WindowProperties.WindowHeight * (20 + 6 * i) / 50f));
+            _mousePointer = new MousePointer();
         }
 
         public void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
-            window.Draw(background);
-            foreach (var button in buttons)
+            window.Draw(_background);
+            foreach (var button in _buttons)
                 button.Draw(window);
-            mousePointer.Draw(window);
+            _mousePointer.Draw(window);
 
             window.Display();
         }
 
         public void Dispose()
         {
-            mousePointer.Dispose();
-            backgroundTexture.Dispose();
-            background.Dispose();
-            foreach (var button in buttons)
+            _mousePointer.Dispose();
+            _backgroundTexture.Dispose();
+            _background.Dispose();
+            foreach (var button in _buttons)
                 button.Dispose();
         }
     }
