@@ -14,12 +14,14 @@ namespace ASTROMARINES.Characters.Enemies
 
             for (var i = 0; i < 6; i++)
             {
-                var enemyFrame = new Sprite(enemyTexture);
-                enemyFrame.Origin = new Vector2f(127.5f, 127.5f);
-                enemyFrame.Scale = new Vector2f(0.3f * WindowProperties.ScaleX,
-                                                0.3f * WindowProperties.ScaleY);
-                enemyFrame.Position = RandomHorizontalPosition();
-                enemyFrame.TextureRect = new IntRect(i * 255, 0, 255, 255);
+                var enemyFrame = new Sprite(enemyTexture)
+                {
+                    Origin = new Vector2f(127.5f, 127.5f),
+                    Scale = new Vector2f(0.3f * WindowProperties.ScaleX,
+                                         0.3f * WindowProperties.ScaleY),
+                    Position = RandomHorizontalPosition(),
+                    TextureRect = new IntRect(i * 255, 0, 255, 255)
+                };
 
                 EnemyFrames.Add(enemyFrame);
             }
@@ -32,25 +34,23 @@ namespace ASTROMARINES.Characters.Enemies
 
         public override void Shoot(List<Bullet> enemiesBullets)
         {
-            if (ReloadingClock.ElapsedTime.AsMilliseconds() > 200)
-            {
-                var cannons = new Cannons(Position, Dimensions);
-                Bullet bullet;
+            if (ReloadingClock.ElapsedTime.AsMilliseconds() <= 200) return;
 
-                bullet = new Bullet(cannons.Cannon1.Position, cannons.Cannon1.BulletVector);
-                enemiesBullets.Add(bullet);
+            var cannons = new Cannons(Position, Dimensions);
 
-                bullet = new Bullet(cannons.Cannon2.Position, cannons.Cannon2.BulletVector);
-                enemiesBullets.Add(bullet);
+            var bullet = new Bullet(cannons.Cannon1.Position, cannons.Cannon1.BulletVector);
+            enemiesBullets.Add(bullet);
 
-                bullet = new Bullet(cannons.Cannon3.Position, cannons.Cannon3.BulletVector);
-                enemiesBullets.Add(bullet);
+            bullet = new Bullet(cannons.Cannon2.Position, cannons.Cannon2.BulletVector);
+            enemiesBullets.Add(bullet);
 
-                bullet = new Bullet(cannons.Cannon4.Position, cannons.Cannon4.BulletVector);
-                enemiesBullets.Add(bullet);
+            bullet = new Bullet(cannons.Cannon3.Position, cannons.Cannon3.BulletVector);
+            enemiesBullets.Add(bullet);
 
-                ReloadingClock.Restart();
-            }
+            bullet = new Bullet(cannons.Cannon4.Position, cannons.Cannon4.BulletVector);
+            enemiesBullets.Add(bullet);
+
+            ReloadingClock.Restart();
         }
 
         private class Cannons
@@ -66,21 +66,18 @@ namespace ASTROMARINES.Characters.Enemies
                 }
             }
 
-            public Cannon Cannon1 { get; private set; }
-            public Cannon Cannon2 { get; private set; }
-            public Cannon Cannon3 { get; private set; }
-            public Cannon Cannon4 { get; private set; }
+            public Cannon Cannon1 { get; }
+            public Cannon Cannon2 { get; }
+            public Cannon Cannon3 { get; }
+            public Cannon Cannon4 { get; }
 
             public Cannons(Vector2f enemyPosition,Vector2f enemyDimensions)
             {
-                Vector2f cannonPosition;
-                Vector2f bulletVector;
-                
                 //Cannon1
-                cannonPosition = new Vector2f(enemyPosition.X + enemyDimensions.X / 3,
-                                              enemyPosition.Y - enemyDimensions.Y / 10);
-                bulletVector = new Vector2f(3 * WindowProperties.ScaleX,
-                                            0 * WindowProperties.ScaleY);
+                var cannonPosition = new Vector2f(enemyPosition.X + enemyDimensions.X / 3,
+                    enemyPosition.Y - enemyDimensions.Y / 10);
+                var bulletVector = new Vector2f(3 * WindowProperties.ScaleX,
+                    0 * WindowProperties.ScaleY);
                 Cannon1 = new Cannon(cannonPosition, bulletVector);
 
                 //Cannon2

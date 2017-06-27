@@ -7,26 +7,25 @@ namespace ASTROMARINES.Other
     public class Bullet : IDisposable
     {
         public Vector2f Position { get; private set; }
-        private readonly Vector2f _vector;
+        private readonly Vector2f vector;
         private static readonly CircleShape BulletForDrawing;
 
         static Bullet()
         {
-            BulletForDrawing = new CircleShape(3);
-            BulletForDrawing.Origin = new Vector2f(3, 3);
+            BulletForDrawing = new CircleShape(3) {Origin = new Vector2f(3, 3)};
         }
 
         public Bullet(Vector2f position, Vector2f vector)
         {
             Position = position;
-            _vector = vector;
+            this.vector = vector;
         }
 
         public bool ShouldBeDeleted { get; set; }
 
         public void Move()
         {
-            Position += _vector;
+            Position += vector;
             CheckIfFlewOutOfMap();
         }
 

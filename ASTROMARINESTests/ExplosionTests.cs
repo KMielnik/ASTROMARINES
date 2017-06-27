@@ -9,15 +9,15 @@ namespace AstroMarinesTests
     [TestClass]
     public class ExplosionTests
     {
-        private RenderWindow _window;
-        private ExplosionFactory _explosionFactory;
+        private RenderWindow window;
+        private ExplosionFactory explosionFactory;
 
         [TestInitialize]
         public void SetUp()
         {
             var videoMode = new VideoMode(0, 0);
-            _window =  new RenderWindow(videoMode, "Test");
-            _explosionFactory = new ExplosionFactory();
+            window =  new RenderWindow(videoMode, "Test");
+            explosionFactory = new ExplosionFactory();
         }
 
         [TestMethod]
@@ -25,18 +25,18 @@ namespace AstroMarinesTests
         {
             //arrange
             var explosionPosition = new Vector2f(0, 0);
-            var explosion = _explosionFactory.CreateExplosion(explosionPosition);
+            var explosion = explosionFactory.CreateExplosion(explosionPosition);
             
             //act
             do
             {
-                explosion.Draw(_window);                         //drawing... 
+                explosion.Draw(window);                         //drawing... 
             } while (explosion.ShouldBeDeleted.Equals(false));           //as long as it has animation frames
 
             //assert
             try
             {
-                explosion.Draw(_window);                         //if this doesn't throw exception
+                explosion.Draw(window);                         //if this doesn't throw exception
                 Assert.Fail();                                           //it should fail
             }
             catch (System.ArgumentOutOfRangeException) { }

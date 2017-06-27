@@ -16,23 +16,24 @@ namespace ASTROMARINES.Characters.Enemies
 
     public class EnemyFactory : IEnemyFactory
     {
-        private readonly List<Texture> _enemyTextures;
-        private readonly Clock _enemyReloadClock;
-        private readonly Clock _powerupReloadClock;
+        private readonly List<Texture> enemyTextures;
+        private readonly Clock enemyReloadClock;
+        private readonly Clock powerupReloadClock;
 
         public EnemyFactory()
         {
-            _enemyTextures = new List<Texture>();
-            _enemyTextures.Add(new Texture(Resources.Enemy1));
-            _enemyTextures.Add(new Texture(Resources.Enemy2));
-            _enemyTextures.Add(new Texture(Resources.Enemy3));
-            _enemyTextures.Add(new Texture(Resources.Enemy4));
+            enemyTextures = new List<Texture>
+            {
+                new Texture(Resources.Enemy1),
+                new Texture(Resources.Enemy2),
+                new Texture(Resources.Enemy3),
+                new Texture(Resources.Enemy4),
+                new Texture(Resources.BossMainCannon),
+                new Texture(Resources.Boss)
+            };
 
-            _enemyTextures.Add(new Texture(Resources.BossMainCannon));
-            _enemyTextures.Add(new Texture(Resources.Boss));
-
-            _enemyReloadClock = new Clock();
-            _powerupReloadClock = new Clock();
+            enemyReloadClock = new Clock();
+            powerupReloadClock = new Clock();
         }
 
         public IEnemy CreateEnemy(EnemyTypes enemyType)
@@ -40,20 +41,20 @@ namespace ASTROMARINES.Characters.Enemies
             switch (enemyType)
             {
                 case EnemyTypes.PowerUp:
-                    _powerupReloadClock.Restart();
-                    return new Enemy1(_enemyTextures[(int)EnemyTypes.PowerUp]);
+                    powerupReloadClock.Restart();
+                    return new Enemy1(enemyTextures[(int)EnemyTypes.PowerUp]);
                 case EnemyTypes.Enemy2:
-                    _enemyReloadClock.Restart();
-                    return new Enemy2(_enemyTextures[(int)EnemyTypes.Enemy2]);
+                    enemyReloadClock.Restart();
+                    return new Enemy2(enemyTextures[(int)EnemyTypes.Enemy2]);
                 case EnemyTypes.Enemy3:
-                    _enemyReloadClock.Restart();
-                    return new Enemy3(_enemyTextures[(int)EnemyTypes.Enemy3]);
+                    enemyReloadClock.Restart();
+                    return new Enemy3(enemyTextures[(int)EnemyTypes.Enemy3]);
                 case EnemyTypes.Enemy4:
-                    _enemyReloadClock.Restart();
-                    return new Enemy4(_enemyTextures[(int)EnemyTypes.Enemy4]);
+                    enemyReloadClock.Restart();
+                    return new Enemy4(enemyTextures[(int)EnemyTypes.Enemy4]);
                 case EnemyTypes.Boss:
-                    return new Boss(_enemyTextures[(int)EnemyTypes.Boss],
-                                    _enemyTextures[(int)EnemyTypes.Boss + 1]);
+                    return new Boss(enemyTextures[(int)EnemyTypes.Boss],
+                                    enemyTextures[(int)EnemyTypes.Boss + 1]);
                 default:
                     throw new Exception("You tried to create non-existing enemy");
             }
@@ -70,20 +71,20 @@ namespace ASTROMARINES.Characters.Enemies
 
         public void Dispose()
         {
-            foreach (var enemyTexture in _enemyTextures)
+            foreach (var enemyTexture in enemyTextures)
                 enemyTexture.Dispose();
-            _enemyReloadClock.Dispose();
-            _powerupReloadClock.Dispose();
+            enemyReloadClock.Dispose();
+            powerupReloadClock.Dispose();
         }
 
         public bool IsNewEnemyAvalible()
         {
-            return _enemyReloadClock.ElapsedTime.AsSeconds() > 1.5;
+            return enemyReloadClock.ElapsedTime.AsSeconds() > 1.5;
         }
 
         public bool IsPowerUpAvalible()
         {
-            return _powerupReloadClock.ElapsedTime.AsSeconds() > 15;
+            return powerupReloadClock.ElapsedTime.AsSeconds() > 15;
         }
     }
 }

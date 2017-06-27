@@ -11,17 +11,17 @@ namespace ASTROMARINES.Characters.Enemies
         protected float Hp;
         protected float HpMax;
         protected Vector2f Dimensions;
-        protected List<Sprite> EnemyFrames;
+        protected readonly List<Sprite> EnemyFrames;
         protected HpBar HpBar;
-        protected Clock ReloadingClock;
-        protected Clock AnimationClock;
-        private bool _shouldBeDeleted;
+        protected readonly Clock ReloadingClock;
+        private readonly Clock animationClock;
+        private bool shouldBeDeleted;
 
-        public ProtoEnemy()
+        protected ProtoEnemy()
         {
             EnemyFrames = new List<Sprite>();
             ReloadingClock = new Clock();
-            AnimationClock = new Clock();
+            animationClock = new Clock();
             HpBar = new HpBar(Dimensions);
         }
 
@@ -29,16 +29,14 @@ namespace ASTROMARINES.Characters.Enemies
         {
             get
             {
-                if (_shouldBeDeleted)
+                if (shouldBeDeleted)
                     return true;
-                if (Hp <= 0)
-                    return true;
-                return false;
+                return Hp <= 0;
             }
             set
             {
                 if (value)
-                    _shouldBeDeleted = true;
+                    shouldBeDeleted = true;
             }
         }
 
@@ -58,18 +56,18 @@ namespace ASTROMARINES.Characters.Enemies
                 flewOutOfTheBottom ||
                 flewOutOfTheTop)
             {
-                _shouldBeDeleted = true;
+                shouldBeDeleted = true;
             }
         }
 
         protected int ActualAnimationFrame()
         {
-            var timeFromLastAnimationRestart = AnimationClock.ElapsedTime.AsSeconds();
+            var timeFromLastAnimationRestart = animationClock.ElapsedTime.AsSeconds();
             var actualAnimationFrame = (int)(timeFromLastAnimationRestart * 5);                //new frame every 0.1 second
             if(actualAnimationFrame >= EnemyFrames.Count)
             {
                 actualAnimationFrame = 0;
-                AnimationClock.Restart();
+                animationClock.Restart();
             }
             return actualAnimationFrame;
         }
@@ -118,7 +116,7 @@ namespace ASTROMARINES.Characters.Enemies
                 enemyFrame.Dispose();
             HpBar.Dispose();
             ReloadingClock.Dispose();
-            AnimationClock.Dispose();
+            animationClock.Dispose();
         }
     }
 }

@@ -28,9 +28,9 @@ namespace AstroMarinesTests
             }
 
             //act
-            for (var i = 0; i < bullets.Length; i++)
+            foreach (var bullet in bullets)
             {
-                bullets[i].Move();
+                bullet.Move();
             }
 
             //assert

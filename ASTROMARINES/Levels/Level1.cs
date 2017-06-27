@@ -13,81 +13,85 @@ namespace ASTROMARINES.Levels
 {
     internal class Level1 : ILevel
     {
-        private readonly Texture _backgroundTexture;
-        private readonly Sprite _background;
-        private readonly IPlayer _player;
-        private readonly IEnemyFactory _enemyFactory;
-        private readonly List<IEnemy> _enemies;
-        private readonly List<Bullet> _enemyBullets;
-        private readonly ExplosionFactory _explosionFactory;
-        private readonly List<Explosion> _explosions;
-        private readonly Clock _levelClock;
-        private readonly Font _digitalClockFont;
-        private readonly Text _digitalClock;
-        private readonly Music _backgroundMusic;
-        private readonly MousePointer _mousePointer;
+        private readonly Texture backgroundTexture;
+        private readonly Sprite background;
+        private readonly IPlayer player;
+        private readonly IEnemyFactory enemyFactory;
+        private readonly List<IEnemy> enemies;
+        private readonly List<Bullet> enemyBullets;
+        private readonly ExplosionFactory explosionFactory;
+        private readonly List<Explosion> explosions;
+        private readonly Clock levelClock;
+        private readonly Font digitalClockFont;
+        private readonly Text digitalClock;
+        private readonly Music backgroundMusic;
+        private readonly MousePointer mousePointer;
 
         public bool HasLevelEnded { get; private set; }
 
         public Level1(IPlayer player)
         {
-            _backgroundTexture = new Texture(Resources.LevelBG);
-            _background = new Sprite(_backgroundTexture);
-            _background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
+            backgroundTexture = new Texture(Resources.LevelBG);
+            background = new Sprite(backgroundTexture)
+            {
+                Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY)
+            };
 
-            _player = player;
+            this.player = player;
 
-            _mousePointer = new MousePointer();
+            mousePointer = new MousePointer();
 
-            _enemyFactory = new EnemyFactory();
-            _enemies = new List<IEnemy>();
-            _enemyBullets = new List<Bullet>();
-            _explosionFactory = new ExplosionFactory();
-            _explosions = new List<Explosion>();
-            _levelClock = new Clock();
+            enemyFactory = new EnemyFactory();
+            enemies = new List<IEnemy>();
+            enemyBullets = new List<Bullet>();
+            explosionFactory = new ExplosionFactory();
+            explosions = new List<Explosion>();
+            levelClock = new Clock();
 
-            _digitalClockFont = new Font(Resources.FontDigitalClock);
-            _digitalClock = new Text("", _digitalClockFont, 30);
-            _digitalClock.Position = new Vector2f(WindowProperties.WindowWidth * 30 / 32, WindowProperties.WindowHeight * 30 / 32);
-            _digitalClock.Color = new Color(Color.White);
+            digitalClockFont = new Font(Resources.FontDigitalClock);
+            digitalClock = new Text("", digitalClockFont, 30)
+            {
+                Position = new Vector2f(WindowProperties.WindowWidth * 30 / 32,
+                                        WindowProperties.WindowHeight * 30 / 32),
+                Color = new Color(Color.White)
+            };
 
-            _backgroundMusic = new Music(Resources.LevelBGMusic);
-            _backgroundMusic.Loop = true;
-            _backgroundMusic.Play();
+            backgroundMusic = new Music(Resources.LevelBGMusic) {Loop = true};
+            backgroundMusic.Play();
         }
 
         public void Dispose()
         {
             HasLevelEnded = true;
 
-            _backgroundTexture.Dispose();
-            _background.Dispose();
-            _enemyFactory.Dispose();
-            foreach (var enemy in _enemies)
+            backgroundTexture.Dispose();
+            background.Dispose();
+            enemyFactory.Dispose();
+            foreach (var enemy in enemies)
                 enemy.Dispose();
-            _explosionFactory.Dispose();
-            _levelClock.Dispose();
-            _digitalClockFont.Dispose();
-            _digitalClock.Dispose();
-            _mousePointer.Dispose();
-            _backgroundMusic.Stop();
-            _backgroundMusic.Dispose();
+            explosionFactory.Dispose();
+            levelClock.Dispose();
+            digitalClockFont.Dispose();
+            digitalClock.Dispose();
+            mousePointer.Dispose();
+            backgroundMusic.Stop();
+            backgroundMusic.Dispose();
         }
 
         public void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
 
-            window.Draw(_background);
-            foreach (var enemy in _enemies)
+            window.Draw(background);
+            foreach (var enemy in enemies)
                 enemy.Draw(window);
-            foreach (var bullet in _enemyBullets)
+            foreach (var bullet in enemyBullets)
                 bullet.Draw(window, Color.Cyan);
-            _player.Draw(window);
-            foreach (var explosion in _explosions)
+            player.Draw(window);
+            foreach (var explosion in explosions)
                 explosion.Draw(window);
-            window.Draw(_digitalClock);
-            _mousePointer.Draw(window);
+            window.Draw(digitalClock);
+            mousePointer.Draw(window);
 
             window.Display();
         }
@@ -105,33 +109,33 @@ namespace ASTROMARINES.Levels
         private void LevelTime()
         {
             var levelLength = Time.FromSeconds(60);
-            var timeLeft = levelLength - _levelClock.ElapsedTime;
+            var timeLeft = levelLength - levelClock.ElapsedTime;
             var seconds = (int)timeLeft.AsSeconds();
             var miliseconds = (timeLeft.AsSeconds() - seconds).ToString(CultureInfo.InvariantCulture);
             var timeToBeDisplayed = seconds.ToString() + '.' + miliseconds[2];
-            _digitalClock.DisplayedString = timeToBeDisplayed;
+            digitalClock.DisplayedString = timeToBeDisplayed;
             if (seconds <= 0 && miliseconds[2]=='.')
             {
-                _digitalClock.DisplayedString = "END";
-                foreach (var enemy in _enemies)
+                digitalClock.DisplayedString = "END";
+                foreach (var enemy in enemies)
                     enemy.ShouldBeDeleted = true;
             }
             if (seconds <= -5)
             {
                 HasLevelEnded = true;
-                _backgroundMusic.Stop();
+                backgroundMusic.Stop();
             }
         }
 
         private void MoveThoseWhoShallBeMoved()
         {
-            _player.Move();
-            foreach (var enemy in _enemies)
+            player.Move();
+            foreach (var enemy in enemies)
             {
                 enemy.Move();
-                enemy.Shoot(_enemyBullets);
+                enemy.Shoot(enemyBullets);
             }
-            foreach (var bullet in _enemyBullets)
+            foreach (var bullet in enemyBullets)
             {
                 bullet.Move();
             }
@@ -139,54 +143,54 @@ namespace ASTROMARINES.Levels
 
         private void DeleteObjectsSetForDeletion()
         {
-            for (var i = 0; i < _enemies.Count; i++)
-                if (_enemies[i].ShouldBeDeleted)
+            for (var i = 0; i < enemies.Count; i++)
+                if (enemies[i].ShouldBeDeleted)
                 {
-                    var newExplosion = _explosionFactory.CreateExplosion(_enemies[i].Position);
-                    _explosions.Add(newExplosion);
+                    var newExplosion = explosionFactory.CreateExplosion(enemies[i].Position);
+                    explosions.Add(newExplosion);
 
-                    _enemies[i].Dispose();
-                    _enemies[i] = null;
-                    _enemies.RemoveAt(i);
+                    enemies[i].Dispose();
+                    enemies[i] = null;
+                    enemies.RemoveAt(i);
                 }
-            for (var i = 0; i < _enemyBullets.Count; i++)
-                if (_enemyBullets[i].ShouldBeDeleted)
+            for (var i = 0; i < enemyBullets.Count; i++)
+                if (enemyBullets[i].ShouldBeDeleted)
                 {
-                    _enemyBullets[i].Dispose();
-                    _enemyBullets[i] = null;
-                    _enemyBullets.RemoveAt(i);
+                    enemyBullets[i].Dispose();
+                    enemyBullets[i] = null;
+                    enemyBullets.RemoveAt(i);
                 }
-            for (var i = 0; i < _explosions.Count; i++)
-                if (_explosions[i].ShouldBeDeleted)
+            for (var i = 0; i < explosions.Count; i++)
+                if (explosions[i].ShouldBeDeleted)
                 {
-                    _explosions[i].Dispose();
-                    _explosions[i] = null;
-                    _explosions.RemoveAt(i);
+                    explosions[i].Dispose();
+                    explosions[i] = null;
+                    explosions.RemoveAt(i);
                 }
         }
 
         private void CheckDamage()
         {
-            foreach (var enemy in _enemies)
+            foreach (var enemy in enemies)
             {
-                if (_player.BoundingBox.Intersects(enemy.BoudingBox))
-                    _player.Damaged();
+                if (player.BoundingBox.Intersects(enemy.BoudingBox))
+                    player.Damaged();
 
-                foreach (var playerBullet in _player.Bullets)
+                foreach (var playerBullet in player.Bullets)
                     if (enemy.BoudingBox.Contains(playerBullet.Position.X, playerBullet.Position.Y))
                     {
                         if (enemy.GetType() == typeof(Enemy1))
-                            _player.LevelUp();
+                            player.LevelUp();
                         enemy.Damaged();
                         playerBullet.ShouldBeDeleted = true;
                     }
             }
 
-            foreach(var enemyBullet in _enemyBullets)
+            foreach(var enemyBullet in enemyBullets)
             {
-                if(_player.BoundingBox.Contains(enemyBullet.Position.X,enemyBullet.Position.Y))
+                if(player.BoundingBox.Contains(enemyBullet.Position.X,enemyBullet.Position.Y))
                 {
-                    _player.Damaged();
+                    player.Damaged();
                     enemyBullet.ShouldBeDeleted = true;
                 }
             }
@@ -195,23 +199,23 @@ namespace ASTROMARINES.Levels
         private void ControlPlayer(RenderWindow window)
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.A))
-                _player.AccelerateLeft();
+                player.AccelerateLeft();
             if (Keyboard.IsKeyPressed(Keyboard.Key.D))
-                _player.AccelerateRight();
+                player.AccelerateRight();
             if (Keyboard.IsKeyPressed(Keyboard.Key.W))
-                _player.AccelerateUp();
+                player.AccelerateUp();
             if (Keyboard.IsKeyPressed(Keyboard.Key.S))
-                _player.AccelerateDown();
+                player.AccelerateDown();
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-                _player.Shoot(window);
+                player.Shoot(window);
         }
 
         private void TryToCreateNewEnemy()
         {
-            if (_enemyFactory.IsNewEnemyAvalible())
-                _enemies.Add(_enemyFactory.CreateRandomEnemy());
-            if (_enemyFactory.IsPowerUpAvalible())
-                _enemies.Add(_enemyFactory.CreateEnemy(EnemyTypes.PowerUp));
+            if (enemyFactory.IsNewEnemyAvalible())
+                enemies.Add(enemyFactory.CreateRandomEnemy());
+            if (enemyFactory.IsPowerUpAvalible())
+                enemies.Add(enemyFactory.CreateEnemy(EnemyTypes.PowerUp));
         }
     }
 }

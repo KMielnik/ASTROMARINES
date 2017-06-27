@@ -11,82 +11,84 @@ using SFML.Window;
 
 namespace ASTROMARINES.Levels
 {
+    // ReSharper disable once UnusedMember.Global
     internal class LevelBoss : ILevel
     {
-        private readonly Texture _backgroundTexture;
-        private readonly Sprite _background;
-        private readonly IPlayer _player;
-        private readonly IEnemyFactory _enemyFactory;
-        private readonly IEnemy _boss;
-        private readonly List<Bullet> _bossBullets;
-        private readonly ExplosionFactory _explosionFactory;
-        private readonly List<Explosion> _explosions;
-        private readonly Clock _levelClock;
-        private readonly Music _backgroundMusic;
-        private readonly MousePointer _mousePointer;
-        private readonly Music _bossDeathSound;
+        private readonly Texture backgroundTexture;
+        private readonly Sprite background;
+        private readonly IPlayer player;
+        private readonly IEnemyFactory enemyFactory;
+        private readonly IEnemy boss;
+        private readonly List<Bullet> bossBullets;
+        private readonly ExplosionFactory explosionFactory;
+        private readonly List<Explosion> explosions;
+        private readonly Clock levelClock;
+        private readonly Music backgroundMusic;
+        private readonly MousePointer mousePointer;
+        private readonly Music bossDeathSound;
 
-        private bool _hasBossDied;
-        private bool _hasLevelEnded;
+        private bool hasBossDied;
+        private bool hasLevelEnded;
 
         public bool HasLevelEnded
         {
-            get => (_hasBossDied && _levelClock.ElapsedTime.AsSeconds() > 5) || _hasLevelEnded;
-            private set => _hasLevelEnded = value;
+            get => (hasBossDied && levelClock.ElapsedTime.AsSeconds() > 5) || hasLevelEnded;
+            private set => hasLevelEnded = value;
         }
 
         public LevelBoss(IPlayer player)
         {
-            _backgroundTexture = new Texture(Resources.LevelBG);
-            _background = new Sprite(_backgroundTexture);
-            _background.Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY);
+            backgroundTexture = new Texture(Resources.LevelBG);
+            background = new Sprite(backgroundTexture)
+            {
+                Scale = new Vector2f(WindowProperties.ScaleX, WindowProperties.ScaleY)
+            };
 
-            _player = player;
+            this.player = player;
 
-            _mousePointer = new MousePointer();
+            mousePointer = new MousePointer();
 
-            _enemyFactory = new EnemyFactory();
-            _boss = _enemyFactory.CreateEnemy(EnemyTypes.Boss);
-            _bossBullets = new List<Bullet>();
-            _explosionFactory = new ExplosionFactory();
-            _explosions = new List<Explosion>();
-            _levelClock = new Clock();
+            enemyFactory = new EnemyFactory();
+            boss = enemyFactory.CreateEnemy(EnemyTypes.Boss);
+            bossBullets = new List<Bullet>();
+            explosionFactory = new ExplosionFactory();
+            explosions = new List<Explosion>();
+            levelClock = new Clock();
 
-            _backgroundMusic = new Music(Resources.BossBGMusic);
-            _backgroundMusic.Loop = true;
-            _backgroundMusic.Play();
+            backgroundMusic = new Music(Resources.BossBGMusic) {Loop = true};
+            backgroundMusic.Play();
 
-            _bossDeathSound = new Music(Resources.ExplosionSound);
+            bossDeathSound = new Music(Resources.ExplosionSound);
         }
 
         public void Dispose()
         {
             HasLevelEnded = true;
 
-            _backgroundTexture.Dispose();
-            _background.Dispose();
-            _enemyFactory.Dispose();
-            _boss.Dispose();
-            _explosionFactory.Dispose();
-            _levelClock.Dispose();
-            _mousePointer.Dispose();
-            _backgroundMusic.Stop();
-            _backgroundMusic.Dispose();
+            backgroundTexture.Dispose();
+            background.Dispose();
+            enemyFactory.Dispose();
+            boss.Dispose();
+            explosionFactory.Dispose();
+            levelClock.Dispose();
+            mousePointer.Dispose();
+            backgroundMusic.Stop();
+            backgroundMusic.Dispose();
         }
 
         public void Draw(RenderWindow window)
         {
             window.Clear(Color.Black);
 
-            window.Draw(_background);
-            if (_hasBossDied == false)
-                _boss.Draw(window);
-            foreach (var bullet in _bossBullets)
+            window.Draw(background);
+            if (hasBossDied == false)
+                boss.Draw(window);
+            foreach (var bullet in bossBullets)
                 bullet.Draw(window, Color.Cyan);
-            _player.Draw(window);
-            foreach (var explosion in _explosions)
+            player.Draw(window);
+            foreach (var explosion in explosions)
                 explosion.Draw(window);
-            _mousePointer.Draw(window);
+            mousePointer.Draw(window);
 
             window.Display();
         }
@@ -102,15 +104,15 @@ namespace ASTROMARINES.Levels
 
         private void MoveThoseWhoShallBeMoved()
         {
-            _player.Move();
+            player.Move();
 
-            if (_hasBossDied == false)
+            if (hasBossDied == false)
             {
-                _boss.Move();
-                _boss.Shoot(_bossBullets);
+                boss.Move();
+                boss.Shoot(bossBullets);
             }
 
-            foreach (var bullet in _bossBullets)
+            foreach (var bullet in bossBullets)
             {
                 bullet.Move();
             }
@@ -118,72 +120,71 @@ namespace ASTROMARINES.Levels
 
         private void DeleteObjectsSetForDeletion()
         {
-            if (_boss.ShouldBeDeleted)
+            if (boss.ShouldBeDeleted)
             {
-                if (_hasBossDied == false)
+                if (hasBossDied == false)
                 {
-                    _hasBossDied = true;
-                    _levelClock.Restart();
-                    _bossDeathSound.Play();
+                    hasBossDied = true;
+                    levelClock.Restart();
+                    bossDeathSound.Play();
                 }
             }
-            for (var i = 0; i < _bossBullets.Count; i++)
-                if (_bossBullets[i].ShouldBeDeleted)
+            for (var i = 0; i < bossBullets.Count; i++)
+                if (bossBullets[i].ShouldBeDeleted)
                 {
-                    _bossBullets[i].Dispose();
-                    _bossBullets[i] = null;
-                    _bossBullets.RemoveAt(i);
+                    bossBullets[i].Dispose();
+                    bossBullets[i] = null;
+                    bossBullets.RemoveAt(i);
                 }
-            for (var i = 0; i < _explosions.Count; i++)
-                if (_explosions[i].ShouldBeDeleted)
+            for (var i = 0; i < explosions.Count; i++)
+                if (explosions[i].ShouldBeDeleted)
                 {
-                    _explosions[i].Dispose();
-                    _explosions[i] = null;
-                    _explosions.RemoveAt(i);
+                    explosions[i].Dispose();
+                    explosions[i] = null;
+                    explosions.RemoveAt(i);
                 }
         }
 
         private void CreateExplosionsIfBossDied()
         {
-            if(_hasBossDied)
-                if(_levelClock.ElapsedTime.AsSeconds() < 2)
-                {
-                    if (_levelClock.ElapsedTime.AsMilliseconds() % 5 == 0)
-                    {
-                        var random = new Random();
-                        var randXInBoss = random.Next((int)(_boss.BoudingBox.Left),
-                                                      (int)(_boss.BoudingBox.Left + _boss.BoudingBox.Width * 1.5f));
-                        var randYInBoss = random.Next((int)(_boss.BoudingBox.Top),
-                                                      (int)(_boss.BoudingBox.Top + _boss.BoudingBox.Height));
-                        var explosion = _explosionFactory.CreateExplosion(new Vector2f(randXInBoss, randYInBoss));
-                        explosion.SetExplosionScale(random.Next(1, 5));
+            if (!hasBossDied) return;
 
-                        _explosions.Add(explosion);
-                    }
-                }
+            if (!(levelClock.ElapsedTime.AsSeconds() < 2)) return;
+
+            if (levelClock.ElapsedTime.AsMilliseconds() % 5 != 0) return;
+
+            var random = new Random();
+            var randXInBoss = random.Next((int)(boss.BoudingBox.Left),
+                (int)(boss.BoudingBox.Left + boss.BoudingBox.Width * 1.5f));
+            var randYInBoss = random.Next((int)(boss.BoudingBox.Top),
+                (int)(boss.BoudingBox.Top + boss.BoudingBox.Height));
+            var explosion = explosionFactory.CreateExplosion(new Vector2f(randXInBoss, randYInBoss));
+            explosion.SetExplosionScale(random.Next(1, 5));
+
+            explosions.Add(explosion);
         }
 
         private void CheckDamage()
         {
-            if (_boss.ShouldBeDeleted == false)
+            if (boss.ShouldBeDeleted == false)
             {
-                if (_player.BoundingBox.Intersects(_boss.BoudingBox))
-                    _player.Damaged();
+                if (player.BoundingBox.Intersects(boss.BoudingBox))
+                    player.Damaged();
 
-                foreach (var playerBullet in _player.Bullets)
-                    if (_boss.BoudingBox.Contains(playerBullet.Position.X, playerBullet.Position.Y))
+                foreach (var playerBullet in player.Bullets)
+                    if (boss.BoudingBox.Contains(playerBullet.Position.X, playerBullet.Position.Y))
                     {
-                        _boss.Damaged();
+                        boss.Damaged();
                         playerBullet.ShouldBeDeleted = true;
-                        _explosions.Add(_explosionFactory.CreateExplosion(playerBullet.Position));
+                        explosions.Add(explosionFactory.CreateExplosion(playerBullet.Position));
                     }
             }
 
-            foreach (var bossBullet in _bossBullets)
+            foreach (var bossBullet in bossBullets)
             {
-                if (_player.BoundingBox.Contains(bossBullet.Position.X, bossBullet.Position.Y))
+                if (player.BoundingBox.Contains(bossBullet.Position.X, bossBullet.Position.Y))
                 {
-                    _player.Damaged();
+                    player.Damaged();
                     bossBullet.ShouldBeDeleted = true;
                 }
             }
@@ -192,15 +193,15 @@ namespace ASTROMARINES.Levels
         private void ControlPlayer(RenderWindow window)
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.A))
-                _player.AccelerateLeft();
+                player.AccelerateLeft();
             if (Keyboard.IsKeyPressed(Keyboard.Key.D))
-                _player.AccelerateRight();
+                player.AccelerateRight();
             if (Keyboard.IsKeyPressed(Keyboard.Key.W))
-                _player.AccelerateUp();
+                player.AccelerateUp();
             if (Keyboard.IsKeyPressed(Keyboard.Key.S))
-                _player.AccelerateDown();
+                player.AccelerateDown();
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-                _player.Shoot(window);
+                player.Shoot(window);
         }
     }
 }
